@@ -14,3 +14,6 @@ app/config/parameters.yml
 
 # Doctrine migrations
 app/DoctrineMigrations
+
+# Composer lock file
+composer.lock
