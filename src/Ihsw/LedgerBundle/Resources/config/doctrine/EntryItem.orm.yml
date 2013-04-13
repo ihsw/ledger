@@ -1,0 +1,26 @@
+Ihsw\LedgerBundle\Entity\EntryItem:
+    type: entity
+    table: null
+    repositoryClass: Ihsw\LedgerBundle\Entity\EntryItemRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        cost:
+            type: decimal
+    manyToOne:
+        entry:
+            targetEntity: Entry
+            inversedBy: entryitems
+            joinColumn:
+                name: entry_id
+                referencedColumnName: id
+        item:
+            targetEntity: Item
+            inversedBy: entryitems
+            joinColumn:
+                name: entry_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

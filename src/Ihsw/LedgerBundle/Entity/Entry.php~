@@ -1,0 +1,55 @@
+<?php
+
+namespace Ihsw\LedgerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Entry
+ */
+class Entry
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     */
+    private $occurredAt;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set occurredAt
+     *
+     * @param \DateTime $occurredAt
+     * @return Entry
+     */
+    public function setOccurredAt($occurredAt)
+    {
+        $this->occurredAt = $occurredAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get occurredAt
+     *
+     * @return \DateTime 
+     */
+    public function getOccurredAt()
+    {
+        return $this->occurredAt;
+    }
+}

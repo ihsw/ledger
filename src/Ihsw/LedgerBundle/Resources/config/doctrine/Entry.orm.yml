@@ -1,0 +1,18 @@
+Ihsw\LedgerBundle\Entity\Entry:
+    type: entity
+    table: null
+    repositoryClass: Ihsw\LedgerBundle\Entity\EntryRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        occurredAt:
+            type: datetime
+            column: occurred_at
+    oneToMany:
+        entryitems:
+            targetEntity: EntryItem
+            mappedBy: entry
+    lifecycleCallbacks: {  }

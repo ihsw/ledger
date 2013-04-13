@@ -1,0 +1,18 @@
+Ihsw\LedgerBundle\Entity\Item:
+    type: entity
+    table: null
+    repositoryClass: Ihsw\LedgerBundle\Entity\ItemRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 255
+    oneToMany:
+        entryitems:
+            targetEntity: EntryItem
+            mappedBy: item
+    lifecycleCallbacks: {  }
