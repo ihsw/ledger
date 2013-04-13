@@ -1,0 +1,3 @@
+ihsw_ledger_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: IhswLedgerBundle:Default:index }

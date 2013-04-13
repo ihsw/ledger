@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ledger</title>
+		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+		{% stylesheets output='css/css.css' filter='cssrewrite'
+			'@IhswLedgerBundle/Resources/public/css/bootstrap.min.css'
+			'@IhswLedgerBundle/Resources/public/css/main.css'
+		%}
+			<link rel='stylesheet' href='{{ asset_url }}' />
+		{% endstylesheets %}
+		{% javascripts output='js/js.js'
+			'@IhswLedgerBundle/Resources/public/js/jquery-1.9.1.min.js'
+			'@IhswLedgerBundle/Resources/public/js/bootstrap.min.js'
+			'@IhswLedgerBundle/Resources/public/coffee/main.coffee'
+		%}
+			<script type='text/javascript' src='{{ asset_url }}'></script>
+		{% endjavascripts %}
+	</head>
+	<body>
+		<div class='navbar navbar-fixed-top navbar-inverse'>
+			<div class='navbar-inner'>
+				<div class='container'>
+					<a href='#' class='brand'>Ledger</a>
+				</div>
+			</div>
+		</div>
+		<div class='container'>
+			{% block content %}{% endblock %}
+		</div>
+		{% block footer %}{% endblock %}
+	</body>
+</html>

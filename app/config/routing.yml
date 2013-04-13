@@ -1,0 +1,4 @@
+ihsw_ledger:
+    resource: "@IhswLedgerBundle/Resources/config/routing.yml"
+    prefix:   /
+
