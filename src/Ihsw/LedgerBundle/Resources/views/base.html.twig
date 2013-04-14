@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='ledger'>
 	<head>
 		<title>Ledger</title>
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
@@ -9,13 +9,16 @@
 		%}
 			<link rel='stylesheet' href='{{ asset_url }}' />
 		{% endstylesheets %}
+		{% block stylesheets %}{% endblock %}
 		{% javascripts output='js/js.js'
 			'@IhswLedgerBundle/Resources/public/js/jquery-1.9.1.min.js'
 			'@IhswLedgerBundle/Resources/public/js/bootstrap.min.js'
+			'@IhswLedgerBundle/Resources/public/js/angular.min.js'
 			'@IhswLedgerBundle/Resources/public/coffee/main.coffee'
 		%}
 			<script type='text/javascript' src='{{ asset_url }}'></script>
 		{% endjavascripts %}
+		{% block javascripts %}{% endblock %}
 	</head>
 	<body>
 		<div class='navbar navbar-fixed-top navbar-inverse'>

@@ -1,4 +1,26 @@
 {% extends 'IhswLedgerBundle::base.html.twig' %}
+{% block stylesheets %}
+	<style type="text/css">
+		.done-true {
+			text-decoration: line-through;
+			color: #666;
+		}
+	</style>
+{% endblock %}
 {% block content %}
-	<p>Hello, {{ name }}!</p>
+	{% raw %} 
+		<div ng-controller='TodoCtrl'>
+			<span>{{ remaining() }} of {{ todos.length }}</span> [ <a href="" ng-click='archive()'>archive</a> ]
+			<ul class='unstyled'>
+				<li ng-repeat='todo in todos'>
+					<input type='checkbox' ng-model='todo.done'>
+					<span class='done-{{ todo.done }}'>{{ todo.text }}</span>	
+				</li>
+			</ul>
+			<form ng-submit='addTodo()'>
+				<input type='text' ng-model='todoText' placeholder='add a new todo here'>
+				<input type='submit' class='btn btn-primary' value='add'>
+			</form>
+		</div>
+	{% endraw %}
 {% endblock %}
