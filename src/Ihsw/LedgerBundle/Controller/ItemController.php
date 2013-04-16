@@ -36,9 +36,8 @@ class ItemController extends Controller
 
         // inserting the item
         $content = json_decode($request->getContent(), true);
-        $name = $content['name'];
         $item = new Item();
-        $item->setName($name);
+        $item->setName($content['name']);
         $em->persist($item);
         $em->flush();
 
