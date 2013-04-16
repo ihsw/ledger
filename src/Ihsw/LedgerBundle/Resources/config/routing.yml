@@ -1,3 +1,17 @@
 home:
     pattern:  /
     defaults: { _controller: IhswLedgerBundle:Default:index }
+    options:
+        expose: true
+items:
+    pattern: /items
+    defaults: { _controller: IhswLedgerBundle:Item:index }
+    methods: [GET]
+    options:
+        expose: true
+item_create:
+    pattern: /items
+    defaults: { _controller: IhswLedgerBundle:Item:create }
+    methods: [POST]
+    options:
+        expose: true

@@ -9,6 +9,8 @@
 		%}
 			<link rel='stylesheet' href='{{ asset_url }}' />
 		{% endstylesheets %}
+		<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+		<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 		{% javascripts output='js/js.js'
 			'@IhswLedgerBundle/Resources/public/js/jquery-1.9.1.min.js'
 			'@IhswLedgerBundle/Resources/public/js/bootstrap.min.js'
@@ -17,6 +19,7 @@
 			'@IhswLedgerBundle/Resources/public/app/controllers.coffee'
 			'@IhswLedgerBundle/Resources/public/app/services.coffee'
 		%}
+
 			<script type='text/javascript' src='{{ asset_url }}'></script>
 		{% endjavascripts %}
 	</head>

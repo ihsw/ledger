@@ -1,12 +1,13 @@
 module = window.module
-module.factory 'ItemService', () ->
-	{
-		items: [
-			{ id: 1, name: 'Derp' }
-		]
-		getItems: () ->
-			@items
-		addItem: (item) ->
-			item.id = if @items.length == 0 then 1 else @items[@items.length - 1].id + 1
-			@items.push item
-	}
+Routing = window.Routing
+module.service 'ItemService', ['$http', ($http) ->
+	@items = []
+	@query = () ->
+		$http.get(Routing.generate('items')).then (response) ->
+			@items = response.data
+	@create = (item) ->
+		$http.post(Routing.generate('item_create'), item).then (response) ->
+			@items.push response.data
+
+	return @
+]
