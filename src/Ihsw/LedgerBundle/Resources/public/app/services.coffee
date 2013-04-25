@@ -8,6 +8,11 @@ module.service 'ItemService', ['$http', ($http) ->
     @create = (item) ->
         $http.post(Routing.generate('item_create'), item).then (response) ->
             @items.push response.data
+    @delete = (item) ->
+        $http.delete(Routing.generate('item_delete', { itemId: item.id })).then (response) ->
+            console.log 'derp'
+    @cunts = () ->
+        console.log @items
 
     return @
 ]

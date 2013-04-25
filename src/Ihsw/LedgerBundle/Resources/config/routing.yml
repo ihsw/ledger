@@ -15,3 +15,9 @@ item_create:
     methods: [POST]
     options:
         expose: true
+item_delete:
+    pattern: /item/{itemId}
+    defaults: { _controller: IhswLedgerBundle:Item:destroy }
+    methods: [DELETE]
+    options:
+        expose: true

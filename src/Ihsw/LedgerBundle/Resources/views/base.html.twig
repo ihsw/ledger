@@ -18,21 +18,33 @@
 			'@IhswLedgerBundle/Resources/public/app/app.coffee'
 			'@IhswLedgerBundle/Resources/public/app/controllers.coffee'
 			'@IhswLedgerBundle/Resources/public/app/services.coffee'
+			'@IhswLedgerBundle/Resources/public/app/directives.coffee'
 		%}
 
 			<script type='text/javascript' src='{{ asset_url }}'></script>
 		{% endjavascripts %}
 	</head>
 	<body>
-		<div class='navbar navbar-fixed-top navbar-inverse'>
+		<div class='navbar navbar-fixed-top'>
 			<div class='navbar-inner'>
 				<div class='container'>
-					<a href='#' class='brand'>Ledger</a>
+					<a href='#/home' class='brand'>Ledger</a>
 				</div>
 			</div>
 		</div>
 		<div class='container'>
-			<div ng-view></div>
+			<div class="row">
+				<div class="span3">
+					<div class="well" style="padding: 8px 0; ">
+						<ul class="nav nav-list">
+							<li><a ng-href='#/items' when-active>Items</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="span9">
+					<div ng-view></div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
