@@ -1,4 +1,4 @@
-<p ng-show='loading'>Loading...</p>
+<p class='alert alert-warning' ng-show='loading'>Loading...</p>
 <div ng-show='!loading'>
 	<div class="row-fluid">
 		<table class="table table-striped">
@@ -22,7 +22,7 @@
 			<form ng-submit='create()'>
 				<tfoot>
 					<td colspan='2'><input type='text' ng-model='name'></td>
-					<td><input type='submit' class='btn btn-primary pull-right' value='Create'></td>
+					<td><input type='submit' class='btn btn-primary pull-right' ng-class='{"disabled": createDisabled}' value='Create'></td>
 				</tfoot>
 			</form>
 		</table>

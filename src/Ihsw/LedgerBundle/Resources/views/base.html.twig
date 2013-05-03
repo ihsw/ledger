@@ -12,9 +12,8 @@
 		<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 		<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 		{% javascripts output='js/js.js'
-			'@IhswLedgerBundle/Resources/public/js/jquery-1.9.1.min.js'
-			'@IhswLedgerBundle/Resources/public/js/bootstrap.min.js'
 			'@IhswLedgerBundle/Resources/public/js/angular.min.js'
+			'@IhswLedgerBundle/Resources/public/js/ui-bootstrap-tpls-0.3.0.min.js'
 			'@IhswLedgerBundle/Resources/public/app/app.coffee'
 			'@IhswLedgerBundle/Resources/public/app/controllers.coffee'
 			'@IhswLedgerBundle/Resources/public/app/services.coffee'
@@ -38,6 +37,7 @@
 					<div class="well" style="padding: 8px 0; ">
 						<ul class="nav nav-list">
 							<li ng-class='{"active": section == "items"}'><a href='#/items'>Items</a></li>
+							<li ng-class='{"active": section == "entries"}'><a href='#/entries'>Entries</a></li>
 						</ul>
 					</div>
 				</div>

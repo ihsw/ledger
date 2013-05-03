@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ihsw\LedgerBundle\Entity\Item;
+use Ihsw\LedgerBundle\Entity\Entry;
 
-class ItemController extends Controller
+class EntryController extends Controller
 {
     public function indexAction()
     {
@@ -20,16 +20,16 @@ class ItemController extends Controller
 
         // repositories
         $em = $doctrine->getManager();
-        $itemRepository = $em->getRepository('IhswLedgerBundle:Item');
+        $entryRepository = $em->getRepository('IhswLedgerBundle:Entry');
 
         // fetching items
-        $items = $itemRepository->findAll();
-        $keys = array_map(function($item){
-            return $item->getId();
-        }, $items);
-        $items = array_combine($keys, $items);
+        $entries = $entryRepository->findAll();
+        $keys = array_map(function($entry){
+            return $entry->getId();
+        }, $entries);
+        $entries = array_combine($keys, $entries);
 
-        return new JsonResponse($items);
+        return new JsonResponse($entries);
     }
 
     public function createAction()
