@@ -27,3 +27,9 @@ entries:
     methods: [GET]
     options:
         expose: true
+entry_create:
+    pattern: /entries
+    defaults: { _controller: IhswLedgerBundle:Entry:create }
+    methods: [POST]
+    options:
+        expose: true

@@ -36,7 +36,7 @@ module.controller 'ItemController', ['$rootScope', '$timeout', '$scope', 'ItemSe
 module.controller 'HomeController', ['$rootScope', ($rootScope) ->
     $rootScope.section = 'home'
 ]
-module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($rootScope, $scope, EntryService) ->
+module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', '$filter', ($rootScope, $scope, EntryService, $filter) ->
     $rootScope.section = 'entries'
 
     angular.extend $scope, {
@@ -44,6 +44,7 @@ module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($
             backdropFade: true
             dialogFade: true
         refresh: () ->
+            @createDisabled = false
             @loading = true
             @isModalOpen = false
 
@@ -54,8 +55,14 @@ module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($
             @isModalOpen = true
         closeModal: () ->
             @isModalOpen = false
-        createEntry: () ->
-            alert 'lol'
+        create: () ->
+            if @createDisabled
+                return
+            @createDisabled = true
+
+            EntryService.create({occurredAt: @occurredAt}).then (entry) =>
+                @occurredAt = ''
+                @createDisabled = false
     }
     $scope.refresh()
 ]

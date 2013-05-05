@@ -12,8 +12,6 @@ class EntryController extends Controller
 {
     public function indexAction()
     {
-        sleep(1);
-
         // services
         $request = $this->get('request');
         $doctrine = $this->get('doctrine');
@@ -22,7 +20,7 @@ class EntryController extends Controller
         $em = $doctrine->getManager();
         $entryRepository = $em->getRepository('IhswLedgerBundle:Entry');
 
-        // fetching items
+        // fetching entries
         $entries = $entryRepository->findAll();
         $keys = array_map(function($entry){
             return $entry->getId();
@@ -42,22 +40,22 @@ class EntryController extends Controller
 
         // repositories
         $em = $doctrine->getManager();
-        $itemRepository = $em->getRepository('IhswLedgerBundle:Item');
+        $entryRepository = $em->getRepository('IhswLedgerBundle:Entry');
 
-        // inserting the item
+        // inserting the entry
         $content = json_decode($request->getContent(), true);
-        $item = new Item();
-        $item->setName($content['name']);
-        $em->persist($item);
+        $entry = new Entry();
+        $entry->setOccurredAt(new \DateTime($content['occurredAt']));
+        $em->persist($entry);
         $em->flush();
 
-        return new JsonResponse($item);
+        return new JsonResponse($entry);
     }
 
     /**
-     * @ParamConverter("item")
+     * @ParamConverter("entry")
      */
-    public function destroyAction($item)
+    public function destroyAction($entry)
     {
         sleep(1);
 
@@ -67,10 +65,10 @@ class EntryController extends Controller
 
         // repositories
         $em = $doctrine->getManager();
-        $itemRepository = $em->getRepository('IhswLedgerBundle:Item');
+        $entryRepository = $em->getRepository('IhswLedgerBundle:Entry');
 
-        // deleting the item
-        $em->remove($item);
+        // deleting the entry
+        $em->remove($entry);
         $em->flush();
 
         return new Response();

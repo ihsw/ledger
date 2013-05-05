@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Entry
  */
-class Entry
+class Entry implements \JsonSerializable
 {
     /**
      * @var integer
@@ -96,5 +96,13 @@ class Entry
     public function getEntryitems()
     {
         return $this->entryitems;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id" => $this->getId(),
+            "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s")
+        ];
     }
 }

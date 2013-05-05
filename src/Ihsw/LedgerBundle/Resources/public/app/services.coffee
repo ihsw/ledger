@@ -22,5 +22,14 @@ module.service 'EntryService', ['$http', '$window', ($http, $window) ->
     @query = () ->
         $http.get(Routing.generate('entries')).then (response) ->
             @entries = response.data
+            for entryId, entry of @entries
+                entry['occurred_at'] = new Date entry['occurred_at']
+                @entries[entryId] = entry
             return @entries
+    @create = (entry) ->
+        $http.post(Routing.generate('entry_create'), entry).then (response) ->
+            entry = response.data
+            @entries[entry.id] = entry
+
+    return @
 ]
