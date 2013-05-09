@@ -1,32 +1,39 @@
+<!-- modals -->
+<div modal='isEntryModalOpen' close='closeModal()' options='entryModalOptions'>
+	<form class="form-horizontal" ng-submit="create()">
+		<div class="modal-header">
+			<button class="close" ng-click='closeModal()'>×</button>
+			<h3>New Entry</h3>
+		</div>
+		<div class="modal-body">
+			<div class="control-group">
+				<label class="control-label" for="occurred_at">Occurred At</label>
+				<div class="controls">
+					<input type="text" id="occurred_at" placeholder="2013-05-05 3:06PM" ng-model="occurredAt">
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" ng-click='closeModal()'>No, Cancel</button>
+			<input type="submit" class="btn btn-primary" ng-class='{"disabled": createEntryDisabled}' value='Yes, Create Entry'>
+		</div>
+	</form>
+</div>
+<div modal='isItemsModalOpen' close='closeItemsModal()' options='itemsModalOptions'>
+	<p>Jello</p>
+</div>
+
+<!-- content -->
 <p class='alert alert-warning' ng-show='loading'>Loading...</p>
 <div ng-show='!loading'>
 	<p class="alert alert-info">You have {{entries.length}} entry(s). <button class='btn btn-primary' ng-click='showModal()'>Create Entry</button></p>
-	<div modal='isModalOpen' close='closeModal()' options='modalOptions'>
-		<form class="form-horizontal" ng-submit="create()">
-			<div class="modal-header">
-				<button class="close" ng-click='closeModal()'>×</button>
-				<h3>New Entry</h3>
-			</div>
-			<div class="modal-body">
-				<div class="control-group">
-					<label class="control-label" for="occurred_at">Occurred At</label>
-					<div class="controls">
-						<input type="text" id="occurred_at" placeholder="2013-05-05 3:06PM" ng-model="occurredAt">
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn" ng-click='closeModal()'>No, Cancel</button>
-				<input type="submit" class="btn btn-primary" ng-class='{"disabled": createDisabled}' value='Yes, Create Entry'>
-			</div>
-		</form>
-	</div>
 	<div class="row-fluid">
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Occurred At</th>
+					<th>Items</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -36,6 +43,7 @@
 				<tr ng-repeat='entry in entries'>
 					<th>{{entry.id}}</th>
 					<td>{{entry.occurred_at|date:'MMM d, y h:mma'}}</td>
+					<td><button class='btn btn-primary' ng-click='showItemsModal()'>View</button></td>
 				</tr>
 			</tbody>
 		</table>

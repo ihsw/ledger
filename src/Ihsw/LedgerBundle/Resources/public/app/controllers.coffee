@@ -36,33 +36,40 @@ module.controller 'ItemController', ['$rootScope', '$timeout', '$scope', 'ItemSe
 module.controller 'HomeController', ['$rootScope', ($rootScope) ->
     $rootScope.section = 'home'
 ]
-module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', '$filter', ($rootScope, $scope, EntryService, $filter) ->
+module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($rootScope, $scope, EntryService) ->
     $rootScope.section = 'entries'
 
+    defaultModalOptions =
+        backdropFade: true
+        dialogFade: true
     angular.extend $scope, {
-        modalOptions:
-            backdropFade: true
-            dialogFade: true
+        entryModalOptions: defaultModalOptions
+        itemsModalOptions: defaultModalOptions
         refresh: () ->
-            @createDisabled = false
             @loading = true
-            @isModalOpen = false
+            @createEntryDisabled = false
+            @isEntryModalOpen = false
+            @isItemsModalOpen = false
 
             EntryService.query().then (entries) =>
                 @loading = false
                 @entries = entries
         showModal: () ->
-            @isModalOpen = true
+            @isEntryModalOpen = true
         closeModal: () ->
-            @isModalOpen = false
+            @isEntryModalOpen = false
         create: () ->
-            if @createDisabled
+            if @createEntryDisabled
                 return
-            @createDisabled = true
+            @createEntryDisabled = true
 
             EntryService.create({occurredAt: @occurredAt}).then (entry) =>
                 @occurredAt = ''
-                @createDisabled = false
+                @createEntryDisabled = false
+        showItemsModal: () ->
+            $scope.isItemsModalOpen = true
+        closeItemsModal: () ->
+            @isItemsModalOpen = false
     }
     $scope.refresh()
 ]
