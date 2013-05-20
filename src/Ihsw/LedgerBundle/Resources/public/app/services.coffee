@@ -2,6 +2,10 @@ module = window.module
 module.service 'ItemService', ['$http', '$window', ($http, $window) ->
     Routing = $window.Routing
 
+    # properties
+    @items = {}
+
+    # functions
     @query = () ->
         $http.get(Routing.generate('items')).then (response) ->
             @items = response.data
