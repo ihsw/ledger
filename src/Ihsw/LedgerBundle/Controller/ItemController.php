@@ -12,8 +12,6 @@ class ItemController extends Controller
 {
     public function indexAction()
     {
-        sleep(1);
-
         // services
         $request = $this->get('request');
         $doctrine = $this->get('doctrine');
@@ -34,8 +32,6 @@ class ItemController extends Controller
 
     public function createAction()
     {
-        sleep(1);
-
         // services
         $request = $this->get('request');
         $doctrine = $this->get('doctrine');
@@ -59,8 +55,6 @@ class ItemController extends Controller
      */
     public function destroyAction($item)
     {
-        sleep(1);
-
         // services
         $request = $this->get('request');
         $doctrine = $this->get('doctrine');
