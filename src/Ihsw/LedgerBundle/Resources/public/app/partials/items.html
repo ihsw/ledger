@@ -13,7 +13,7 @@
 				<tr ng-show='items.length == 0'>
 					<td colspan='3'><em>No items found!</em></td>
 				</tr>
-				<tr ng-repeat='item in items'>
+				<tr ng-repeat='item in items' ng-class='{"warning": itemMetadata[item.id].deleteDisabled}'>
 					<th>{{item.id}}</th>
 					<td>{{item.name}}</td>
 					<td><button class='btn btn-danger pull-right' ng-class='{"disabled": itemMetadata[item.id].deleteDisabled}' ng-click='delete(item)'>Delete</button></td>
