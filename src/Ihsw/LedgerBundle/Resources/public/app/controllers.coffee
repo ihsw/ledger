@@ -21,11 +21,12 @@ module.controller 'ItemController', ['$rootScope', '$timeout', '$scope', 'ItemSe
             $s.itemMetadata[item.id] = { deleteDisabled: false }
             $s.createDisabled = false
     $s.delete = (item) ->
-        if !$s.itemMetadata[item.id].deleteDisabled
-            $s.itemMetadata[item.id].deleteDisabled = true
+        if $s.itemMetadata[item.id].deleteDisabled
+            return
+        $s.itemMetadata[item.id].deleteDisabled = true
 
-            ItemService.delete(item).then ->
-                delete $s.itemMetadata[item.id]
+        ItemService.delete(item).then ->
+            delete $s.itemMetadata[item.id]
     $s.refresh = ->
         $s.loading = true
 
@@ -34,8 +35,8 @@ module.controller 'ItemController', ['$rootScope', '$timeout', '$scope', 'ItemSe
             $s.items = items
 
             itemMetadata = {}
-            for itemId, item of items
-                itemMetadata[itemId] = { deleteDisabled: false }
+            for i, item of items
+                itemMetadata[item.id] = { deleteDisabled: false }
             $s.itemMetadata = itemMetadata
 
     # initial load
@@ -60,14 +61,21 @@ module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($
     $s.isEntryModalOpen = false
     $s.createEntryDisabled = false
     $s.isItemsModalOpen = false
+    $s.entryMetadata = {}
+    $s.entries = []
 
     # functions
     $s.refresh = ->
         $s.loading = true
 
-        EntryService.query().then (entries) =>
+        EntryService.query().then (entries) ->
             $s.loading = false
             $s.entries = entries
+
+            entryMetadata = {}
+            for i, entry of entries
+                entryMetadata[entry.id] = { deleteDisabled: false }
+            $s.entryMetadata = entryMetadata
     $s.showModal = ->
         $s.isEntryModalOpen = true
     $s.closeModal = ->
@@ -77,13 +85,22 @@ module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($
             return
         $s.createEntryDisabled = true
 
-        EntryService.create({occurredAt: $s.occurredAt}).then (entry) =>
+        EntryService.create({occurredAt: $s.occurredAt}).then (entry) ->
             $s.occurredAt = ''
             $s.createEntryDisabled = false
+            $s.isEntryModalOpen = false
+            $s.entryMetadata[entry.id] = { deleteDisabled: false }
     $s.showItemsModal = ->
         $s.isItemsModalOpen = true
     $s.closeItemsModal = ->
         $s.isItemsModalOpen = false
+    $s.delete = (entry) ->
+        if $s.entryMetadata[entry.id].deleteDisabled
+            return
+        $s.entryMetadata[entry.id].deleteDisabled = true
+
+        EntryService.delete(entry).then ->
+            delete $s.entryMetadata[entry.id]
 
     # initial load
     $s.refresh()

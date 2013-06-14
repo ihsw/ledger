@@ -43,7 +43,12 @@
 				<tr ng-repeat='entry in entries'>
 					<th>{{entry.id}}</th>
 					<td>{{entry.occurred_at|date:'MMM d, y h:mma'}}</td>
-					<td><button class='btn btn-primary' ng-click='showItemsModal()'>View</button></td>
+					<td>
+						<div class="btn-group pull-right">
+							<button class='btn btn-primary' ng-click='showItemsModal()'>View</button>
+							<button class="btn btn-danger" ng-click='delete(entry)' ng-class='{"disabled": entryMetadata[entry.id].deleteDisabled}'>Delete</button>
+						</div>
+					</td>
 				</tr>
 			</tbody>
 		</table>

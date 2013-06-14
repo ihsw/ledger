@@ -33,3 +33,9 @@ entry_create:
     methods: [POST]
     options:
         expose: true
+entry_delete:
+    pattern: /entry/{entryId}
+    defaults: { _controller: IhswLedgerBundle:Entry:destroy }
+    methods: [DELETE]
+    options:
+        expose: true

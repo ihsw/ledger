@@ -17,7 +17,8 @@ class ParamConverter implements ParamConverterInterface
     {
         $this->container = $container;
         $this->resolverMap = [
-            'item' => 'resolveItem'
+            'item' => 'resolveItem',
+            'entry' => 'resolveEntry'
         ];
     }
 
@@ -63,5 +64,23 @@ class ParamConverter implements ParamConverterInterface
             throw new NotFoundHttpException(sprintf('No item found for %s', $itemId));
         }
         $request->attributes->set('item', $item);
+    }
+
+    private function resolveEntry(Request $request)
+    {
+        // services
+        $doctrine = $this->container->get('doctrine');
+
+        // repositories
+        $em = $doctrine->getManager();
+        $entryRepository = $em->getRepository('IhswLedgerBundle:Entry');
+
+        $entryId = $request->attributes->get('entryId');
+        $entry = $entryRepository->findOneById($entryId);
+        if (is_null($entry))
+        {
+            throw new NotFoundHttpException(sprintf('No entry found for %s', $itemId));
+        }
+        $request->attributes->set('entry', $entry);
     }
 }

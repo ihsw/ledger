@@ -22,10 +22,6 @@ class ItemController extends Controller
 
         // fetching items
         $items = $itemRepository->findAll();
-        $keys = array_map(function($item){
-            return $item->getId();
-        }, $items);
-        $items = array_combine($keys, $items);
 
         return new JsonResponse($items);
     }

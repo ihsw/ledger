@@ -22,18 +22,12 @@ class EntryController extends Controller
 
         // fetching entries
         $entries = $entryRepository->findAll();
-        $keys = array_map(function($entry){
-            return $entry->getId();
-        }, $entries);
-        $entries = array_combine($keys, $entries);
 
         return new JsonResponse($entries);
     }
 
     public function createAction()
     {
-        sleep(1);
-
         // services
         $request = $this->get('request');
         $doctrine = $this->get('doctrine');
@@ -57,8 +51,6 @@ class EntryController extends Controller
      */
     public function destroyAction($entry)
     {
-        sleep(1);
-
         // services
         $request = $this->get('request');
         $doctrine = $this->get('doctrine');
