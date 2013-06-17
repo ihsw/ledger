@@ -49,20 +49,11 @@ module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($
     # nav
     $rootScope.section = 'entries'
 
-    # misc
-    defaultModalOptions =
-        backdropFade: true
-        dialogFade: true
-
     # properties
-    $s.entryModalOptions = defaultModalOptions
-    $s.itemsModalOptions = defaultModalOptions
     $s.loading = false
-    $s.isEntryModalOpen = false
-    $s.createEntryDisabled = false
-    $s.isItemsModalOpen = false
     $s.entryMetadata = {}
     $s.entries = []
+    $s.canDelete = false
 
     # functions
     $s.refresh = ->
@@ -76,24 +67,6 @@ module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($
             for i, entry of entries
                 entryMetadata[entry.id] = { deleteDisabled: false }
             $s.entryMetadata = entryMetadata
-    $s.showModal = ->
-        $s.isEntryModalOpen = true
-    $s.closeModal = ->
-        $s.isEntryModalOpen = false
-    $s.create = ->
-        if $s.createEntryDisabled
-            return
-        $s.createEntryDisabled = true
-
-        EntryService.create({occurredAt: $s.occurredAt}).then (entry) ->
-            $s.occurredAt = ''
-            $s.createEntryDisabled = false
-            $s.isEntryModalOpen = false
-            $s.entryMetadata[entry.id] = { deleteDisabled: false }
-    $s.showItemsModal = ->
-        $s.isItemsModalOpen = true
-    $s.closeItemsModal = ->
-        $s.isItemsModalOpen = false
     $s.delete = (entry) ->
         if $s.entryMetadata[entry.id].deleteDisabled
             return
@@ -101,7 +74,67 @@ module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($
 
         EntryService.delete(entry).then ->
             delete $s.entryMetadata[entry.id]
+    $s.toggleDelete = () ->
+        $s.canDelete = !$s.canDelete
 
     # initial load
     $s.refresh()
+]
+module.controller 'EntryNewController', ['$rootScope', '$scope', '$location', 'EntryService', ($rootScope, $s, $l, EntryService) ->
+    # nav
+    $rootScope.section = 'entries'
+
+    # properties
+    $s.submitDisabled = true
+    $s.occurredAt = ''
+    $s.occurredAtPlaceholder = new Date()
+
+    # methods
+    $s.refresh = ->
+        $s.occurredAt = ''
+        $s.submitDisabled = false
+    $s.create = ->
+        if $s.submitDisabled
+            return
+        $s.submitDisabled = true
+
+        EntryService.create({occurredAt: $s.occurredAt}).then (entry) ->
+            $s.refresh()
+            $l.path '/entries'
+
+    # initial load
+    $s.refresh()
+]
+module.controller 'BullshitController', ['$rootScope', '$scope', ($rootScope, $s) ->
+    # nav
+    $rootScope.section = 'bullshit'
+
+    getValue = () ->
+        characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        length = characters.length
+        value = ''
+        for i in [1..5]
+            value += characters.charAt Math.floor(Math.random() * length)
+        return value
+
+    # properties
+    $s.shits = []
+    $s.shitIndex = []
+    for i in [1..5]
+        shit = {
+            id: i,
+            value: getValue()
+        }
+        $s.shitIndex.push shit.id
+        $s.shits.push shit
+
+    # methods
+    $s.delete = (shit) ->
+        i = $s.shitIndex.indexOf shit.id
+        if i < 0
+            console.log 'wtf'
+            return
+
+        $s.shits.splice i, 1
+        $s.shitIndex.splice i, 1
 ]

@@ -22,7 +22,7 @@ module.service 'ItemService', ['$http', '$window', ($http, $window) ->
             return item
     S.delete = (item) ->
         $http.delete(Routing.generate('item_delete', { itemId: item.id })).then (response) ->
-            S.items.splice S.itemKeys[item.id]
+            S.items.splice S.itemKeys[item.id], 1
             delete S.itemKeys[item.id]
 
     return S
@@ -54,7 +54,7 @@ module.service 'EntryService', ['$http', '$window', ($http, $window) ->
             return entry
     S.delete = (entry) ->
         $http.delete(Routing.generate('entry_delete', { entryId: entry.id })).then (response) ->
-            S.entries.splice S.entryKeys[entry.id]
+            S.entries.splice S.entryKeys[entry.id], 1
             delete S.entryKeys[entry.id]
 
     return S

@@ -11,7 +11,15 @@ module.config ['$routeProvider', ($routeProvider) ->
         }).
         when('/entries', {
             controller: 'EntryController'
-            templateUrl: 'app/partials/entries.html'
+            templateUrl: 'app/partials/entry/list.html'
+        }).
+        when('/entry/new', {
+            controller: 'EntryNewController'
+            templateUrl: 'app/partials/entry/new.html'
+        }).
+        when('/bullshit', {
+            controller: 'BullshitController',
+            templateUrl: 'app/partials/bullshit.html'
         }).
         otherwise({ redirectTo: '/home' })
 ]
