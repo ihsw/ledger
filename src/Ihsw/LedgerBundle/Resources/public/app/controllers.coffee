@@ -1,4 +1,11 @@
 module = window.module
+
+# home controller
+module.controller 'HomeController', ['$rootScope', ($rootScope) ->
+    $rootScope.section = 'home'
+]
+
+# item controllers
 module.controller 'ItemController', ['$rootScope', '$timeout', '$scope', 'ItemService', ($rootScope, $timeout, $s, ItemService) ->
     # nav
     $rootScope.section = 'items'
@@ -7,7 +14,7 @@ module.controller 'ItemController', ['$rootScope', '$timeout', '$scope', 'ItemSe
     $s.loading = false
     $s.createDisabled = false
     $s.name = ''
-    $s.items = {}
+    $s.items = []
     $s.itemMetadata = {}
 
     # functions
@@ -42,9 +49,8 @@ module.controller 'ItemController', ['$rootScope', '$timeout', '$scope', 'ItemSe
     # initial load
     $s.refresh()
 ]
-module.controller 'HomeController', ['$rootScope', ($rootScope) ->
-    $rootScope.section = 'home'
-]
+
+# entry controllers
 module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($rootScope, $s, EntryService) ->
     # nav
     $rootScope.section = 'entries'
@@ -53,7 +59,6 @@ module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($
     $s.loading = false
     $s.entryMetadata = {}
     $s.entries = []
-    $s.canDelete = false
 
     # functions
     $s.refresh = ->
@@ -68,14 +73,12 @@ module.controller 'EntryController', ['$rootScope', '$scope', 'EntryService', ($
                 entryMetadata[entry.id] = { deleteDisabled: false }
             $s.entryMetadata = entryMetadata
     $s.delete = (entry) ->
-        if $s.entryMetadata[entry.id].deleteDisabled
+        if !(String(entry.id) in Object.keys($s.entryMetadata)) or $s.entryMetadata[entry.id].deleteDisabled
             return
         $s.entryMetadata[entry.id].deleteDisabled = true
 
         EntryService.delete(entry).then ->
             delete $s.entryMetadata[entry.id]
-    $s.toggleDelete = () ->
-        $s.canDelete = !$s.canDelete
 
     # initial load
     $s.refresh()
@@ -105,6 +108,8 @@ module.controller 'EntryNewController', ['$rootScope', '$scope', '$location', 'E
     # initial load
     $s.refresh()
 ]
+
+# bullshit
 module.controller 'BullshitController', ['$rootScope', '$scope', ($rootScope, $s) ->
     # nav
     $rootScope.section = 'bullshit'
@@ -113,17 +118,17 @@ module.controller 'BullshitController', ['$rootScope', '$scope', ($rootScope, $s
         characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
         length = characters.length
         value = ''
-        for i in [1..5]
+        for i in [1..10]
             value += characters.charAt Math.floor(Math.random() * length)
         return value
 
     # properties
     $s.shits = []
     $s.shitIndex = []
-    for i in [1..5]
+    for i in [1..10]
         shit = {
             id: i,
-            value: getValue()
+            value: "#{i}: #{getValue()}"
         }
         $s.shitIndex.push shit.id
         $s.shits.push shit

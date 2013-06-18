@@ -7,7 +7,11 @@ module.config ['$routeProvider', ($routeProvider) ->
         }).
         when('/items', {
             controller: 'ItemController'
-            templateUrl: 'app/partials/items.html'
+            templateUrl: 'app/partials/item/list.html'
+        }).
+        when('/item/new', {
+            controller: 'ItemNewController'
+            templateUrl: 'app/partials/item/new.html'
         }).
         when('/entries', {
             controller: 'EntryController'
