@@ -1,6 +1,6 @@
 <p class='alert alert-warning' ng-show='loading'>Loading...</p>
 <div ng-show='!loading'>
-	<p class="alert alert-info">You have {{entries.length}} entry(s). <a ng-href='#/entry/new' class='btn btn-primary'>Create Entry</a></p>
+	<p class="alert alert-info">You have {{list.length}} entry(s). <a ng-href='#/entry/new' class='btn btn-primary'>Create Entry</a></p>
 	<div class="row-fluid">
 		<table class="table table-striped">
 			<thead>
@@ -11,16 +11,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-show='entries.length == 0'>
+				<tr ng-show='list.length == 0'>
 					<td colspan='3'><em>No entries found!</em></td>
 				</tr>
-				<tr ng-repeat='entry in entries'>
+				<tr ng-repeat='entry in list'>
 					<th>{{entry.id}}</th>
 					<td>{{entry.occurred_at|date:'MMM d, y h:mma'}}</td>
 					<td>
 						<div class="btn-group pull-right">
 							<button class='btn btn-primary' ng-click='showItemsModal()'>View</button>
-							<button class="btn btn-danger" ng-click='delete(entry)' ng-class='{"disabled": entryMetadata[entry.id].deleteDisabled}'>Delete</button>
+							<button class="btn btn-danger" ng-click='delete(entry)' ng-class='{"disabled": listMetadata[entry.id].deleteDisabled}'>Delete</button>
 						</div>
 					</td>
 				</tr>

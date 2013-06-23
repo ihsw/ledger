@@ -1,5 +1,6 @@
 <p class='alert alert-warning' ng-show='loading'>Loading...</p>
 <div ng-show='!loading'>
+	<p class="alert alert-info">You have {{list.length}} item(s). <a ng-href='#/item/new' class='btn btn-primary'>Create Item</a></p>
 	<div class="row-fluid">
 		<table class="table table-striped">
 			<thead>
@@ -10,21 +11,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-show='items.length == 0'>
+				<tr ng-show='list.length == 0'>
 					<td colspan='3'><em>No items found!</em></td>
 				</tr>
-				<tr ng-repeat='item in items' ng-class='{"warning": itemMetadata[item.id].deleteDisabled}'>
+				<tr ng-repeat='item in list' ng-class='{"warning": listMetadata[item.id].deleteDisabled}'>
 					<th>{{item.id}}</th>
 					<td>{{item.name}}</td>
-					<td><button class='btn btn-danger pull-right' ng-class='{"disabled": itemMetadata[item.id].deleteDisabled}' ng-click='delete(item)'>Delete</button></td>
+					<td><button class='btn btn-danger pull-right' ng-class='{"disabled": listMetadata[item.id].deleteDisabled}' ng-click='delete(item)'>Delete</button></td>
 				</tr>
 			</tbody>
-			<form ng-submit='create()'>
-				<tfoot>
-					<td colspan='2'><input type='text' ng-model='name'></td>
-					<td><input type='submit' class='btn btn-primary pull-right' ng-class='{"disabled": createDisabled}' value='Create'></td>
-				</tfoot>
-			</form>
 		</table>
 	</div>
 </div>
