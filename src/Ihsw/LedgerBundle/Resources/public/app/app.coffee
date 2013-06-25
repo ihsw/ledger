@@ -21,6 +21,14 @@ module.config ['$routeProvider', ($routeProvider) ->
             controller: 'EntryNewController'
             templateUrl: 'app/partials/entry/new.html'
         }).
+        when('/entry/:entryId', {
+            controller: 'EntryViewController'
+            templateUrl: 'app/partials/entry/view.html'
+        }).
+        when('/entry/:entryId/add-item', {
+            controller: 'EntryViewController'
+            templateUrl: 'app/partials/entry/view.html'
+        }).
         when('/bullshit', {
             controller: 'BullshitController',
             templateUrl: 'app/partials/bullshit.html'

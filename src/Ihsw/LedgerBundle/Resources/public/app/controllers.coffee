@@ -132,6 +132,24 @@ module.controller 'EntryNewController', ['$rootScope', '$scope', '$location', 'E
     # initial load
     $s.refresh()
 ]
+module.controller 'EntryViewController', ['$rootScope', '$scope', '$routeParams', 'EntryService', ($rootScope, $s, $r, EntryService) ->
+    # nav
+    $rootScope.section = 'entries'
+
+    # properties
+    $s.loading = false
+
+    # methods
+    $s.refresh = (entryId) ->
+        $s.loading = true
+
+        EntryService.get(entryId).then (entry) ->
+            $s.loading = false
+            $s.entry = entry
+
+    # initial load
+    $s.refresh($r.entryId)
+]
 
 # bullshit
 module.controller 'BullshitController', ['$rootScope', '$scope', 'BullshitService', ($rootScope, $s, BullshitService) ->

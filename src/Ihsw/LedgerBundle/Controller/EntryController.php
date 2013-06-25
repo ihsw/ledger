@@ -65,4 +65,13 @@ class EntryController extends Controller
 
         return new Response();
     }
+
+    /**
+     * @ParamConverter("entry")
+     */
+    public function showAction($entry)
+    {
+        sleep(2);
+        return new JsonResponse($entry);
+    }
 }

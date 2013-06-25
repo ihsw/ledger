@@ -19,7 +19,7 @@
 					<td>{{entry.occurred_at|date:'MMM d, y h:mma'}}</td>
 					<td>
 						<div class="btn-group pull-right">
-							<button class='btn btn-primary' ng-click='showItemsModal()'>View</button>
+							<a class='btn btn-primary' ng-href='#/entry/{{entry.id}}'>View</a>
 							<button class="btn btn-danger" ng-click='delete(entry)' ng-class='{"disabled": listMetadata[entry.id].deleteDisabled}'>Delete</button>
 						</div>
 					</td>

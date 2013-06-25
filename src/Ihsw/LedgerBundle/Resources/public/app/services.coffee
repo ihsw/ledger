@@ -72,6 +72,9 @@ module.service 'EntryService', ['$http', '$window', ($http, $window) ->
 
             S.list.splice i, 1
             S.idIndex.splice i, 1
+    S.get = (entryId) ->
+        $http.get(Routing.generate('entry_show', { entryId: entryId })).then (response) ->
+            return response.data
 
     return S
 ]

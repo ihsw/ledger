@@ -100,9 +100,14 @@ class Entry implements \JsonSerializable
 
     public function jsonSerialize()
     {
+        $items = array_map(function($item){
+            return $item->jsonSerialize();
+        }, array_values($this->getEntryitems()->toArray()));
+
         return [
             "id" => $this->getId(),
-            "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s")
+            "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s"),
+            "items" => $items
         ];
     }
 }

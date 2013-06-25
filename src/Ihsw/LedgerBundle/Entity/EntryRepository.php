@@ -12,4 +12,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class EntryRepository extends EntityRepository
 {
+	public function findOneById($id)
+	{
+		try
+		{
+			$parameters = array(
+				"id" => $id
+			);
+			$result = $this->createQueryBuilder("e")
+				->select("e, items")
+				->leftJoin("e.entryitems", "items")
+				->where("e.id = :id")
+				->setParameters($parameters)
+				->getQuery()
+				->getSingleResult();
+		}
+		catch (NoResultException $exception)
+		{
+			return null;
+		}
+
+		return $result;
+	}
 }
