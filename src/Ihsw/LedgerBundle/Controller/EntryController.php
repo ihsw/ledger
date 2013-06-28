@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ihsw\LedgerBundle\Entity\Entry;
+use Ihsw\LedgerBundle\Entity\EntryItem;
 
 class EntryController extends Controller
 {
@@ -71,7 +72,44 @@ class EntryController extends Controller
      */
     public function showAction($entry)
     {
-        sleep(2);
         return new JsonResponse($entry);
+    }
+
+    /**
+     * @ParamConverter("entry")
+     */
+    public function addEntryItemAction($entry)
+    {
+        // services
+        $request = $this->get('request');
+        $doctrine = $this->get('doctrine');
+
+        // repositories
+        $em = $doctrine->getManager();
+        $itemRepository = $em->getRepository('IhswLedgerBundle:Item');
+
+        // gathering the content
+        $content = json_decode($request->getContent(), true);
+        if (is_null($content) === true)
+        {
+            return new Response(null, 400);
+        }
+
+        // validating the item-id
+        $item = $itemRepository->findOneById($content["item"]["id"]);
+        if (is_null($item) === true)
+        {
+            return new Response(null, 400);
+        }
+
+        // creating an entry entity and persisting it
+        $entryItem = new EntryItem();
+        $entryItem->setItem($item)
+            ->setEntry($entry)
+            ->setCost($content["cost"]);
+        $em->persist($entryItem);
+        $em->flush();
+
+        return new JsonResponse();
     }
 }

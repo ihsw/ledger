@@ -12,7 +12,7 @@ Ihsw\LedgerBundle\Entity\Entry:
             type: datetime
             column: occurred_at
     oneToMany:
-        entryitems:
+        entryItems:
             targetEntity: EntryItem
             mappedBy: entry
     lifecycleCallbacks: {  }

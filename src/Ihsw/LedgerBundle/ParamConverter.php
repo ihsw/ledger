@@ -79,7 +79,7 @@ class ParamConverter implements ParamConverterInterface
         $entry = $entryRepository->findOneById($entryId);
         if (is_null($entry))
         {
-            throw new NotFoundHttpException(sprintf('No entry found for %s', $itemId));
+            throw new NotFoundHttpException(sprintf('No entry found for %s', $entryId));
         }
         $request->attributes->set('entry', $entry);
     }

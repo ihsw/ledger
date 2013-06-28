@@ -52,51 +52,6 @@ class Item implements \JsonSerializable
     {
         return $this->name;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $entryitems;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->entryitems = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Add entryitems
-     *
-     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryitems
-     * @return Item
-     */
-    public function addEntryitem(\Ihsw\LedgerBundle\Entity\EntryItem $entryitems)
-    {
-        $this->entryitems[] = $entryitems;
-    
-        return $this;
-    }
-
-    /**
-     * Remove entryitems
-     *
-     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryitems
-     */
-    public function removeEntryitem(\Ihsw\LedgerBundle\Entity\EntryItem $entryitems)
-    {
-        $this->entryitems->removeElement($entryitems);
-    }
-
-    /**
-     * Get entryitems
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEntryitems()
-    {
-        return $this->entryitems;
-    }
 
     public function jsonSerialize()
     {
@@ -104,5 +59,50 @@ class Item implements \JsonSerializable
             "id" => $this->getId(),
             "name" => $this->getName()
         ];
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $entryItems;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->entryItems = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add entryItems
+     *
+     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryItems
+     * @return Item
+     */
+    public function addEntryItem(\Ihsw\LedgerBundle\Entity\EntryItem $entryItems)
+    {
+        $this->entryItems[] = $entryItems;
+    
+        return $this;
+    }
+
+    /**
+     * Remove entryItems
+     *
+     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryItems
+     */
+    public function removeEntryItem(\Ihsw\LedgerBundle\Entity\EntryItem $entryItems)
+    {
+        $this->entryItems->removeElement($entryItems);
+    }
+
+    /**
+     * Get entryItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEntryItems()
+    {
+        return $this->entryItems;
     }
 }

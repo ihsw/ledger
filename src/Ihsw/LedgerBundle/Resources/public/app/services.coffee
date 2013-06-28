@@ -75,6 +75,9 @@ module.service 'EntryService', ['$http', '$window', ($http, $window) ->
     S.get = (entryId) ->
         $http.get(Routing.generate('entry_show', { entryId: entryId })).then (response) ->
             return response.data
+    S.addEntryItem = (entryItem) ->
+        $http.post(Routing.generate('entry_add_entryitem', { entryId: entryItem.entry.id }), entryItem).then (response) ->
+            return response.data
 
     return S
 ]

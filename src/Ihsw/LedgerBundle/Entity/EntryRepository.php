@@ -3,6 +3,7 @@
 namespace Ihsw\LedgerBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 
 /**
  * EntryRepository
@@ -20,8 +21,8 @@ class EntryRepository extends EntityRepository
 				"id" => $id
 			);
 			$result = $this->createQueryBuilder("e")
-				->select("e, items")
-				->leftJoin("e.entryitems", "items")
+				->select("e, ei")
+				->leftJoin("e.entryItems", "ei")
 				->where("e.id = :id")
 				->setParameters($parameters)
 				->getQuery()

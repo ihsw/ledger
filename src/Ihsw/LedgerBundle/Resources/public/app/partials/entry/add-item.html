@@ -1,0 +1,27 @@
+<p class="alert alert-warning" ng-show='hasError'>ERROR!</p>
+<div ng-show='!hasError'>
+	<p class='alert alert-warning' ng-show='loading > 0'>Loading...</p>
+	<div ng-show='loading == 0'>
+		<form ng-submit='add()' class='form-horizontal'>
+			<fieldset>
+				<legend>Add Item</legend>
+				<div class="control-group">
+					<label class="control-label">Item</label>
+					<div class="controls">
+						<select ng-model='item' ng-options='item.name for item in items'></select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Cost</label>
+					<div class="controls">
+						<input type='text' ng-model='cost'>
+					</div>
+				</div>
+				<div class="form-actions">
+					<input type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}' value='Submit'>
+					<a class="btn" ng-href='#/entry/{{entry.id}}'>Cancel</a>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>

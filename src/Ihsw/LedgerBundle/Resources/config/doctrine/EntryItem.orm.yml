@@ -13,14 +13,14 @@ Ihsw\LedgerBundle\Entity\EntryItem:
     manyToOne:
         entry:
             targetEntity: Entry
-            inversedBy: entryitems
+            inversedBy: entryItems
             joinColumn:
                 name: entry_id
                 referencedColumnName: id
         item:
             targetEntity: Item
-            inversedBy: entryitems
+            inversedBy: entryItems
             joinColumn:
-                name: entry_id
+                name: item_id
                 referencedColumnName: id
     lifecycleCallbacks: {  }

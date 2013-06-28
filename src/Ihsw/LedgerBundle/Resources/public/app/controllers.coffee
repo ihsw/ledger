@@ -138,14 +138,54 @@ module.controller 'EntryViewController', ['$rootScope', '$scope', '$routeParams'
 
     # properties
     $s.loading = false
+    $s.hasError = false
 
     # methods
     $s.refresh = (entryId) ->
         $s.loading = true
 
-        EntryService.get(entryId).then (entry) ->
+        EntryService.get(entryId).then((entry) ->
             $s.loading = false
             $s.entry = entry
+        , (response) ->
+            $s.hasError = true
+        )
+
+    # initial load
+    $s.refresh($r.entryId)
+]
+module.controller 'EntryAddItemController', ['$rootScope', '$scope', '$routeParams', 'EntryService', 'ItemService', ($rootScope, $s, $r, EntryService, ItemService) ->
+    # nav
+    $rootScope.section = 'entries'
+
+    # properties
+    $s.loading = -1
+    $s.items = []
+    $s.item = {}
+    $s.submitDisabled = false
+    $s.hasError = false
+    $s.cost = 0
+
+    # methods
+    $s.refresh = (entryId) ->
+        $s.loading = 2
+
+        EntryService.get(entryId).then (entry) ->
+            $s.loading--
+            $s.entry = entry
+        ItemService.query().then (items) ->
+            $s.loading--
+            $s.items = items
+    $s.add = () ->
+        entryItem =
+            entry: $s.entry
+            item: $s.item
+            cost: $s.cost
+        EntryService.addEntryItem(entryItem).then((response) ->
+            console.log response
+        , (response) ->
+            $s.hasError = true
+        )
 
     # initial load
     $s.refresh($r.entryId)

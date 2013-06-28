@@ -1,8 +1,13 @@
-<p class='alert alert-warning' ng-show='loading'>Loading...</p>
-<div ng-show='!loading'>
-	<p class="alert alert-info">Your entry has <strong>{{entry.items.length}} item(s)</strong>.</p>
-	<div></div>
-	<table class="table table-bordered table-striped">
-	</table>
-	<pre>{{entry}}</pre>
+<div ng-show='hasError'>
+	<p class="alert alert-warning">ERROR!</p>
+</div>
+<div ng-show='!hasError'>
+	<p class='alert alert-warning' ng-show='loading'>Loading...</p>
+	<div ng-show='!loading'>
+		<p class="alert alert-info">Your entry has {{entry.items.length}} item(s) <a class="btn btn-primary" ng-href='#/entry/{{entry.id}}/add-item'>Add Item</a>.</p>
+		<div></div>
+		<table class="table table-bordered table-striped">
+		</table>
+		<pre>{{entry}}</pre>
+	</div>
 </div>

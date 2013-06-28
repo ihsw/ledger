@@ -12,7 +12,7 @@ Ihsw\LedgerBundle\Entity\Item:
             type: string
             length: 255
     oneToMany:
-        entryitems:
+        entryItems:
             targetEntity: EntryItem
             mappedBy: item
     lifecycleCallbacks: {  }

@@ -45,3 +45,9 @@ entry_show:
     methods: [GET]
     options:
         expose: true
+entry_add_entryitem:
+    pattern: /entry/{entryId}/add-item
+    defaults: { _controller: IhswLedgerBundle:Entry:addEntryItem }
+    methods: [POST]
+    options:
+        expose: true

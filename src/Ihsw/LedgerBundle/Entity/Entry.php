@@ -52,62 +52,62 @@ class Entry implements \JsonSerializable
     {
         return $this->occurredAt;
     }
+
+    public function jsonSerialize()
+    {
+        $entryItems = array_map(function($entryItem){
+            return $entryItem->jsonSerialize();
+        }, array_values($this->getEntryItems()->toArray()));
+
+        return [
+            "id" => $this->getId(),
+            "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s"),
+            "entry_items" => $entryItems
+        ];
+    }
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $entryitems;
+    private $entryItems;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->entryitems = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->entryItems = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
-     * Add entryitems
+     * Add entryItems
      *
-     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryitems
+     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryItems
      * @return Entry
      */
-    public function addEntryitem(\Ihsw\LedgerBundle\Entity\EntryItem $entryitems)
+    public function addEntryItem(\Ihsw\LedgerBundle\Entity\EntryItem $entryItems)
     {
-        $this->entryitems[] = $entryitems;
+        $this->entryItems[] = $entryItems;
     
         return $this;
     }
 
     /**
-     * Remove entryitems
+     * Remove entryItems
      *
-     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryitems
+     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryItems
      */
-    public function removeEntryitem(\Ihsw\LedgerBundle\Entity\EntryItem $entryitems)
+    public function removeEntryItem(\Ihsw\LedgerBundle\Entity\EntryItem $entryItems)
     {
-        $this->entryitems->removeElement($entryitems);
+        $this->entryItems->removeElement($entryItems);
     }
 
     /**
-     * Get entryitems
+     * Get entryItems
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getEntryitems()
+    public function getEntryItems()
     {
-        return $this->entryitems;
-    }
-
-    public function jsonSerialize()
-    {
-        $items = array_map(function($item){
-            return $item->jsonSerialize();
-        }, array_values($this->getEntryitems()->toArray()));
-
-        return [
-            "id" => $this->getId(),
-            "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s"),
-            "items" => $items
-        ];
+        return $this->entryItems;
     }
 }
