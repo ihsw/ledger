@@ -3,23 +3,30 @@
 	<head>
 		<title>Ledger</title>
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+
+		{# stylesheets #}
 		{% stylesheets output='css/css.css' filter='cssrewrite'
-			'@IhswLedgerBundle/Resources/public/css/bootstrap.min.css'
-			'@IhswLedgerBundle/Resources/public/css/main.css'
+			'bundles/ihswledger/css/bootstrap.min.css'
+			'bundles/ihswledger/css/main.css'
 		%}
 			<link rel='stylesheet' href='{{ asset_url }}' />
 		{% endstylesheets %}
+
+		{# loading the router #}
 		<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 		<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-		{% javascripts output='js/js.js'
-			'@IhswLedgerBundle/Resources/public/js/angular.min.js'
-			'@IhswLedgerBundle/Resources/public/js/ui-bootstrap-tpls-0.3.0.min.js'
-			'@IhswLedgerBundle/Resources/public/app/app.coffee'
-			'@IhswLedgerBundle/Resources/public/app/controllers.coffee'
-			'@IhswLedgerBundle/Resources/public/app/services.coffee'
-			'@IhswLedgerBundle/Resources/public/app/directives.coffee'
-		%}
 
+		{# loading js libraries and client code #}
+		{% javascripts output='js/js.js'
+			'bundles/ihswledger/js/angular.min.js'
+			'bundles/ihswledger/js/ui-bootstrap-tpls-0.3.0.min.js'
+			'@IhswLedgerBundle/Resources/public/app/app.coffee'
+			'@IhswLedgerBundle/Resources/public/app/controllers/*'
+			'@IhswLedgerBundle/Resources/public/app/controllers/*/*'
+			'@IhswLedgerBundle/Resources/public/app/services/*'
+			'@IhswLedgerBundle/Resources/public/app/directives/*'
+			'@IhswLedgerBundle/Resources/public/app/filters/*'
+		%}
 			<script type='text/javascript' src='{{ asset_url }}'></script>
 		{% endjavascripts %}
 	</head>
@@ -36,9 +43,9 @@
 				<div class="span3">
 					<div class="well" style="padding: 8px 0; ">
 						<ul class="nav nav-list">
-							<li ng-class='{"active": section == "items"}'><a href='#/items'>Items</a></li>
-							<li ng-class='{"active": section == "entries"}'><a href='#/entries'>Entries</a></li>
-							<li ng-class='{"active": section == "bullshit"}'><a href='#/bullshit'>Bullshit</a></li>
+							<li ng-class='{"active": section == "items"}'><a href='#/items'><i class="icon-list"></i> Items</a></li>
+							<li ng-class='{"active": section == "entries"}'><a href='#/entries'><i class="icon-calendar"></i> Entries</a></li>
+							<li ng-class='{"active": section == "bullshit"}'><a href='#/bullshit'><i class="icon-fire"></i> Bullshit</a></li>
 						</ul>
 					</div>
 				</div>

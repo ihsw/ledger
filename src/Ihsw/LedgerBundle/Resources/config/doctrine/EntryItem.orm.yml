@@ -17,10 +17,12 @@ Ihsw\LedgerBundle\Entity\EntryItem:
             joinColumn:
                 name: entry_id
                 referencedColumnName: id
+                nullable: false
         item:
             targetEntity: Item
             inversedBy: entryItems
             joinColumn:
                 name: item_id
                 referencedColumnName: id
+                nullable: false
     lifecycleCallbacks: {  }

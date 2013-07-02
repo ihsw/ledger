@@ -1,6 +1,7 @@
 <p class='alert alert-warning' ng-show='loading'>Loading...</p>
-<div ng-show='!loading'>
-	<p class="alert alert-info">You have {{list.length}} item(s). <a ng-href='#/item/new' class='btn btn-primary'>Create Item</a></p>
+<p class="alert alert-warning" ng-show='hasError'>ERROR!</p>
+<div ng-show='!loading && !hasError'>
+	<a ng-href='#/item/new' class='btn btn-primary'><i class="icon-white icon-plus"></i> Create Item</a>
 	<div class="row-fluid">
 		<table class="table table-striped">
 			<thead>
@@ -11,13 +12,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-show='list.length == 0'>
+				<tr ng-show='list.getLength() == 0'>
 					<td colspan='3'><em>No items found!</em></td>
 				</tr>
-				<tr ng-repeat='item in list' ng-class='{"warning": listMetadata[item.id].deleteDisabled}'>
+				<tr ng-repeat='item in list.values' ng-class='{"warning": listMetadata[item.id].deleteDisabled}'>
 					<th>{{item.id}}</th>
 					<td>{{item.name}}</td>
-					<td><button class='btn btn-danger pull-right' ng-class='{"disabled": listMetadata[item.id].deleteDisabled}' ng-click='delete(item)'>Delete</button></td>
+					<td>
+						<div class="btn-group pull-right">
+							<a ng-href='#/item/{{item.id}}/edit' class="btn btn-primary"><i class="icon-white icon-edit"></i> Edit</a>
+							<button class='btn btn-danger' ng-class='{"disabled": listMetadata[item.id].deleteDisabled}' ng-click='delete(item)'><i class="icon-white icon-trash"></i></button>
+						</div>
+					</td>
 				</tr>
 			</tbody>
 		</table>

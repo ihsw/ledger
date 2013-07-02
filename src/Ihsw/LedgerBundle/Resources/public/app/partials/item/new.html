@@ -4,11 +4,11 @@
 		<div class="control-group">
 			<label class="control-label">Name</label>
 			<div class="controls">
-				<input type='text' ng-model='name' value=''>
+				<input type='text' ng-model='name' value='' autofocus>
 			</div>
 		</div>
 		<div class="form-actions">
-			<input type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}' value='Submit'>
+			<button type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}'><i class="icon-white icon-plus"></i> Create Item</button>
 			<a class="btn" ng-href='#/items'>Cancel</a>
 		</div>
 	</fieldset>

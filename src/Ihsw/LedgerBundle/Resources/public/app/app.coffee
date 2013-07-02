@@ -13,6 +13,10 @@ module.config ['$routeProvider', ($routeProvider) ->
             controller: 'ItemNewController'
             templateUrl: 'app/partials/item/new.html'
         }).
+        when('/item/:itemId/edit', {
+            controller: 'ItemEditController'
+            templateUrl: 'app/partials/item/edit.html'
+        }).
         when('/entries', {
             controller: 'EntryController'
             templateUrl: 'app/partials/entry/list.html'
@@ -28,6 +32,10 @@ module.config ['$routeProvider', ($routeProvider) ->
         when('/entry/:entryId/add-item', {
             controller: 'EntryAddItemController'
             templateUrl: 'app/partials/entry/add-item.html'
+        }).
+        when('/entry-item/:entryItemId/edit', {
+            controller: 'EntryItemEditController'
+            templateUrl: 'app/partials/entry-item/edit.html'
         }).
         when('/bullshit', {
             controller: 'BullshitController',

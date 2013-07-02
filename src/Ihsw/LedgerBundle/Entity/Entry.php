@@ -53,7 +53,7 @@ class Entry implements \JsonSerializable
         return $this->occurredAt;
     }
 
-    public function jsonSerialize()
+    public function jsonSerializeWithEntryItems()
     {
         $entryItems = array_map(function($entryItem){
             return $entryItem->jsonSerialize();
@@ -63,6 +63,14 @@ class Entry implements \JsonSerializable
             "id" => $this->getId(),
             "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s"),
             "entry_items" => $entryItems
+        ];
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id" => $this->getId(),
+            "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s")
         ];
     }
     /**

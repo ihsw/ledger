@@ -1,5 +1,4 @@
-module = window.module
-module.directive 'helloWorld', [() ->
+window.module.directive 'helloWorld', [() ->
 	return {
 		restrict: 'E'
 		scope:

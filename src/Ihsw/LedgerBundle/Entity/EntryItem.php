@@ -52,11 +52,6 @@ class EntryItem implements \JsonSerializable
     {
         return $this->cost;
     }
-    /**
-     * @var \Ihsw\LedgerBundle\Entity\Item
-     */
-    private $Item;
-
 
     /**
      * Set Item
@@ -64,9 +59,9 @@ class EntryItem implements \JsonSerializable
      * @param \Ihsw\LedgerBundle\Entity\Item $item
      * @return EntryItem
      */
-    public function setItem(\Ihsw\LedgerBundle\Entity\Item $item = null)
+    public function setItem(\Ihsw\LedgerBundle\Entity\Item $item)
     {
-        $this->Item = $item;
+        $this->item = $item;
     
         return $this;
     }
@@ -78,7 +73,7 @@ class EntryItem implements \JsonSerializable
      */
     public function getItem()
     {
-        return $this->Item;
+        return $this->item;
     }
     /**
      * @var \Ihsw\LedgerBundle\Entity\Entry
@@ -97,7 +92,7 @@ class EntryItem implements \JsonSerializable
      * @param \Ihsw\LedgerBundle\Entity\Entry $entry
      * @return EntryItem
      */
-    public function setEntry(\Ihsw\LedgerBundle\Entity\Entry $entry = null)
+    public function setEntry(\Ihsw\LedgerBundle\Entity\Entry $entry)
     {
         $this->entry = $entry;
     
@@ -119,7 +114,8 @@ class EntryItem implements \JsonSerializable
         return [
             "id" => $this->getId(),
             "entry" => $this->getEntry()->jsonSerialize(),
-            "item" => $this->getItem()->jsonSerialize()
+            "item" => $this->getItem()->jsonSerialize(),
+            'cost' => $this->getCost()
         ];
     }
 }

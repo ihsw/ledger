@@ -1,8 +1,11 @@
+# misc
 home:
     pattern:  /
     defaults: { _controller: IhswLedgerBundle:Default:index }
     options:
         expose: true
+
+# items
 items:
     pattern: /items
     defaults: { _controller: IhswLedgerBundle:Item:index }
@@ -21,6 +24,20 @@ item_delete:
     methods: [DELETE]
     options:
         expose: true
+item_show:
+    pattern: /item/{itemId}
+    defaults: { _controller: IhswLedgerBundle:Item:show }
+    methods: [GET]
+    options:
+        expose: true
+item_update:
+    pattern: /item/{itemId}
+    defaults: { _controller: IhswLedgerBundle:Item:update }
+    methods: [PUT]
+    options:
+        expose: true
+
+# entries
 entries:
     pattern: /entries
     defaults: { _controller: IhswLedgerBundle:Entry:index }
@@ -45,9 +62,17 @@ entry_show:
     methods: [GET]
     options:
         expose: true
-entry_add_entryitem:
-    pattern: /entry/{entryId}/add-item
-    defaults: { _controller: IhswLedgerBundle:Entry:addEntryItem }
+
+# entryitems
+entryitem_create:
+    pattern: /entry/{entryId}/entryitems
+    defaults: { _controller: IhswLedgerBundle:EntryItem:create }
     methods: [POST]
+    options:
+        expose: true
+entryitem_delete:
+    pattern: /entryitem/{entryItemId}
+    defaults: { _controller: IhswLedgerBundle:EntryItem:destroy }
+    methods: [DELETE]
     options:
         expose: true

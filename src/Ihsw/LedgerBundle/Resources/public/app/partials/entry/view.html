@@ -4,10 +4,41 @@
 <div ng-show='!hasError'>
 	<p class='alert alert-warning' ng-show='loading'>Loading...</p>
 	<div ng-show='!loading'>
-		<p class="alert alert-info">Your entry has {{entry.items.length}} item(s) <a class="btn btn-primary" ng-href='#/entry/{{entry.id}}/add-item'>Add Item</a>.</p>
-		<div></div>
-		<table class="table table-bordered table-striped">
+		<div class="btn-group">
+			<a class="btn btn-primary" ng-href='#/entries'><i class="icon-white icon-arrow-left"></i> Back</a>
+			<a class="btn btn-primary" ng-href='#/entry/{{entry.id}}/add-item'><i class="icon-white icon-plus"></i> Add Item</a>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Item</th>
+					<th>Cost</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-show='entry.entry_items.length == 0'>
+					<td colspan='4'><em>No entry-items found!</em></td>
+				</tr>
+				<tr ng-repeat='entry_item in entry.entry_items'>
+					<th>{{ entry_item.id }}</th>
+					<td>{{ entry_item.item.name }}</td>
+					<td>{{ entry_item.cost|currency }}</td>
+					<td>
+						<div class="btn-group pull-right">
+							<a class='btn btn-primary' href="#/entry-item/{{entry_item.id}}/edit"><i class="icon-white icon-edit"></i> Edit</a>
+							<button type='button' class="btn btn-danger" ng-click='deleteEntryItem(entry_item)'><i class="icon-white icon-trash"></i></button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan='2' style='text-align: right; '>Total</th>
+					<td colspan='2'>{{ entry.entry_items|entryItemsTotal|currency }}</td>
+				</tr>
+			</tfoot>
 		</table>
-		<pre>{{entry}}</pre>
 	</div>
 </div>

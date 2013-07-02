@@ -65,4 +65,34 @@ class ItemController extends Controller
 
         return new Response();
     }
+
+    /**
+     * @ParamConverter("item")
+     */
+    public function showAction($item)
+    {
+        return new JsonResponse($item);
+    }
+
+    /**
+     * @ParamConverter("item")
+     */
+    public function updateAction($item)
+    {
+        // services
+        $request = $this->get('request');
+        $doctrine = $this->get('doctrine');
+
+        // repositories
+        $em = $doctrine->getManager();
+        $itemRepository = $em->getRepository('IhswLedgerBundle:Item');
+
+        // updating the item
+        $content = json_decode($request->getContent(), true);
+        $item->setName($content['name']);
+        $em->persist($item);
+        $em->flush();
+
+        return new Response();
+    }
 }
