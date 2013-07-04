@@ -1,15 +1,21 @@
-window.module.service 'BullshitService', ['$http', '$window', '$q', ($http, $window, $q) ->
+service = ($http, $window, $q) ->
     Routing = $window.Routing
     S = {}
 
     # properties
-    S.list = []
-    S.idIndex = []
+    S.list =
+        values: {}
+        getLength: ->
+            size = 0
+            entries = S.list.values
+            for key, value of entries
+                if entries.hasOwnProperty key
+                    size++
+            return size
 
     # methods
     S.query = ($s) ->
-        S.list = []
-        S.idIndex = []
+        S.list.values = {}
 
         deferred = $q.defer()
         setTimeout(->
@@ -19,8 +25,7 @@ window.module.service 'BullshitService', ['$http', '$window', '$q', ($http, $win
                         id: i
                         value: "#{i}: #{S.getValue()}"
 
-                    S.list.push shit
-                    S.idIndex.push shit.id
+                    S.list.values[shit.id] = shit
 
                 deferred.resolve(S.list)
         , S.getRandom(250, 1000))
@@ -29,12 +34,7 @@ window.module.service 'BullshitService', ['$http', '$window', '$q', ($http, $win
         deferred = $q.defer()
         setTimeout( ->
             $s.$apply ->
-                i = S.idIndex.indexOf shit.id
-                if i < 0
-                    return
-
-                S.list.splice i, 1
-                S.idIndex.splice i, 1
+                delete S.list.values[shit.id]
                 deferred.resolve()
         , S.getRandom(50, 250))
 
@@ -50,4 +50,5 @@ window.module.service 'BullshitService', ['$http', '$window', '$q', ($http, $win
         return Math.random() * (max - min) + min
 
     return S
-]
+service.$inject = ['$http', '$window', '$q']
+window.module.service 'BullshitService', service

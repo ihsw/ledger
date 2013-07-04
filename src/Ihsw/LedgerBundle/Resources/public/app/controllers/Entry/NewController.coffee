@@ -1,4 +1,4 @@
-window.module.controller 'EntryNewController', ['$rootScope', '$scope', '$location', 'EntryService', ($rootScope, $s, $l, EntryService) ->
+controller = ($rootScope, $s, $l, EntryService) ->
     # nav
     $rootScope.section = 'entries'
 
@@ -22,4 +22,5 @@ window.module.controller 'EntryNewController', ['$rootScope', '$scope', '$locati
 
     # initial load
     $s.refresh()
-]
+controller.$inject = ['$rootScope', '$scope', '$location', 'EntryService']
+window.module.controller 'EntryNewController', controller

@@ -1,26 +1,28 @@
-window.module.controller 'BullshitController', ['$rootScope', '$scope', 'BullshitService', ($rootScope, $s, BullshitService) ->
+controller = ($rootScope, $s, BullshitService) ->
     # nav
     $rootScope.section = 'bullshit'
 
     # properties
     $s.loading = false
-    $s.list = []
+    $s.list = {}
     $s.listMetadata = {}
 
     # methods
     $s.refresh = ->
         $s.loading = true
+        $s.list = {}
+        $s.listMetadata = {}
 
-        BullshitService.query($s).then (shits) ->
+        BullshitService.query($s).then (list) ->
             $s.loading = false
-            $s.list = shits
+            $s.list = list
 
             listMetadata = {}
-            for i, shit of shits
+            for shitId, shit of list.values
                 listMetadata[shit.id] = { deleteDisabled: false }
             $s.listMetadata = listMetadata
     $s.delete = (shit) ->
-        if !(String(shit.id) in Object.keys($s.listMetadata)) or $s.listMetadata[shit.id].deleteDisabled
+        if $s.listMetadata[shit.id].deleteDisabled
             return
         $s.listMetadata[shit.id].deleteDisabled = true
 
@@ -29,4 +31,5 @@ window.module.controller 'BullshitController', ['$rootScope', '$scope', 'Bullshi
 
     # initial load
     $s.refresh()
-]
+controller.$inject = ['$rootScope', '$scope', 'BullshitService']
+window.module.controller 'BullshitController', controller
