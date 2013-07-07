@@ -18,7 +18,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-show='entry.entry_items.length == 0'>
+				<tr ng-show='(entry.entry_items|dictLength) == 0'>
 					<td colspan='4'><em>No entry-items found!</em></td>
 				</tr>
 				<tr ng-repeat='entry_item in entry.entry_items'>
@@ -28,7 +28,7 @@
 					<td>
 						<div class="btn-group pull-right">
 							<a class='btn btn-primary' href="#/entry-item/{{entry_item.id}}/edit"><i class="icon-white icon-edit"></i> Edit</a>
-							<button type='button' class="btn btn-danger" ng-click='deleteEntryItem(entry_item)'><i class="icon-white icon-trash"></i></button>
+							<button type='button' class="btn btn-danger" ng-class='{"disabled": entryItemMetadata[entry_item.id].deleteDisabled}' ng-click='deleteEntryItem(entry_item)'><i class="icon-white icon-trash"></i></button>
 						</div>
 					</td>
 				</tr>

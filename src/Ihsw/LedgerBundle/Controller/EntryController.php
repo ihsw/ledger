@@ -81,4 +81,25 @@ class EntryController extends Controller
     {
         return new JsonResponse($entry->jsonSerializeWithEntryItems());
     }
+
+    /**
+     * @ParamConverter("entry")
+     */
+    public function updateAction($entry)
+    {
+        // services
+        $request = $this->get('request');
+        $doctrine = $this->get('doctrine');
+
+        // repositories
+        $em = $doctrine->getManager();
+
+        // updating the entry
+        $content = json_decode($request->getContent(), true);
+        $entry->setOccurredAt(new \DateTime($content['occurred_at']));
+        $em->persist($entry);
+        $em->flush();
+
+        return new JsonResponse($entry);
+    }
 }

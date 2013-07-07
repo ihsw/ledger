@@ -17,7 +17,7 @@ controller = ($rootScope, $timeout, $s, ItemService) ->
             $s.list = list
 
             listMetadata = {}
-            for itemId, item of list.values
+            for itemId, item of list
                 listMetadata[itemId] = { deleteDisabled: false }
             $s.listMetadata = listMetadata
     $s.delete = (item) ->

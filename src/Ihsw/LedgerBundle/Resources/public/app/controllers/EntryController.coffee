@@ -16,7 +16,7 @@ controller = ($rootScope, $s, EntryService) ->
             $s.list = list
 
             listMetadata = {}
-            for entryId, entry of list.values
+            for entryId, entry of list
                 listMetadata[entryId] = { deleteDisabled: false }
             $s.listMetadata = listMetadata
     $s.delete = (entry) ->

@@ -8,7 +8,7 @@
 				<div class="control-group">
 					<label class="control-label">Item</label>
 					<div class="controls">
-						<select ng-model='item' ng-options='item.name for item in items'></select>
+						<select ng-model='item' ng-options='item.name for (itemId, item) in items'></select>
 					</div>
 				</div>
 				<div class="control-group">

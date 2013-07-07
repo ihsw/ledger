@@ -18,7 +18,7 @@ controller = ($rootScope, $s, BullshitService) ->
             $s.list = list
 
             listMetadata = {}
-            for shitId, shit of list.values
+            for shitId, shit of list
                 listMetadata[shit.id] = { deleteDisabled: false }
             $s.listMetadata = listMetadata
     $s.delete = (shit) ->

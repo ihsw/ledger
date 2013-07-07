@@ -14,16 +14,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-show='list.getLength() == 0'>
+				<tr ng-show='(list|dictLength) == 0'>
 					<td colspan='4'><em>No entries found!</em></td>
 				</tr>
-				<tr ng-repeat='entry in list.values'>
+				<tr ng-repeat='entry in list'>
 					<th>{{ entry.id }}</th>
 					<td>{{ entry.occurred_at|date:'MMM d, y h:mma' }}</td>
 					<td>{{ entry.entry_items|entryItemsTotal|currency }}</td>
 					<td>
 						<div class="btn-group pull-right">
 							<a class='btn btn-primary' ng-href='#/entry/{{entry.id}}'><i class="icon-white icon-eye-open"></i> View</a>
+							<a class='btn btn-primary' ng-href='#/entry/{{entry.id}}/edit'><i class="icon-white icon-edit"></i> Edit</a>
 							<button class="btn btn-danger" ng-click='delete(entry)' ng-class='{"disabled": listMetadata[entry.id].deleteDisabled}'><i class="icon-white icon-trash"></i></button>
 						</div>
 					</td>

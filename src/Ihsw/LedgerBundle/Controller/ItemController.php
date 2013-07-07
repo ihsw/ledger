@@ -93,6 +93,6 @@ class ItemController extends Controller
         $em->persist($item);
         $em->flush();
 
-        return new Response();
+        return new JsonResponse($item);
     }
 }

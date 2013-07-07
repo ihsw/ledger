@@ -12,10 +12,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-show='list.getLength() == 0'>
+				<tr ng-show='(list|dictLength) == 0'>
 					<td colspan='3'><em>No items found!</em></td>
 				</tr>
-				<tr ng-repeat='item in list.values' ng-class='{"warning": listMetadata[item.id].deleteDisabled}'>
+				<tr ng-repeat='item in list' ng-class='{"warning": listMetadata[item.id].deleteDisabled}'>
 					<th>{{item.id}}</th>
 					<td>{{item.name}}</td>
 					<td>

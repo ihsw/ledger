@@ -3,19 +3,11 @@ service = ($http, $window, $q) ->
     S = {}
 
     # properties
-    S.list =
-        values: {}
-        getLength: ->
-            size = 0
-            entries = S.list.values
-            for key, value of entries
-                if entries.hasOwnProperty key
-                    size++
-            return size
+    S.list = {}
 
     # methods
     S.query = ($s) ->
-        S.list.values = {}
+        S.list
 
         deferred = $q.defer()
         setTimeout(->
@@ -25,7 +17,7 @@ service = ($http, $window, $q) ->
                         id: i
                         value: "#{i}: #{S.getValue()}"
 
-                    S.list.values[shit.id] = shit
+                    S.list[shit.id] = shit
 
                 deferred.resolve(S.list)
         , S.getRandom(250, 1000))
@@ -34,7 +26,7 @@ service = ($http, $window, $q) ->
         deferred = $q.defer()
         setTimeout( ->
             $s.$apply ->
-                delete S.list.values[shit.id]
+                delete S.list[shit.id]
                 deferred.resolve()
         , S.getRandom(50, 250))
 

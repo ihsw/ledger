@@ -63,8 +63,52 @@ class EntryItemController extends Controller
 
         // deleting the entry-item
         $em->remove($entryItem);
-        // $em->flush();
+        $em->flush();
 
         return new Response();
+    }
+
+    /**
+     * @ParamConverter("entryItem")
+     */
+    public function showAction($entryItem)
+    {
+        return new JsonResponse($entryItem);
+    }
+
+    /**
+     * @ParamConverter("entryItem")
+     */
+    public function updateAction($entryItem)
+    {
+        // services
+        $request = $this->get('request');
+        $doctrine = $this->get('doctrine');
+
+        // repositories
+        $em = $doctrine->getManager();
+        $itemRepository = $em->getRepository('IhswLedgerBundle:Item');
+
+        // gathering the content
+        $content = json_decode($request->getContent(), true);
+        if (is_null($content) === true)
+        {
+            return new Response(null, 400);
+        }
+
+        // validating the item-id
+        $item = $itemRepository->findOneById($content["item"]["id"]);
+        if (is_null($item) === true)
+        {
+            return new Response(null, 400);
+        }
+
+        // updating the item
+        $entryItem->setItem($item)
+            ->setCost($content["cost"]);
+        $em->persist($entryItem);
+        $em->flush();
+
+        return new JsonResponse($entryItem);
     }
 }

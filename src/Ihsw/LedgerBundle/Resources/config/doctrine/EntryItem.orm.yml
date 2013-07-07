@@ -10,6 +10,8 @@ Ihsw\LedgerBundle\Entity\EntryItem:
                 strategy: AUTO
         cost:
             type: decimal
+            precision: 13
+            scale: 3 # a billion dollars, plus digits after the decimal
     manyToOne:
         entry:
             targetEntity: Entry

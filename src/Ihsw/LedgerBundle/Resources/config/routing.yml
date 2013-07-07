@@ -62,6 +62,12 @@ entry_show:
     methods: [GET]
     options:
         expose: true
+entry_update:
+    pattern: /entry/{entryId}
+    defaults: { _controller: IhswLedgerBundle:Entry:update }
+    methods: [PUT]
+    options:
+        expose: true
 
 # entryitems
 entryitem_create:
@@ -74,5 +80,17 @@ entryitem_delete:
     pattern: /entryitem/{entryItemId}
     defaults: { _controller: IhswLedgerBundle:EntryItem:destroy }
     methods: [DELETE]
+    options:
+        expose: true
+entryitem_show:
+    pattern: /entryitem/{entryItemId}
+    defaults: { _controller: IhswLedgerBundle:EntryItem:show }
+    methods: [GET]
+    options:
+        expose: true
+entryitem_update:
+    pattern: /entryitem/{entryItemId}
+    defaults: { _controller: IhswLedgerBundle:EntryItem:update }
+    methods: [PUT]
     options:
         expose: true
