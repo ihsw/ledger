@@ -1,5 +1,5 @@
 module = window.module = angular.module 'ledger', ['ui.bootstrap']
-module.config ['$routeProvider', ($routeProvider) ->
+config = ($routeProvider) ->
     $routeProvider.
         when('/home', {
             controller: 'HomeController'
@@ -46,4 +46,6 @@ module.config ['$routeProvider', ($routeProvider) ->
             templateUrl: 'app/partials/bullshit.html'
         }).
         otherwise({ redirectTo: '/home' })
-]
+
+config.$inject = ['$routeProvider']
+module.config config

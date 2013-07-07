@@ -1,4 +1,4 @@
-controller = ($rootScope, $s, EntryService) ->
+controller = ($rootScope, $s, EntryService, $filter) ->
     # nav
     $rootScope.section = 'entries'
 
@@ -17,17 +17,26 @@ controller = ($rootScope, $s, EntryService) ->
 
             listMetadata = {}
             for entryId, entry of list
-                listMetadata[entryId] = { deleteDisabled: false }
+                deleteDisabled =
+                    value: false
+                    tooltip: 'Delete'
+                if $filter('dictLength')(entry.entry_items) > 0
+                    deleteDisabled =
+                        value: true
+                        tooltip: 'Has >0 entry-items'
+                listMetadata[entryId] = { deleteDisabled: deleteDisabled }
             $s.listMetadata = listMetadata
     $s.delete = (entry) ->
-        if $s.listMetadata[entry.id].deleteDisabled
+        if $s.listMetadata[entry.id].deleteDisabled.value
             return
-        $s.listMetadata[entry.id].deleteDisabled = true
+        $s.listMetadata[entry.id].deleteDisabled =
+            value: true
+            tooltip: 'Deleting'
 
         EntryService.delete(entry).then ->
             delete $s.listMetadata[entry.id]
 
     # initial load
     $s.refresh()
-controller.$inject = ['$rootScope', '$scope', 'EntryService']
+controller.$inject = ['$rootScope', '$scope', 'EntryService', '$filter']
 window.module.controller 'EntryController', controller

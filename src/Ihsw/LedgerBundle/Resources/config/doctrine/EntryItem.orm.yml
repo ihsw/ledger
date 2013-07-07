@@ -12,6 +12,8 @@ Ihsw\LedgerBundle\Entity\EntryItem:
             type: decimal
             precision: 13
             scale: 3 # a billion dollars, plus digits after the decimal
+        quantity:
+            type: integer
     manyToOne:
         entry:
             targetEntity: Entry

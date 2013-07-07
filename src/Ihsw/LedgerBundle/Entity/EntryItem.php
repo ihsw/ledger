@@ -115,7 +115,36 @@ class EntryItem implements \JsonSerializable
             "id" => $this->getId(),
             "entry" => $this->getEntry()->jsonSerialize(),
             "item" => $this->getItem()->jsonSerialize(),
-            'cost' => $this->getCost()
+            'cost' => $this->getCost(),
+            "quantity" => $this->getQuantity()
         ];
+    }
+    /**
+     * @var integer
+     */
+    private $quantity;
+
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     * @return EntryItem
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return integer 
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
     }
 }

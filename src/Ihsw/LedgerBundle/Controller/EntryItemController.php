@@ -41,7 +41,8 @@ class EntryItemController extends Controller
         $entryItem = new EntryItem();
         $entryItem->setItem($item)
             ->setEntry($entry)
-            ->setCost($content["cost"]);
+            ->setCost($content["cost"])
+            ->setQuantity($content["quantity"]);
         $em->persist($entryItem);
         $em->flush();
 
@@ -105,7 +106,8 @@ class EntryItemController extends Controller
 
         // updating the item
         $entryItem->setItem($item)
-            ->setCost($content["cost"]);
+            ->setCost($content["cost"])
+            ->setQuantity($content["quantity"]);
         $em->persist($entryItem);
         $em->flush();
 

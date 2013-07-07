@@ -4,16 +4,15 @@
 <div ng-show='!hasError'>
 	<p class='alert alert-warning' ng-show='loading'>Loading...</p>
 	<div ng-show='!loading'>
-		<div class="btn-group">
-			<a class="btn btn-primary" ng-href='#/entries'><i class="icon-white icon-arrow-left"></i> Back</a>
-			<a class="btn btn-primary" ng-href='#/entry/{{entry.id}}/add-item'><i class="icon-white icon-plus"></i> Add Item</a>
-		</div>
+		<a class="btn btn-primary" ng-href='#/entries'><i class="icon-white icon-arrow-left"></i> Back</a>
+		<a class="btn btn-primary pull-right" ng-href='#/entry/{{entry.id}}/add-item'><i class="icon-white icon-plus"></i> Add Item</a>
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Item</th>
 					<th>Cost</th>
+					<th>Quantity</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -25,6 +24,7 @@
 					<th>{{ entry_item.id }}</th>
 					<td>{{ entry_item.item.name }}</td>
 					<td>{{ entry_item.cost|currency }}</td>
+					<td>{{ entry_item.quantity }}</td>
 					<td>
 						<div class="btn-group pull-right">
 							<a class='btn btn-primary' href="#/entry-item/{{entry_item.id}}/edit"><i class="icon-white icon-edit"></i> Edit</a>
@@ -35,8 +35,8 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<th colspan='2' style='text-align: right; '>Total</th>
-					<td colspan='2'>{{ entry.entry_items|entryItemsTotal|currency }}</td>
+					<th colspan='3' style='text-align: right; '>Total</th>
+					<td colspan='2'>{{ entry.entry_items|entryItemsTotalCost|currency }}</td>
 				</tr>
 			</tfoot>
 		</table>

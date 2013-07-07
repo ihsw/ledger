@@ -1,8 +1,6 @@
 <p class='alert alert-warning' ng-show='loading'>Loading...</p>
 <div ng-show='!loading'>
-	<div class="btn-group">
-		<a ng-href='#/entry/new' class='btn btn-primary'><i class="icon-white icon-plus"></i> Create Entry</a>
-	</div>
+	<a ng-href='#/entry/new' class='btn btn-primary pull-right'><i class="icon-white icon-plus"></i> Create Entry</a>
 	<div class="row-fluid">
 		<table class="table table-striped">
 			<thead>
@@ -10,6 +8,7 @@
 					<th>Id</th>
 					<th>Occurred At</th>
 					<th>Cost</th>
+					<th># of Items</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -20,20 +19,21 @@
 				<tr ng-repeat='entry in list'>
 					<th>{{ entry.id }}</th>
 					<td>{{ entry.occurred_at|date:'MMM d, y h:mma' }}</td>
-					<td>{{ entry.entry_items|entryItemsTotal|currency }}</td>
+					<td>{{ entry.entry_items|entryItemsTotalCost|currency }}</td>
+					<td>{{ entry.entry_items|entryItemsTotalQuantity }}</td>
 					<td>
 						<div class="btn-group pull-right">
 							<a class='btn btn-primary' ng-href='#/entry/{{entry.id}}'><i class="icon-white icon-eye-open"></i> View</a>
 							<a class='btn btn-primary' ng-href='#/entry/{{entry.id}}/edit'><i class="icon-white icon-edit"></i> Edit</a>
-							<button class="btn btn-danger" ng-click='delete(entry)' ng-class='{"disabled": listMetadata[entry.id].deleteDisabled}'><i class="icon-white icon-trash"></i></button>
+							<button class="btn btn-danger" ng-click='delete(entry)' ng-class='{"disabled": listMetadata[entry.id].deleteDisabled.value}' tooltip='{{ listMetadata[entry.id].deleteDisabled.tooltip }}' tooltip-placement='right'><i class="icon-white icon-trash"></i></button>
 						</div>
 					</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
-					<th colspan='2' style='text-align: right; '>Total</th>
-					<td colspan='2'>{{ list|entriesTotal|currency }}</td>
+					<th colspan='3' style='text-align: right; '>Total</th>
+					<td colspan='2'>{{ list|entriesTotalCost|currency }}</td>
 				</tr>
 			</tfoot>
 		</table>

@@ -9,6 +9,7 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
     $s.submitDisabled = false
     $s.hasError = false
     $s.cost = 0
+    $s.quantity = 1
 
     # methods
     $s.refresh = (entryId) ->
@@ -25,6 +26,7 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
             entry: $s.entry
             item: $s.item
             cost: $s.cost
+            quantity: $s.quantity
         EntryItemService.create(entryItem).then((response) ->
             $l.path "/entry/#{entryItem.entry.id}"
         , (response) ->

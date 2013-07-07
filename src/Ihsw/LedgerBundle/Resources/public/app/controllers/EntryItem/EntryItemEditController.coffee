@@ -9,6 +9,7 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
     $s.submitDisabled = false
     $s.hasError = false
     $s.cost = 0
+    $s.quantity = 1
 
     # methods
     $s.refresh = (entryItemId) ->
@@ -18,8 +19,9 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
             $s.loading--
             $s.entryItem = entryItem
 
-            $s.cost = entryItem.cost
             $s.itemId = entryItem.item.id
+            $s.cost = entryItem.cost
+            $s.quantity = entryItem.quantity
         ItemService.query().then (items) ->
             $s.loading--
             $s.items = items
@@ -28,6 +30,7 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
             entry: entryItem.entry
             item: $s.items[$s.itemId]
             cost: $s.cost
+            quantity: $s.quantity
         EntryItemService.update(entryItem, newEntryItem).then((response) ->
             $l.path "/entry/#{entryItem.entry.id}"
         , (response) ->
