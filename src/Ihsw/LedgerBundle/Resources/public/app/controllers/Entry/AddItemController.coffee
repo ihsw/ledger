@@ -12,10 +12,10 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
     $s.quantity = 1
 
     # methods
-    $s.refresh = (entryId) ->
+    $s.refresh = () ->
         $s.loading = 2
 
-        EntryService.get(entryId).then (entry) ->
+        EntryService.get($r.entryId).then (entry) ->
             $s.loading--
             $s.entry = entry
         ItemService.query().then (items) ->
@@ -34,6 +34,6 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
         )
 
     # initial load
-    $s.refresh($r.entryId)
+    $s.refresh()
 controller.$inject = ['$rootScope', '$scope', '$location', '$routeParams', 'EntryService', 'ItemService', 'EntryItemService']
 window.module.controller 'EntryAddItemController', controller

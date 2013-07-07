@@ -4,7 +4,16 @@
 	<div ng-show='loading == 0'>
 		<form ng-submit='add()' class='form-horizontal'>
 			<fieldset>
-				<legend>Add Item</legend>
+				<legend>
+					<div class="row-fluid">
+						<div class="span8">
+							Add Item
+						</div>
+						<div class="span4">
+							<button type='button' class="btn btn-primary pull-right" ng-click='refresh()'><i class="icon-white icon-refresh"></i></button>
+						</div>
+					</div>
+				</legend>
 				<div class="control-group">
 					<label class="control-label">Item</label>
 					<div class="controls">
