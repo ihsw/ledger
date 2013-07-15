@@ -14,10 +14,15 @@
 						</div>
 					</div>
 				</legend>
+				<p class="alert alert-warning"><i class="icon-info-sign"></i> Empty items dropdown? Your collection probably has no items in it.</p>
 				<div class="control-group">
 					<label class="control-label">Item</label>
 					<div class="controls">
-						<select ng-model='item' ng-options='item.name for (itemId, item) in items'></select>
+						<select
+							ng-model='item'
+							ng-options='item.name for (itemId, item) in collection.items'
+							ng-change='change()'
+						></select>
 					</div>
 				</div>
 				<div class="control-group">

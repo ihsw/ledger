@@ -21,12 +21,28 @@ class BullshitCommand extends AbstractCommand
 		$doctrine = $container->get('doctrine');
 
 		// repositories
-		$entryRepository = $doctrine->getRepository('IhswLedgerBundle:Entry');
+		$em = $doctrine->getManager();
+		$entryRepository = $em->getRepository('IhswLedgerBundle:Entry');
+		$itemRepository = $em->getRepository('IhswLedgerBundle:Item');
+		$entryItemRepository = $em->getRepository('IhswLedgerBundle:EntryItem');
+		$collectionRepository = $em->getRepository('IhswLedgerBundle:Collection');
 
 		// bullshit
-		$entries = array_map(function($entry){
-			return $entry->toArray();
-		}, $entryRepository->findAll());
-		print_r($entries);
+		$items = $itemRepository->findAll();
+		foreach ($items as $item)
+		{
+			foreach ($item->getEntryItems() as $entryItem)
+			{
+				$em->remove($entryItem);
+			}
+			$em->remove($item);
+		}
+
+		$entries = $entryRepository->findAll();
+		foreach ($entries as $entry)
+		{
+			$em->remove($entry);
+		}
+		$em->flush();
 	}
 }

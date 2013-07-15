@@ -1,6 +1,6 @@
 controller = ($rootScope, $s, $l, $r, ItemService) ->
     # nav
-    $rootScope.section = 'items'
+    $rootScope.section = 'collections'
 
     # properties
     $s.loading = false
@@ -23,6 +23,7 @@ controller = ($rootScope, $s, $l, $r, ItemService) ->
             $s.name = item.name
             $s.item = item
         , (response) ->
+            $s.loading = false
             $s.hasError = true
         )
     $s.update = (item) ->
@@ -31,9 +32,9 @@ controller = ($rootScope, $s, $l, $r, ItemService) ->
         $s.submitDisabled = true
 
         ItemService.update(item, { name: $s.name }).then (item) ->
-            $l.path '/items'
+            $l.path "/collection/#{item.collection.id}"
 
     # initial load
     $s.refresh($r.itemId)
 controller.$inject = ['$rootScope', '$scope', '$location', '$routeParams', 'ItemService']
-window.module.controller 'ItemEditController', controller
+window.module.controller 'Item/EditController', controller

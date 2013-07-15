@@ -1,0 +1,39 @@
+<p class='alert alert-warning' ng-show='loading'>Loading...</p>
+<p class="alert alert-warning" ng-show='hasError'>ERROR!</p>
+<div ng-show='!loading && !hasError'>
+	<a ng-href='#/collection/new' class='btn btn-primary pull-right'><i class="icon-white icon-plus"></i> Add Collection</a>
+	<div class="row-fluid">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-show='(list|dictLength) == 0'>
+					<td colspan='3'><em>No collections found!</em></td>
+				</tr>
+				<tr ng-repeat='collection in list' ng-class='{"warning": listMetadata[item.id].deleteDisabled}'>
+					<th>{{collection.id}}</th>
+					<td>{{collection.name}}</td>
+					<td>
+						<div class="btn-group pull-right">
+							<a ng-href='#/collection/{{collection.id}}' class="btn btn-primary"><i class="icon-white icon-eye-open"></i> View</a>
+							<a ng-href='#/collection/{{collection.id}}/edit' class="btn btn-primary"><i class="icon-white icon-edit"></i> Edit</a>
+							<button
+								class='btn btn-danger'
+								ng-class='{"disabled": meta(collection).deleteDisabled.value}'
+								ng-click='delete(collection)'
+								tooltip='{{ meta(collection).deleteDisabled.tooltip }}'
+								tooltip-placement='right'
+								tooltip-append-to-body='true'
+							><i class="icon-white icon-trash"></i></button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

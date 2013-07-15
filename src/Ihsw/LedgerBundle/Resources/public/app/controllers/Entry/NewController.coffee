@@ -23,4 +23,4 @@ controller = ($rootScope, $s, $l, EntryService) ->
     # initial load
     $s.refresh()
 controller.$inject = ['$rootScope', '$scope', '$location', 'EntryService']
-window.module.controller 'EntryNewController', controller
+window.module.controller 'Entry/NewController', controller

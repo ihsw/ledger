@@ -6,16 +6,8 @@ service = ($http, $window) ->
     S.list = {}
 
     # functions
-    S.query = ->
-        S.list = {}
-
-        $http.get(R.generate('items')).then (response) ->
-            for i, item of response.data
-                S.list[item.id] = item
-
-            return S.list
     S.create = (item) ->
-        $http.post(R.generate('item_create'), item).then (response) ->
+        $http.post(R.generate('item_create', { collectionId: item.collection.id }), item).then (response) ->
             item = response.data
             S.list[item.id] = item
 

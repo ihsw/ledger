@@ -11,7 +11,7 @@
 			<tr ng-repeat='shit in list'>
 				<th>{{shit.id}}</th>
 				<td style='font-family: monospace; '>{{shit.value}}</td>
-				<td><button type='button' class="btn btn-danger btn-mini pull-right" ng-class='{"disabled": listMetadata[shit.id].deleteDisabled}' ng-click='delete(shit)'>Delete</button></td>
+				<td><button type='button' class="btn btn-danger btn-mini pull-right" ng-class='{"disabled": listMetadata[shit.id].deleteDisabled}' ng-click='delete(shit)'><i class="icon-white icon-trash"></i> Delete</button></td>
 			</tr>
 		</tbody>
 	</table>

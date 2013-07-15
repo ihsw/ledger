@@ -10,7 +10,10 @@ use Ihsw\LedgerBundle\Entity\Item;
 
 class ItemController extends Controller
 {
-    public function indexAction()
+    /**
+     * @ParamConverter("collection")
+     */
+    public function createAction($collection)
     {
         // services
         $request = $this->get('request');
@@ -18,28 +21,16 @@ class ItemController extends Controller
 
         // repositories
         $em = $doctrine->getManager();
+        $collectionRepository = $em->getRepository('IhswLedgerBundle:Collection');
         $itemRepository = $em->getRepository('IhswLedgerBundle:Item');
 
-        // fetching items
-        $items = $itemRepository->findAll();
-
-        return new JsonResponse($items);
-    }
-
-    public function createAction()
-    {
-        // services
-        $request = $this->get('request');
-        $doctrine = $this->get('doctrine');
-
-        // repositories
-        $em = $doctrine->getManager();
-        $itemRepository = $em->getRepository('IhswLedgerBundle:Item');
+        // gathering the content
+        $content = json_decode($request->getContent(), true);
 
         // inserting the item
-        $content = json_decode($request->getContent(), true);
         $item = new Item();
-        $item->setName($content['name']);
+        $item->setName($content['name'])
+            ->setCollection($collection);
         $em->persist($item);
         $em->flush();
 
@@ -71,7 +62,7 @@ class ItemController extends Controller
      */
     public function showAction($item)
     {
-        return new JsonResponse($item);
+        return new JsonResponse($item->jsonSerializeWithCollection());
     }
 
     /**
@@ -93,6 +84,6 @@ class ItemController extends Controller
         $em->persist($item);
         $em->flush();
 
-        return new JsonResponse($item);
+        return new JsonResponse($item->jsonSerializeWithCollection());
     }
 }

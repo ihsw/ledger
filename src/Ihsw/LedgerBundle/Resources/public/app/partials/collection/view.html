@@ -1,0 +1,39 @@
+<p class="alert alert-warning" ng-show='hasError'>ERROR!</p>
+<div ng-show='!hasError'>
+	<p class='alert alert-warning' ng-show='loading'>Loading...</p>
+	<div ng-show='!loading'>
+		<a class="btn btn-primary" ng-href='#/collections'><i class="icon-white icon-arrow-left"></i> Back</a>
+		<a class="btn btn-primary pull-right" ng-href='#/collection/{{collection.id}}/add-item'><i class="icon-white icon-plus"></i> Add Item</a>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Item</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-show='(collection.items|dictLength) == 0'>
+					<td colspan='5'><em>No items found!</em></td>
+				</tr>
+				<tr ng-repeat='item in collection.items'>
+					<th>{{ item.id }}</th>
+					<td>{{ item.name }}</td>
+					<td>
+						<div class="btn-group pull-right">
+							<a class='btn btn-primary' href="#/item/{{item.id}}/edit"><i class="icon-white icon-edit"></i> Edit</a>
+							<button
+								type='button'
+								class="btn btn-danger"
+								ng-class='{"disabled": meta(item).deleteDisabled.value}'
+								ng-click='deleteItem(item)'
+								tooltip='{{ meta(item).deleteDisabled.tooltip }}'
+								tooltip-placement='right'
+							><i class="icon-white icon-trash"></i></button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

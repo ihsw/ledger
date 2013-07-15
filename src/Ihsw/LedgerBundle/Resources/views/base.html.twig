@@ -7,6 +7,7 @@
 		{# stylesheets #}
 		{% stylesheets output='css/css.css' filter='cssrewrite'
 			'bundles/ihswledger/css/bootstrap.min.css'
+			'bundles/ihswledger/css/font-awesome.min.css'
 			'bundles/ihswledger/css/main.css'
 		%}
 			<link rel='stylesheet' href='{{ asset_url }}' />
@@ -19,13 +20,13 @@
 		{# loading js libraries and client code #}
 		{% javascripts output='js/js.js'
 			'bundles/ihswledger/js/angular.min.js'
-			'bundles/ihswledger/js/ui-bootstrap-tpls-0.3.0.min.js'
+			'bundles/ihswledger/js/ui-bootstrap-tpls-0.4.0.min.js'
 			'@IhswLedgerBundle/Resources/public/app/app.coffee'
-			'@IhswLedgerBundle/Resources/public/app/controllers/*'
-			'@IhswLedgerBundle/Resources/public/app/controllers/*/*'
+			'@IhswLedgerBundle/Resources/public/app/filters/*'
 			'@IhswLedgerBundle/Resources/public/app/services/*'
 			'@IhswLedgerBundle/Resources/public/app/directives/*'
-			'@IhswLedgerBundle/Resources/public/app/filters/*'
+			'@IhswLedgerBundle/Resources/public/app/controllers/*'
+			'@IhswLedgerBundle/Resources/public/app/controllers/*/*'
 		%}
 			<script type='text/javascript' src='{{ asset_url }}'></script>
 		{% endjavascripts %}
@@ -34,7 +35,8 @@
 		<div class='navbar navbar-fixed-top'>
 			<div class='navbar-inner'>
 				<div class='container'>
-					<a href='#/home' class='brand'>Ledger</a>
+					<a href='#/home' class='brand'><i class="icon-cloud"></i> Ledger</a>
+					<a href='#/entry/new' class="btn btn-success"><i class="icon-white icon-plus"></i> New Entry</a>
 				</div>
 			</div>
 		</div>
@@ -43,14 +45,14 @@
 				<div class="span3">
 					<div class="well" style="padding: 8px 0; ">
 						<ul class="nav nav-list">
-							<li ng-class='{"active": section == "items"}'><a href='#/items'><i class="icon-list"></i> Items</a></li>
+							<li ng-class='{"active": section == "collections"}'><a href='#/collections'><i class="icon-list"></i> Collections</a></li>
 							<li ng-class='{"active": section == "entries"}'><a href='#/entries'><i class="icon-calendar"></i> Entries</a></li>
-							<li ng-class='{"active": section == "bullshit"}'><a href='#/bullshit'><i class="icon-fire"></i> Bullshit</a></li>
+							<li ng-class='{"active": section == "bullshit"}'><a href='#/bullshit'><i class="icon-frown"></i> Bullshit</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="span9">
-					<div ng-view></div>
+					<div ng-view/>
 				</div>
 			</div>
 		</div>

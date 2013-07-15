@@ -7,7 +7,7 @@ controller = ($rootScope, $s, EntryService, $filter) ->
     $s.listMetadata = {}
     $s.list = {}
 
-    # functions
+    # methods
     $s.refresh = ->
         $s.loading = true
 
@@ -36,7 +36,11 @@ controller = ($rootScope, $s, EntryService, $filter) ->
         EntryService.delete(entry).then ->
             delete $s.listMetadata[entry.id]
 
+    # utility
+    $s.meta = (entry) ->
+        return $s.listMetadata[entry.id]
+
     # initial load
     $s.refresh()
 controller.$inject = ['$rootScope', '$scope', 'EntryService', '$filter']
-window.module.controller 'EntryController', controller
+window.module.controller 'Entry/IndexController', controller

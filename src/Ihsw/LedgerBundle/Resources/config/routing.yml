@@ -5,15 +5,41 @@ home:
     options:
         expose: true
 
-# items
-items:
-    pattern: /items
-    defaults: { _controller: IhswLedgerBundle:Item:index }
+# collections
+collections:
+    pattern: /collections
+    defaults: { _controller: IhswLedgerBundle:Collection:index }
     methods: [GET]
     options:
         expose: true
+collection_create:
+    pattern: /collections
+    defaults: { _controller: IhswLedgerBundle:Collection:create }
+    methods: [POST]
+    options:
+        expose: true
+collection_delete:
+    pattern: /collection/{collectionId}
+    defaults: { _controller: IhswLedgerBundle:Collection:destroy }
+    methods: [DELETE]
+    options:
+        expose: true
+collection_show:
+    pattern: /collection/{collectionId}
+    defaults: { _controller: IhswLedgerBundle:Collection:show }
+    methods: [GET]
+    options:
+        expose: true
+collection_update:
+    pattern: /collection/{collectionId}
+    defaults: { _controller: IhswLedgerBundle:Collection:update }
+    methods: [PUT]
+    options:
+        expose: true
+
+# items
 item_create:
-    pattern: /items
+    pattern: /collection/{collectionId}/items
     defaults: { _controller: IhswLedgerBundle:Item:create }
     methods: [POST]
     options:
@@ -91,6 +117,12 @@ entryitem_show:
 entryitem_update:
     pattern: /entryitem/{entryItemId}
     defaults: { _controller: IhswLedgerBundle:EntryItem:update }
+    methods: [PUT]
+    options:
+        expose: true
+entryitem_update_item:
+    pattern: /entryitem/{entryItemId}/update-item
+    defaults: { _controller: IhswLedgerBundle:EntryItem:updateItem }
     methods: [PUT]
     options:
         expose: true

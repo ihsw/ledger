@@ -1,4 +1,4 @@
-controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemService) ->
+controller = ($rootScope, $s, $l, $r, EntryService, CollectionService, EntryItemService) ->
     # nav
     $rootScope.section = 'entries'
 
@@ -14,14 +14,19 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
     # methods
     $s.refresh = () ->
         $s.loading = 2
+        $s.submitDisabled = true
 
         EntryService.get($r.entryId).then (entry) ->
             $s.loading--
             $s.entry = entry
-        ItemService.query().then (items) ->
+        CollectionService.get($r.collectionId).then (collection) ->
             $s.loading--
-            $s.items = items
+            $s.collection = collection
     $s.add = () ->
+        if $s.submitDisabled
+            return
+        $s.submitDisabled = true
+
         entryItem =
             entry: $s.entry
             item: $s.item
@@ -32,8 +37,10 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
         , (response) ->
             $s.hasError = true
         )
+    $s.change = () ->
+        $s.submitDisabled = false
 
     # initial load
     $s.refresh()
-controller.$inject = ['$rootScope', '$scope', '$location', '$routeParams', 'EntryService', 'ItemService', 'EntryItemService']
-window.module.controller 'EntryAddItemController', controller
+controller.$inject = ['$rootScope', '$scope', '$location', '$routeParams', 'EntryService', 'CollectionService', 'EntryItemService']
+window.module.controller 'Entry/AddItemController', controller

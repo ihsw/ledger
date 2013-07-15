@@ -1,9 +1,9 @@
 <p class="alert alert-warning" ng-show='hasError'>ERROR!</p>
 <p class="alert alert-warning" ng-show='loading'>Loading...</p>
 <div ng-show='!hasError && !loading'>
-	<form ng-submit='update(item)' class='form-horizontal'>
+	<form ng-submit='update(collection)' class='form-horizontal'>
 		<fieldset>
-			<legend>Update Item</legend>
+			<legend>Update Collection</legend>
 			<div class="control-group">
 				<label class="control-label">Name</label>
 				<div class="controls">
@@ -11,8 +11,8 @@
 				</div>
 			</div>
 			<div class="form-actions">
-				<button type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}'><i class="icon-white icon-edit"></i> Update Item</button>
-				<a class="btn" ng-href='#/collection/{{item.collection.id}}'>Cancel</a>
+				<button type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}'><i class="icon-white icon-edit"></i> Update Collection</button>
+				<a class="btn" ng-href='#/collections'>Cancel</a>
 			</div>
 		</fieldset>
 	</form>

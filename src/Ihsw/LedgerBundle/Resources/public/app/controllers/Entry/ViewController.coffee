@@ -33,4 +33,4 @@ controller = ($rootScope, $s, $r, EntryService, EntryItemService, $filter) ->
     # initial load
     $s.refresh($r.entryId)
 controller.$inject = ['$rootScope', '$scope', '$routeParams', 'EntryService', 'EntryItemService', '$filter']
-window.module.controller 'EntryViewController', controller
+window.module.controller 'Entry/ViewController', controller

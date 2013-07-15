@@ -35,4 +35,13 @@ class EntryRepository extends EntityRepository
 
 		return $result;
 	}
+
+	public function findAll()
+	{
+		return $this->createQueryBuilder("e")
+			->select("e")
+			->orderBy("e.occurredAt", "DESC")
+			->getQuery()
+			->getResult();
+	}
 }

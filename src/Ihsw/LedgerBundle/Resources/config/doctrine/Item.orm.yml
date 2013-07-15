@@ -15,4 +15,12 @@ Ihsw\LedgerBundle\Entity\Item:
         entryItems:
             targetEntity: EntryItem
             mappedBy: item
+    manyToOne:
+        collection:
+            targetEntity: Collection
+            inversedBy: items
+            joinColumn:
+                name: collection_id
+                referencedColumnName: id
+                nullable: false
     lifecycleCallbacks: {  }

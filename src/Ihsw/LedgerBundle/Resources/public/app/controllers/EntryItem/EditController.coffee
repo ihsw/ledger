@@ -3,9 +3,7 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
     $rootScope.section = 'entries'
 
     # properties
-    $s.loading = -1
-    $s.items = []
-    $s.itemId = -1
+    $s.loading = false
     $s.submitDisabled = false
     $s.hasError = false
     $s.cost = 0
@@ -13,18 +11,13 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
 
     # methods
     $s.refresh = (entryItemId) ->
-        $s.loading = 2
+        $s.loading = true
 
         EntryItemService.get(entryItemId).then (entryItem) ->
-            $s.loading--
+            $s.loading = false
             $s.entryItem = entryItem
-
-            $s.itemId = entryItem.item.id
             $s.cost = entryItem.cost
             $s.quantity = entryItem.quantity
-        ItemService.query().then (items) ->
-            $s.loading--
-            $s.items = items
     $s.update = (entryItem) ->
         newEntryItem =
             entry: entryItem.entry
@@ -39,5 +32,7 @@ controller = ($rootScope, $s, $l, $r, EntryService, ItemService, EntryItemServic
 
     # initial load
     $s.refresh($r.entryItemId)
-controller.$inject = ['$rootScope', '$scope', '$location', '$routeParams', 'EntryService', 'ItemService', 'EntryItemService']
-window.module.controller 'EntryItemEditController', controller
+controller.$inject = [
+    '$rootScope', '$scope', '$location', '$routeParams', 'EntryService', 'ItemService', 'EntryItemService'
+]
+window.module.controller 'EntryItem/EditController', controller

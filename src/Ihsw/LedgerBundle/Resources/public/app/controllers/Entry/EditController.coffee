@@ -23,6 +23,7 @@ controller = ($rootScope, $s, $l, $r, EntryService, $filter) ->
             $s.occurredAt = $filter('date') entry.occurred_at, 'MMM d, y h:mma'
             $s.entry = entry
         , (response) ->
+            $s.loading = false
             $s.hasError = true
         )
     $s.update = (entry) ->
@@ -36,4 +37,4 @@ controller = ($rootScope, $s, $l, $r, EntryService, $filter) ->
     # initial load
     $s.refresh($r.entryId)
 controller.$inject = ['$rootScope', '$scope', '$location', '$routeParams', 'EntryService', '$filter']
-window.module.controller 'EntryEditController', controller
+window.module.controller 'Entry/EditController', controller

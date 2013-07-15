@@ -60,6 +60,34 @@ class Item implements \JsonSerializable
             "name" => $this->getName()
         ];
     }
+
+    public function jsonSerializeWithCollection()
+    {
+        return [
+            "id" => $this->getId(),
+            "name" => $this->getName(),
+            "collection" => $this->getCollection()
+        ];
+    }
+
+    public function jsonSerializeWithEntryItems()
+    {
+        return [
+            "id" => $this->getId(),
+            "name" => $this->getName(),
+            "entry_items" => $this->getEntryItems()
+        ];
+    }
+
+    public function jsonSerializeWithEntryItemsAndCollection()
+    {
+        return [
+            "id" => $this->getId(),
+            "name" => $this->getName(),
+            "entry_items" => $this->getEntryItems(),
+            "collection" => $this->getCollection()
+        ];
+    }
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -104,5 +132,33 @@ class Item implements \JsonSerializable
     public function getEntryItems()
     {
         return $this->entryItems;
+    }
+    /**
+     * @var \Ihsw\LedgerBundle\Entity\Collection
+     */
+    private $collection;
+
+
+    /**
+     * Set collection
+     *
+     * @param \Ihsw\LedgerBundle\Entity\Collection $collection
+     * @return Item
+     */
+    public function setCollection(\Ihsw\LedgerBundle\Entity\Collection $collection = null)
+    {
+        $this->collection = $collection;
+
+        return $this;
+    }
+
+    /**
+     * Get collection
+     *
+     * @return \Ihsw\LedgerBundle\Entity\Collection 
+     */
+    public function getCollection()
+    {
+        return $this->collection;
     }
 }
