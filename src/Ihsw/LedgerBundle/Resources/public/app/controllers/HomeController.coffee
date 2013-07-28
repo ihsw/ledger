@@ -4,7 +4,7 @@ controller = ($rootScope, $s) ->
     # properties
 
     # methods
-    $s.greetings = ->
-    	alert 'HomeController'
+    $s.greet = (message) ->
+    	alert message
 controller.$inject = ['$rootScope', '$scope']
 window.module.controller 'HomeController', controller

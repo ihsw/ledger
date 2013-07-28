@@ -1,24 +1,26 @@
-<top-bar>
-	<top-bar-group>
-		<top-bar-button
+<bar target='top'>
+	<bar-group>
+		<bar-button
 			label="Jello"
 			class="btn-danger"
 			href='/bullshit'
 		/>
-	</top-bar-group>
-	<top-bar-group>
-		<top-bar-button
-			label="Sup"
-			class="btn-success"
-			callback='greetings()'
-		/>
-		<top-bar-button
+	</bar-group>
+</bar>
+<bar target='bottom'>
+	<bar-group>
+		<bar-button
 			label="Hmm"
 			class="btn-info"
-			callback='greetings()'
+			callback='greet("cunt")'
 		/>
-	</top-bar-group>
-</top-bar>
+		<bar-button
+			label="Sup"
+			class="btn-success"
+			callback='greet("asshole")'
+		/>
+	</bar-group>
+</bar>
 <div class='list-group'>
 	<a class="list-group-item" href='#'>
 		<h4 class="list-group-item-heading">Entries</h4>

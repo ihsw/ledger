@@ -1,17 +1,17 @@
 module = window.module = angular.module 'ledger', []
 
 # run
-run = ($rootScope, $l, TopBarService) ->
+run = ($rootScope, $l, BarService) ->
     # events
     $rootScope.$on '$routeChangeStart', (event, next, current) ->
-        TopBarService.resetGroups()
+        BarService.resetBarGroups()
 
     # properties
 
     # methods
     $rootScope.navigateTo = (path) ->
         $l.path path
-run.$inject = ['$rootScope', '$location', 'TopBarService']
+run.$inject = ['$rootScope', '$location', 'BarService']
 module.run run
 
 # config

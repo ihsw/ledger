@@ -11,16 +11,16 @@ controller = ($s, $f) ->
 	return @
 controller.$inject = ['$scope', '$filter']
 
-link = ($s, element, attrs, TopBarController) ->
+link = ($s, element, attrs, BarController) ->
 	group =
-		id: TopBarController.getGroupCount()
+		id: BarController.getGroupCount()
 		label: $s.$id
 		buttons: $s.buttons
-	TopBarController.addGroup group
+	BarController.addGroup group
 
-window.module.directive 'topBarGroup', ->
+window.module.directive 'barGroup', ->
 	return {
-		require: '^topBar'
+		require: '^bar'
 		restrict: 'E'
 		controller: controller
 		link: link
