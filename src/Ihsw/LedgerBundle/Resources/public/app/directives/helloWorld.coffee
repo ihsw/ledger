@@ -3,6 +3,6 @@ window.module.directive 'helloWorld', [() ->
 		restrict: 'E'
 		scope:
 			name: '@name'
-		templateUrl: 'app/partials/items.html'
+		templateUrl: 'app/partials/hello.html'
 	}
 ]

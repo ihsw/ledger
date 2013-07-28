@@ -1,4 +1,10 @@
-controller = ($rootScope) ->
+controller = ($rootScope, $s) ->
     $rootScope.section = 'home'
-controller.$inject = ['$rootScope']
+
+    # properties
+
+    # methods
+    $s.greetings = ->
+    	console.log 'sup'
+controller.$inject = ['$rootScope', '$scope']
 window.module.controller 'HomeController', controller

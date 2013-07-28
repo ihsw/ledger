@@ -1,4 +1,13 @@
-module = window.module = angular.module 'ledger', ['ui.bootstrap']
+module = window.module = angular.module 'ledger', []
+
+# run
+run = ($rootScope, TopBarService) ->
+    $rootScope.$on '$routeChangeStart', (event, next, current) ->
+        TopBarService.resetButtons()
+run.$inject = ['$rootScope', 'TopBarService']
+module.run run
+
+# config
 config = ($routeProvider) ->
     $routeProvider.
         # misc
@@ -77,6 +86,5 @@ config = ($routeProvider) ->
 
         # finally
         otherwise({ redirectTo: '/home' })
-
 config.$inject = ['$routeProvider']
 module.config config

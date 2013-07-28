@@ -8,9 +8,9 @@ assetic:
             bin: /usr/local/bin/coffee
             node: /usr/local/bin/node
             apply_to: "\.coffee$"
-        yui_js:
-            jar: %kernel.root_dir%/java/yuicompressor-2.4.7.jar
-            apply_to: "\.js$"
+        # yui_js:
+        #     jar: %kernel.root_dir%/java/yuicompressor-2.4.7.jar
+        #     apply_to: "\.js$"
         yui_css:
             jar: %kernel.root_dir%/java/yuicompressor-2.4.7.jar
             apply_to: "\.css$"

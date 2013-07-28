@@ -28,21 +28,104 @@ class BullshitCommand extends AbstractCommand
 		$collectionRepository = $em->getRepository('IhswLedgerBundle:Collection');
 
 		// bullshit
-		$items = $itemRepository->findAll();
-		foreach ($items as $item)
-		{
-			foreach ($item->getEntryItems() as $entryItem)
+
+		// fetching the lines
+		$filepath = "/home/adrian/downloads/access.log";
+		$contents = file_get_contents($filepath);
+		$lines = explode("\n", $contents);
+
+		// formatting it
+		$dataList = array_map(function($line){
+			// removing the timezone
+			$line = str_replace(" +0000", "", $line);
+
+			// splitting on a space and removing trailing quotes
+			$line = array_map(function($line){
+				return trim($line, '"');
+			}, explode(" ", $line, 11));
+
+			// something happened and error 400 pages weren't getting through
+			if (array_key_exists(6, $line))
 			{
-				$em->remove($entryItem);
+				if ($line[6] === "400")
+				{
+					$newLine = [];
+					foreach ($line as $i => $value)
+					{
+						if ($i === 6)
+						{
+							$newLine[6] = "fucked";
+						}
+						elseif ($i > 6)
+						{
+							$newLine[$i+1] = $value;
+						}
+						elseif ($i < 6)
+						{
+							$newLine[$i] = $value;
+						}
+					}
+					$line = $newLine;
+				}
 			}
-			$em->remove($item);
+
+			return $line;
+		}, $lines);
+		
+		// gathering counts
+		$keys = [];
+		foreach ($dataList as $data)
+		{
+			foreach ($data as $i => $value)
+			{
+				$keys[$i] = [];
+			}
+		}
+		foreach ($dataList as $data)
+		{
+			foreach ($data as $i => $value)
+			{
+				$keys[$i][$value] = 0;
+			}
+		}
+		foreach ($dataList as $data)
+		{
+			foreach ($data as $i => $value)
+			{
+				$keys[$i][$value]++;
+			}
 		}
 
-		$entries = $entryRepository->findAll();
-		foreach ($entries as $entry)
+		// sorting them
+		foreach ($keys as $i => $counts)
 		{
-			$em->remove($entry);
+			arsort($keys[$i]);
 		}
-		$em->flush();
+
+		// dividing them
+		$sourceIps = $keys[0];
+		$datesOccurred = $keys[3];
+		$httpMethods = $keys[4];
+		$destinationPaths = $keys[5];
+		$httpVersions = $keys[6];
+		$httpStatuses = $keys[7];
+		$responseSize = $keys[8];
+		$referrers = $keys[9];
+		$userAgents = $keys[10];
+
+		// transforming the dates occurred
+		$keys = array_map(function($dateOccurred){
+			// 25/Jul/2013:00:45:40
+			$matches = [];
+			preg_match("/\[(\d+)\/(\w+)\/(\d+)\:(\d+)\:(\d+)\:(\d+)\]/", $dateOccurred, $matches);
+			list($na, $day, $month, $year, $hour, $minute, $second) = $matches;
+			$datetime = new \DateTime(vsprintf("%s-%s-%s %s:%s:%s", array(
+				$year, $month, $day,
+				$hour, $minute, $second
+			)));
+			return $datetime->format("F j, Y h:i:sA");
+		}, array_keys($datesOccurred));
+		$datesOccurred = array_combine($keys, $datesOccurred);
+		print_r(array_slice($datesOccurred, 0, 10, true));
 	}
 }

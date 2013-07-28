@@ -3,6 +3,7 @@
 	<head>
 		<title>Ledger</title>
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
 		{# stylesheets #}
 		{% stylesheets output='css/css.css' filter='cssrewrite'
@@ -14,13 +15,12 @@
 		{% endstylesheets %}
 
 		{# loading the router #}
-		<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-		<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+		<script src='{{ asset('bundles/fosjsrouting/js/router.js') }}'></script>
+		<script src='{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}'></script>
 
 		{# loading js libraries and client code #}
 		{% javascripts output='js/js.js'
 			'bundles/ihswledger/js/angular.min.js'
-			'bundles/ihswledger/js/ui-bootstrap-tpls-0.4.0.min.js'
 			'@IhswLedgerBundle/Resources/public/app/app.coffee'
 			'@IhswLedgerBundle/Resources/public/app/filters/*'
 			'@IhswLedgerBundle/Resources/public/app/services/*'
@@ -32,29 +32,27 @@
 		{% endjavascripts %}
 	</head>
 	<body>
-		<div class='navbar navbar-fixed-top'>
-			<div class='navbar-inner'>
-				<div class='container'>
-					<a href='#/home' class='brand'><i class="icon-cloud"></i> Ledger</a>
-					<a href='#/entry/new' class="btn btn-success"><i class="icon-white icon-plus"></i> New Entry</a>
+		<div class='navbar navbar-fixed-top ledger-nav'>
+			<div class='container'>
+				<div class='btn-toolbar'>
+					<div class='btn-group'>
+						<button type='button' ng-click='navigateTo("/home")' class='btn btn-default navbar-btn'><i class='icon-cloud'></i> Ledger</a>
+					</div>
+					<top-bar-container/>
+				</div>
+			</div>
+		</div>
+		<div class='navbar navbar-fixed-bottom ledger-nav'>
+			<div class='container'>
+				<div class='btn-toolbar'>
+					<div class='btn-group'>
+						<button type='button' ng-click='navigateTo("/home")' class='btn btn-default navbar-btn'><i class='icon-chevron-left'></i></a>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class='container'>
-			<div class="row">
-				<div class="span3">
-					<div class="well" style="padding: 8px 0; ">
-						<ul class="nav nav-list">
-							<li ng-class='{"active": section == "collections"}'><a href='#/collections'><i class="icon-list"></i> Collections</a></li>
-							<li ng-class='{"active": section == "entries"}'><a href='#/entries'><i class="icon-calendar"></i> Entries</a></li>
-							<li ng-class='{"active": section == "bullshit"}'><a href='#/bullshit'><i class="icon-frown"></i> Bullshit</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="span9">
-					<div ng-view/>
-				</div>
-			</div>
+			<div ng-view/>
 		</div>
 	</body>
 </html>
