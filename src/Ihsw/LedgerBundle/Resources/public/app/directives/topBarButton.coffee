@@ -18,17 +18,18 @@ controller = ($s, $l) ->
 	$s.$l = $l
 controller.$inject = ['$scope', '$location']
 
-link = ($s, element, attrs, TopBarController) ->
+link = ($s, element, attrs, TopBarGroupController) ->
 	button =
+		id: TopBarGroupController.getButtonCount()
 		label: attrs.label
 		class: attrs.class
 		call: ->
 			call($s, attrs)
-	TopBarController.addButton button
+	TopBarGroupController.addButton button
 
 window.module.directive 'topBarButton', ->
 	return {
-		require: '^topBar'
+		require: '^topBarGroup'
 		restrict: 'E'
 		scope:
 			callback: '&'

@@ -1,8 +1,10 @@
-<div class='btn-group'>
-	<button
-		type='button'
-		ng-repeat='button in buttons'
-		ng-click='button.call()'
-		class='btn navbar-btn {{ button.class }}'
-	>{{ button.label }}</button>
+<div>
+	<div class='btn-group' ng-repeat='group in groups' style='margin-left: 5px; '>
+		<button
+			type='button'
+			ng-repeat='button in group.buttons'
+			ng-click='button.call()'
+			class='btn navbar-btn {{ button.class }}'
+		>{{ button.id }}. {{ button.label }}</button>
+	</div>
 </div>

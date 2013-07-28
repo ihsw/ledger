@@ -7,12 +7,12 @@ service = ->
     # methods
     S.initialize = ($directiveScope) ->
         S.$directiveScope = $directiveScope
-    S.addButton = (button) ->
-        S.$directiveScope.buttons.push button
-    S.resetButtons = ->
-        if 'resetButtons' not of S.$directiveScope
+    S.setGroups = (groups) ->
+        S.$directiveScope.setGroups groups
+    S.resetGroups = ->
+        if 'resetGroups' not of S.$directiveScope
             return
-        S.$directiveScope.resetButtons()
+        S.$directiveScope.resetGroups()
 
     return S
 window.module.service 'TopBarService', service

@@ -1,9 +1,23 @@
 <top-bar>
-	<top-bar-button
-		label="Jello"
-		class="btn-danger"
-		href='/bullshit'
-	/>
+	<top-bar-group>
+		<top-bar-button
+			label="Jello"
+			class="btn-danger"
+			href='/bullshit'
+		/>
+	</top-bar-group>
+	<top-bar-group>
+		<top-bar-button
+			label="Sup"
+			class="btn-success"
+			callback='greetings()'
+		/>
+		<top-bar-button
+			label="Hmm"
+			class="btn-info"
+			callback='greetings()'
+		/>
+	</top-bar-group>
 </top-bar>
 <div class='list-group'>
 	<a class="list-group-item" href='#'>

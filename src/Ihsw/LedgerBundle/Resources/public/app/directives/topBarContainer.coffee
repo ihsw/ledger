@@ -1,15 +1,16 @@
 controller = ($s, $l, TopBarService) ->
 	# properties
-	$s.buttons = []
+	$s.groups = {}
 
 	# methods
 	$s.refresh = ->
-		$s.resetButtons()
+		$s.resetGroups()
 		TopBarService.initialize $s
-	$s.addButton = (button) ->
-		$s.buttons.push button
-	$s.resetButtons = ->
-		$s.buttons = []
+	$s.setGroups = (groups) ->
+		console.log groups
+		$s.groups = groups
+	$s.resetGroups = ->
+		$s.groups = {}
 
 	# refreshing
 	$s.refresh()

@@ -5,6 +5,6 @@ controller = ($rootScope, $s) ->
 
     # methods
     $s.greetings = ->
-    	console.log 'HomeController'
+    	alert 'HomeController'
 controller.$inject = ['$rootScope', '$scope']
 window.module.controller 'HomeController', controller

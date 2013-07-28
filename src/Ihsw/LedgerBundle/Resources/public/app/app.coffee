@@ -4,7 +4,7 @@ module = window.module = angular.module 'ledger', []
 run = ($rootScope, $l, TopBarService) ->
     # events
     $rootScope.$on '$routeChangeStart', (event, next, current) ->
-        TopBarService.resetButtons()
+        TopBarService.resetGroups()
 
     # properties
 
