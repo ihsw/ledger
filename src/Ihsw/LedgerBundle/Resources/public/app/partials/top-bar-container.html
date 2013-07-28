@@ -2,7 +2,7 @@
 	<button
 		type='button'
 		ng-repeat='button in buttons'
-		ng-click='button._callback()'
+		ng-click='button.call()'
 		class='btn navbar-btn {{ button.class }}'
 	>{{ button.label }}</button>
 </div>

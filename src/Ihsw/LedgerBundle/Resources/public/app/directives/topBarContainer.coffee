@@ -4,15 +4,16 @@ controller = ($s, $l, TopBarService) ->
 
 	# methods
 	$s.refresh = ->
+		$s.resetButtons()
+		TopBarService.initialize $s
+	$s.addButton = (button) ->
+		$s.buttons.push button
+	$s.resetButtons = ->
 		$s.buttons = []
 
-	# initialization
+	# refreshing
 	$s.refresh()
-	TopBarService.initialize $s
 controller.$inject = ['$scope', '$location', 'TopBarService']
-
-link = ($s, element, attrs) ->
-	# hmm!
 
 window.module.directive 'topBarContainer', () ->
 	return {
@@ -20,5 +21,4 @@ window.module.directive 'topBarContainer', () ->
 		replace: true
 		templateUrl: 'app/partials/top-bar-container.html'
 		controller: controller
-		link: link
 	}
