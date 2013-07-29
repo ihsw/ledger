@@ -1,8 +1,8 @@
-call = ($s, attrs) ->
+# misc functions
+call = ($s, $l, attrs) ->
 	# misc
 	callback = attrs.callback ? null
 	href = attrs.href ? null
-	$l = $s.$l
 
 	# handling
 	if callback != null
@@ -14,25 +14,55 @@ call = ($s, attrs) ->
 	else if href != null
 		$l.path href
 
+# controller
 controller = ($s, $l) ->
+	# properties
+	$s.button = {}
+	$s.BarGroupController = {}
 	$s.$l = $l
+
+	# watching the disabled property, and pushing it up on update
+	$s.$watch 'disabled', ->
+		if typeof $s.disabled == 'undefined'
+			return
+
+		if $s.disabled == false
+			i = $s.button.classes.indexOf 'disabled'
+			if i < 0
+				return
+			$s.button.classes.splice i, 1
+			return
+
+		$s.button.classes.push 'disabled'
+
+	return @
 controller.$inject = ['$scope', '$location']
 
+# link
 link = ($s, element, attrs, BarGroupController) ->
-	button =
+	# properties
+	$s.BarGroupController = BarGroupController
+
+	# generating a button
+	button = $s.button =
 		id: BarGroupController.getButtonCount()
 		label: attrs.label
-		class: attrs.class
+		classes: attrs.class.split(' ')
+		icon: attrs.icon
 		call: ->
-			call($s, attrs)
+			call($s, $s.$l, attrs)
+
+	# pushing it up
 	BarGroupController.addButton button
 
+# directive definition
 window.module.directive 'barButton', ->
 	return {
 		require: '^barGroup'
 		restrict: 'E'
 		scope:
 			callback: '&'
+			disabled: '='
 		controller: controller
 		link: link
 	}

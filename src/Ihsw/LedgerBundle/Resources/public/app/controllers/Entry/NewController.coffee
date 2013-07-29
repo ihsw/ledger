@@ -18,7 +18,7 @@ controller = ($rootScope, $s, $l, EntryService) ->
 
         EntryService.create({occurredAt: $s.occurredAt}).then (entry) ->
             $s.refresh()
-            $l.path "/entry/#{entry.id}/add-item"
+            $l.path "/entry/#{entry.id}/select-collection"
 
     # initial load
     $s.refresh()

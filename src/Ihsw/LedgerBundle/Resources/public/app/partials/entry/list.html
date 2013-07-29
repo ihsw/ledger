@@ -1,47 +1,85 @@
+<bar target='bottom'>
+	<bar-group>
+		<bar-button
+			label="New Entry"
+			class="btn-success"
+			href='/entry/new'
+			icon='icon-white icon-plus'
+		/>
+	</bar-group>
+</bar>
+<bar target='top-left-lg'>
+	<bar-group>
+		<bar-button
+			label="New Entry"
+			class="btn-success"
+			href='/entry/new'
+			icon='icon-white icon-plus'
+		/>
+	</bar-group>
+</bar>
+<bar target='top-right'>
+	<bar-group>
+		<bar-button
+			class='btn-primary'
+			disabled='loading'
+			callback='refresh()'
+			icon='icon-refresh'
+		/>
+	</bar-group>
+</bar>
 <p class='alert alert-warning' ng-show='loading'>Loading...</p>
 <div ng-show='!loading'>
-	<a ng-href='#/entry/new' class='btn btn-primary pull-right'><i class="icon-white icon-plus"></i> Create Entry</a>
-	<div class="row-fluid">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Occurred At</th>
-					<th>Cost</th>
-					<th># of Items</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-show='(list|dictLength) == 0'>
-					<td colspan='5'><em>No entries found!</em></td>
-				</tr>
-				<tr ng-repeat='entry in list'>
-					<th>{{ entry.id }}</th>
-					<td>{{ entry.occurred_at|date:'MMM d, y h:mma' }}</td>
-					<td>{{ entry.entry_items|entryItemsTotalCost|currency }}</td>
-					<td>{{ entry.entry_items|entryItemsTotalQuantity }}</td>
-					<td>
-						<div class="btn-group pull-right">
-							<a class='btn btn-primary' ng-href='#/entry/{{entry.id}}'><i class="icon-white icon-eye-open"></i> View</a>
-							<a class='btn btn-primary' ng-href='#/entry/{{entry.id}}/edit'><i class="icon-white icon-edit"></i> Edit</a>
-							<button
-								class="btn btn-danger"
-								ng-click='delete(entry)'
-								ng-class='{"disabled": meta(entry).deleteDisabled.value}'
-								tooltip='{{ meta(entry).deleteDisabled.tooltip }}'
-								tooltip-placement='right'
-							><i class="icon-white icon-trash"></i></button>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th colspan='3' style='text-align: right; '>Total</th>
-					<td colspan='2'>{{ list|entriesTotalCost|currency }}</td>
-				</tr>
-			</tfoot>
-		</table>
+	<p class='alert alert-warning' ng-show='(list|dictLength) == 0'>No entries found!</p>
+	<div class='list-group' ng-repeat='entry in list'>
+		<a class="list-group-item" ng-href='#/entry/{{entry.id}}'>
+			<h4 class="list-group-item-heading">{{ entry.occurred_at|date:'MMM d, y h:mma' }}</h4>
+			<span class="badge">{{ entry.entry_items|entryItemsTotalCost|currency }}</span>
+			<p class="list-group-item-text">Items: {{ entry.entry_items|entryItemsTotalQuantity }}</p>
+		</a>
 	</div>
+	<!--
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Occurred At</th>
+				<th>Cost</th>
+				<th># of Items</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-show='(list|dictLength) == 0'>
+				<td colspan='5'><em>No entries found!</em></td>
+			</tr>
+			<tr ng-repeat='entry in list'>
+				<th>{{ entry.id }}</th>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+
+					<div class="btn-group pull-right">
+						<a class='btn btn-primary' ng-href='#/entry/{{entry.id}}'><i class="icon-white icon-eye-open"></i> View</a>
+						<a class='btn btn-primary' ng-href='#/entry/{{entry.id}}/edit'><i class="icon-white icon-edit"></i> Edit</a>
+						<button
+							class="btn btn-danger"
+							ng-click='delete(entry)'
+							ng-class='{"disabled": meta(entry).deleteDisabled.value}'
+							tooltip='{{ meta(entry).deleteDisabled.tooltip }}'
+							tooltip-placement='right'
+						><i class="icon-white icon-trash"></i></button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan='3' style='text-align: right; '>Total</th>
+				<td colspan='2'>{{ list|entriesTotalCost|currency }}</td>
+			</tr>
+		</tfoot>
+	</table>
+-->
 </div>

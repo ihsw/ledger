@@ -1,6 +1,9 @@
+# controller
 controller = ($s, $f) ->
 	# properties
+	$s.group = {}
 	$s.buttons = {}
+	$s.BarController = {}
 
 	# methods
 	@addButton = (button) ->
@@ -11,13 +14,21 @@ controller = ($s, $f) ->
 	return @
 controller.$inject = ['$scope', '$filter']
 
+# link
 link = ($s, element, attrs, BarController) ->
-	group =
+	# properties
+	$s.BarController = BarController
+
+	# generating a group
+	group = $s.group =
 		id: BarController.getGroupCount()
 		label: $s.$id
 		buttons: $s.buttons
+
+	# pushing it up
 	BarController.addGroup group
 
+# directive definition
 window.module.directive 'barGroup', ->
 	return {
 		require: '^bar'

@@ -34,22 +34,35 @@
 	<body>
 		<div class='navbar navbar-fixed-top ledger-nav'>
 			<div class='container'>
-				<div class='btn-toolbar'>
-					<div class='btn-group'>
-						<button type='button' ng-click='navigateTo("/home")' class='btn btn-default navbar-btn'><i class='icon-cloud'></i> Ledger</a>
+				<div class='btn-toolbar pull-left'>
+					<div class='btn-group' style='margin-left: 5px; '>
+						<button
+							type='button'
+							ng-click='navigateTo("/home")'
+							class='btn btn-default navbar-btn'
+						><i class='icon-cloud'></i> Ledger</a>
 					</div>
 					<bar-container name='top' />
 				</div>
-			</div>
-		</div>
-		<div class='navbar navbar-fixed-bottom ledger-nav'>
-			<div class='container'>
-				<div class='btn-toolbar'>
-					<bar-container name='bottom' />
+				<div class="btn-toolbar pull-left visible-lg">
+					<bar-container name='top-left-lg' />
+				</div>
+				<div class="btn-toolbar pull-right hidden-lg">
+					<bar-container name='top-right' />
 				</div>
 			</div>
 		</div>
-		<div class='container'>
+		<div class='navbar navbar-fixed-bottom ledger-nav hidden-lg'>
+			<div class='container'>
+				<div class='btn-toolbar pull-left'>
+					<bar-container name='bottom' />
+				</div>
+				<div class="btn-toolbar pull-right">
+					<bar-container name='bottom-right' />
+				</div>
+			</div>
+		</div>
+		<div class='container ledger-container'>
 			<div ng-view/>
 		</div>
 	</body>
