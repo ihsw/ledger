@@ -1,5 +1,5 @@
 filter = ->
-	return (dict) ->
+    return (dict) ->
         size = 0
         for key, value of dict
             if dict.hasOwnProperty key

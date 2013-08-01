@@ -1,47 +1,47 @@
 <p class="alert alert-warning" ng-show='hasError'>ERROR!</p>
 <div ng-show='!hasError'>
-	<p class='alert alert-warning' ng-show='loading > 0'>Loading...</p>
-	<div ng-show='loading == 0'>
-		<form ng-submit='add()' class='form-horizontal'>
-			<fieldset>
-				<legend>
-					<div class="row-fluid">
-						<div class="span8">
-							Add Item
-						</div>
-						<div class="span4">
-							<button type='button' class="btn btn-primary pull-right" ng-click='refresh()'><i class="icon-white icon-refresh"></i></button>
-						</div>
-					</div>
-				</legend>
-				<p class="alert alert-warning"><i class="icon-info-sign"></i> Empty items dropdown? Your collection probably has no items in it.</p>
-				<div class="control-group">
-					<label class="control-label">Item</label>
-					<div class="controls">
-						<select
-							ng-model='item'
-							ng-options='item.name for (itemId, item) in collection.items'
-							ng-change='change()'
-						></select>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">Cost</label>
-					<div class="controls">
-						<input type='text' ng-model='cost'>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">Quantity</label>
-					<div class="controls">
-						<input type='text' ng-model='quantity'>
-					</div>
-				</div>
-				<div class="form-actions">
-					<input type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}' value='Submit'>
-					<a class="btn" ng-href='#/entry/{{entry.id}}'>Cancel</a>
-				</div>
-			</fieldset>
-		</form>
-	</div>
+    <p class='alert alert-warning' ng-show='loading > 0'>Loading...</p>
+    <div ng-show='loading == 0'>
+        <form ng-submit='add()' class='form-horizontal'>
+            <fieldset>
+                <legend>
+                    <div class="row-fluid">
+                        <div class="span8">
+                            Add Item
+                        </div>
+                        <div class="span4">
+                            <button type='button' class="btn btn-primary pull-right" ng-click='refresh()'><i class="icon-white icon-refresh"></i></button>
+                        </div>
+                    </div>
+                </legend>
+                <p class="alert alert-warning"><i class="icon-info-sign"></i> Empty items dropdown? Your collection probably has no items in it.</p>
+                <div class="control-group">
+                    <label class="control-label">Item</label>
+                    <div class="controls">
+                        <select
+                            ng-model='item'
+                            ng-options='item.name for (itemId, item) in collection.items'
+                            ng-change='change()'
+                        ></select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Cost</label>
+                    <div class="controls">
+                        <input type='text' ng-model='cost'>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Quantity</label>
+                    <div class="controls">
+                        <input type='text' ng-model='quantity'>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <input type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}' value='Submit'>
+                    <a class="btn" ng-href='#/entry/{{entry.id}}'>Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </div>

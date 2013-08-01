@@ -1,44 +1,64 @@
+<bar target='top-right'>
+    <bar-group>
+        <bar-button
+            label="Back"
+            class='btn-link'
+            href='/entries'
+        />
+    </bar-group>
+    <bar-group>
+        <bar-button
+            class='btn-success'
+            label='Add Item'
+            href='#/entry/{{entry.id}}/select-collection'
+            icon='icon-white icon-plus'
+            disabled='loading'
+        />
+    </bar-group>
+</bar>
 <div ng-show='hasError'>
-	<p class="alert alert-warning">ERROR!</p>
+    <p class="alert alert-warning">ERROR!</p>
 </div>
 <div ng-show='!hasError'>
-	<p class='alert alert-warning' ng-show='loading'>Loading...</p>
-	<div ng-show='!loading'>
-		<a class="btn btn-primary" ng-href='#/entries'><i class="icon-white icon-arrow-left"></i> Back</a>
-		<a class="btn btn-primary pull-right" ng-href='#/entry/{{entry.id}}/select-collection'><i class="icon-white icon-plus"></i> Add Item</a>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Item</th>
-					<th>Cost</th>
-					<th>Quantity</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-show='(entry.entry_items|dictLength) == 0'>
-					<td colspan='5'><em>No entry-items found!</em></td>
-				</tr>
-				<tr ng-repeat='entry_item in entry.entry_items'>
-					<th>{{ entry_item.id }}</th>
-					<td>{{ entry_item.item.name }}</td>
-					<td>{{ (entry_item.cost * entry_item.quantity)|currency }}</td>
-					<td>{{ entry_item.quantity }}</td>
-					<td>
-						<div class="btn-group pull-right">
-							<a class='btn btn-primary' href="#/entry-item/{{entry_item.id}}/edit"><i class="icon-white icon-edit"></i> Edit</a>
-							<button type='button' class="btn btn-danger" ng-class='{"disabled": entryItemMetadata[entry_item.id].deleteDisabled}' ng-click='deleteEntryItem(entry_item)'><i class="icon-white icon-trash"></i></button>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th colspan='2' style='text-align: right; '>Total</th>
-					<td colspan='3'>{{ entry.entry_items|entryItemsTotalCost|currency }}</td>
-				</tr>
-			</tfoot>
-		</table>
-	</div>
+    <p class='alert alert-warning' ng-show='loading'>Loading...</p>
+    <div ng-show='!loading'>
+        <div class="btn-group">
+            <a href='#' ng-click='delete(entry)' class="btn btn-danger btn-mini"><i class="icon-white icon-trash"></i> Delete This Entry</a>
+            <a href='#' class="btn btn-primary btn-mini"><i class="icon-white icon-edit"></i> Edit This Entry</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Item</th>
+                    <th>Cost</th>
+                    <th>Quantity</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-show='(entry.entry_items|dictLength) == 0'>
+                    <td colspan='5'><em>No entry-items found!</em></td>
+                </tr>
+                <tr ng-repeat='entry_item in entry.entry_items'>
+                    <th>{{ entry_item.id }}</th>
+                    <td>{{ entry_item.item.name }}</td>
+                    <td>{{ (entry_item.cost * entry_item.quantity)|currency }}</td>
+                    <td>{{ entry_item.quantity }}</td>
+                    <td>
+                        <div class="btn-group pull-right">
+                            <a class='btn btn-primary' href="#/entry-item/{{entry_item.id}}/edit"><i class="icon-white icon-edit"></i> Edit</a>
+                            <button type='button' class="btn btn-danger" ng-class='{"disabled": entryItemMetadata[entry_item.id].deleteDisabled}' ng-click='deleteEntryItem(entry_item)'><i class="icon-white icon-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan='2' style='text-align: right; '>Total</th>
+                    <td colspan='3'>{{ entry.entry_items|entryItemsTotalCost|currency }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>

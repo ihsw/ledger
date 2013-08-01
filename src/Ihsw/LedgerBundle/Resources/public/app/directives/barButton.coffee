@@ -1,68 +1,67 @@
 # misc functions
-call = ($s, $l, attrs) ->
-	# misc
-	callback = attrs.callback ? null
-	href = attrs.href ? null
+call = ($s, $l, href, callback) ->
+    # misc
+    callback = callback ? null
+    href = href ? null
 
-	# handling
-	if callback != null
-		phase = $s.$root.$$phase
-		if phase == '$apply' or phase == '$digest'
-			$s.$eval $s.callback
-		else
-			$s.$apply $s.callback
-	else if href != null
-		$l.path href
+    # handling
+    if callback != null
+        phase = $s.$root.$$phase
+        if phase == '$apply' or phase == '$digest'
+            $s.$eval $s.callback
+        else
+            $s.$apply $s.callback
+    else if href != null
+        $l.path href
 
 # controller
 controller = ($s, $l) ->
-	# properties
-	$s.button = {}
-	$s.BarGroupController = {}
-	$s.$l = $l
+    # scope properties
+    $s.button = {}
 
-	# watching the disabled property, and pushing it up on update
-	$s.$watch 'disabled', ->
-		if typeof $s.disabled == 'undefined'
-			return
+    # scope methods
+    $s.call = (href, callback) ->
+        call $s, $l, href, callback
 
-		if $s.disabled == false
-			i = $s.button.classes.indexOf 'disabled'
-			if i < 0
-				return
-			$s.button.classes.splice i, 1
-			return
+    # scope watches
+    $s.$watch 'disabled', ->
+        if typeof $s.disabled == 'undefined'
+            return
 
-		$s.button.classes.push 'disabled'
+        if $s.disabled == false
+            i = $s.button.classes.indexOf 'disabled'
+            if i < 0
+                return
+            $s.button.classes.splice i, 1
+            return
 
-	return @
+        $s.button.classes.push 'disabled'
+
+    return @
 controller.$inject = ['$scope', '$location']
 
 # link
 link = ($s, element, attrs, BarGroupController) ->
-	# properties
-	$s.BarGroupController = BarGroupController
+    # generating a button
+    button = $s.button =
+        id: BarGroupController.getButtonCount()
+        label: attrs.label
+        classes: attrs.class.split(' ')
+        icon: attrs.icon
+        call: ->
+            $s.call attrs.href, attrs.callback
 
-	# generating a button
-	button = $s.button =
-		id: BarGroupController.getButtonCount()
-		label: attrs.label
-		classes: attrs.class.split(' ')
-		icon: attrs.icon
-		call: ->
-			call($s, $s.$l, attrs)
-
-	# pushing it up
-	BarGroupController.addButton button
+    # pushing it up
+    BarGroupController.addButton button
 
 # directive definition
 window.module.directive 'barButton', ->
-	return {
-		require: '^barGroup'
-		restrict: 'E'
-		scope:
-			callback: '&'
-			disabled: '='
-		controller: controller
-		link: link
-	}
+    return {
+        require: '^barGroup'
+        restrict: 'E'
+        scope:
+            callback: '&'
+            disabled: '='
+        controller: controller
+        link: link
+    }

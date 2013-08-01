@@ -1,34 +1,34 @@
 <p class="alert alert-warning" ng-show='hasError'>ERROR!</p>
 <div ng-show='!hasError'>
-	<p class='alert alert-warning' ng-show='loading > 0'>Loading...</p>
-	<div ng-show='loading == 0'>
-		<form ng-submit='continue(collection)' class='form-horizontal'>
-			<fieldset>
-				<legend>
-					<div class="row-fluid">
-						<div class="span8">
-							Select Collection
-						</div>
-						<div class="span4">
-							<button type='button' class="btn btn-primary pull-right" ng-click='refresh()'><i class="icon-white icon-refresh"></i></button>
-						</div>
-					</div>
-				</legend>
-				<div class="control-group">
-					<label class="control-label">Collection</label>
-					<div class="controls">
-						<select
-							ng-model='collection'
-							ng-options='collection.name for (collectionId, collection) in collections'
-							ng-change='change()'
-						></select>
-					</div>
-				</div>
-				<div class="form-actions">
-					<button type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}'><i class="icon-white icon-play"></i> Select Collection</button>
-					<a class="btn" ng-href='#/entry/{{entry.id}}'>Cancel</a>
-				</div>
-			</fieldset>
-		</form>
-	</div>
+    <p class='alert alert-warning' ng-show='loading > 0'>Loading...</p>
+    <div ng-show='loading == 0'>
+        <form ng-submit='continue(collection)' class='form-horizontal'>
+            <fieldset>
+                <legend>
+                    <div class="row-fluid">
+                        <div class="span8">
+                            Select Collection
+                        </div>
+                        <div class="span4">
+                            <button type='button' class="btn btn-primary pull-right" ng-click='refresh()'><i class="icon-white icon-refresh"></i></button>
+                        </div>
+                    </div>
+                </legend>
+                <div class="control-group">
+                    <label class="control-label">Collection</label>
+                    <div class="controls">
+                        <select
+                            ng-model='collection'
+                            ng-options='collection.name for (collectionId, collection) in collections'
+                            ng-change='change()'
+                        ></select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}'><i class="icon-white icon-play"></i> Select Collection</button>
+                    <a class="btn" ng-href='#/entry/{{entry.id}}'>Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </div>

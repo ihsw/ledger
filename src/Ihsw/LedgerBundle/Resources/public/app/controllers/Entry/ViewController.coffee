@@ -1,4 +1,4 @@
-controller = ($rootScope, $s, $r, EntryService, EntryItemService, $filter) ->
+controller = ($rootScope, $s, $r, EntryService, EntryItemService, $filter, $l) ->
     # nav
     $rootScope.section = 'entries'
 
@@ -6,6 +6,7 @@ controller = ($rootScope, $s, $r, EntryService, EntryItemService, $filter) ->
     $s.loading = false
     $s.hasError = false
     $s.entryItemMetadata = {}
+    $s.entry = {}
 
     # methods
     $s.refresh = (entryId) ->
@@ -29,8 +30,11 @@ controller = ($rootScope, $s, $r, EntryService, EntryItemService, $filter) ->
 
         EntryItemService.delete(entryItem).then (response) ->
             EntryService.onEntryItemDelete entryItem
+    $s.delete = (entry) ->
+        EntryService.delete(entry).then ->
+            $l.path '/entries'
 
     # initial load
     $s.refresh($r.entryId)
-controller.$inject = ['$rootScope', '$scope', '$routeParams', 'EntryService', 'EntryItemService', '$filter']
+controller.$inject = ['$rootScope', '$scope', '$routeParams', 'EntryService', 'EntryItemService', '$filter', '$location']
 window.module.controller 'Entry/ViewController', controller

@@ -1,33 +1,37 @@
-<bar target='bottom'>
-	<bar-group>
-		<bar-button
-			label="Entries"
-			class="btn-default"
-			href='/entries'
-			icon='icon-white icon-calendar'
-		/>
-	</bar-group>
-	<bar-group>
-		<bar-button
-			label="Collections"
-			class="btn-default"
-			href='/collections'
-			icon='icon-white icon-list'
-		/>
-	</bar-group>
+<bar target='top'>
+    <bar-group>
+        <bar-button
+            label="Entries"
+            class="btn-default"
+            href='/entries'
+            icon='icon-white icon-calendar'
+        />
+    </bar-group>
+    <bar-group>
+        <bar-button
+            label="Collections"
+            class="btn-default"
+            href='/collections'
+            icon='icon-white icon-list'
+        />
+    </bar-group>
 </bar>
-<div class='list-group'>
-	<a class="list-group-item" href='#'>
-		<h4 class="list-group-item-heading">Entries</h4>
-		<p class="list-group-item-text">You have $N entries, {{name}}.</p>
-	</a>
+<bar target='top-right'>
+    <bar-group>
+        <bar-button
+            class="btn-primary"
+            callback="refresh()"
+            icon="icon-white icon-refresh"
+            disabled="loading"
+        />
+    </bar-group>
+</bar>
+<p class="alert alert-warning" ng-show='loading'>Loading...</p>
+<div ng-show='!loading'>
+    <div class='list-group'>
+        <a class="list-group-item" href='#/entries'>
+            <span class="badge">{{ summary.entry_count }}</span>
+            <h4 class="list-group-item-heading">Entries <small>Last entry: 6 hours ago</small></h4>
+        </a>
+    </div>
 </div>
-<form>
-	<fieldset>
-		<legend>Sup</legend>
-		<div class="form-group">
-			<label>Jello</label>
-			<input type='text' class="form-control" ng-model='name'/>
-		</div>
-	</fieldset>
-</form>

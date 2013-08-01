@@ -1,19 +1,19 @@
 <p class="alert alert-warning" ng-show='hasError'>ERROR!</p>
 <p class="alert alert-warning" ng-show='loading'>Loading...</p>
 <div ng-show='!hasError && !loading'>
-	<form ng-submit='update(item)' class='form-horizontal'>
-		<fieldset>
-			<legend>Update Item</legend>
-			<div class="control-group">
-				<label class="control-label">Name</label>
-				<div class="controls">
-					<input type='text' ng-model='name' value='' autofocus>
-				</div>
-			</div>
-			<div class="form-actions">
-				<button type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}'><i class="icon-white icon-edit"></i> Update Item</button>
-				<a class="btn" ng-href='#/collection/{{item.collection.id}}'>Cancel</a>
-			</div>
-		</fieldset>
-	</form>
+    <form ng-submit='update(item)' class='form-horizontal'>
+        <fieldset>
+            <legend>Update Item</legend>
+            <div class="control-group">
+                <label class="control-label">Name</label>
+                <div class="controls">
+                    <input type='text' ng-model='name' value='' autofocus>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type='submit' class='btn btn-primary' ng-class='{"disabled": submitDisabled}'><i class="icon-white icon-edit"></i> Update Item</button>
+                <a class="btn" ng-href='#/collection/{{item.collection.id}}'>Cancel</a>
+            </div>
+        </fieldset>
+    </form>
 </div>

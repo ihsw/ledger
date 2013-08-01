@@ -4,6 +4,7 @@ module = window.module = angular.module 'ledger', []
 run = ($rootScope, $l, BarService) ->
     # events
     $rootScope.$on '$routeChangeStart', (event, next, current) ->
+        $rootScope.isHome = next.$$route.controller == 'HomeController'
         BarService.resetBarGroups()
 
     # properties

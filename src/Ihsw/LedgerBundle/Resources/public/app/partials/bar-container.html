@@ -1,13 +1,13 @@
 <div ng-show='(bar.groups|dictLength) > 0'>
-	<div class='btn-group' ng-repeat='group in bar.groups' style='margin-left: 5px; '>
-		<button
-			type='button'
-			ng-repeat='button in group.buttons'
-			ng-click='button.call()'
-			class='btn navbar-btn {{ button.classes.join(" ") }}'
-		>
-			<i class="{{ button.icon }}"></i>
-			{{ button.label }}
-		</button>
-	</div>
+    <div class='btn-group' ng-repeat='group in bar.groups'>
+        <button
+            type='button'
+            ng-repeat='button in group.buttons'
+            ng-click='button.call()'
+            class='btn navbar-btn {{ button.classes.join(" ") }} btn-mini'
+        >
+            <i class="{{ button.icon }}"></i>
+            {{ button.label }}
+        </button>
+    </div>
 </div>

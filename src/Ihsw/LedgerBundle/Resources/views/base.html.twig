@@ -32,37 +32,26 @@
 		{% endjavascripts %}
 	</head>
 	<body>
-		<div class='navbar navbar-fixed-top ledger-nav'>
+		<div class='navbar navbar-fixed-top ledger-nav navbar-mini'>
 			<div class='container'>
 				<div class='btn-toolbar pull-left'>
-					<div class='btn-group' style='margin-left: 5px; '>
+					<div class='btn-group'>
 						<button
 							type='button'
 							ng-click='navigateTo("/home")'
-							class='btn btn-default navbar-btn'
-						><i class='icon-cloud'></i> Ledger</a>
+							class='btn btn-default navbar-btn btn-mini'
+						><i class='icon-cloud'></i> <span ng-show='isHome'>Ledger</span></a>
 					</div>
+				</div>
+				<div class="btn-toolbar pull-left">
 					<bar-container name='top' />
 				</div>
-				<div class="btn-toolbar pull-left visible-lg">
-					<bar-container name='top-left-lg' />
-				</div>
-				<div class="btn-toolbar pull-right hidden-lg">
+				<div class="btn-toolbar pull-right">
 					<bar-container name='top-right' />
 				</div>
 			</div>
 		</div>
-		<div class='navbar navbar-fixed-bottom ledger-nav hidden-lg'>
-			<div class='container'>
-				<div class='btn-toolbar pull-left'>
-					<bar-container name='bottom' />
-				</div>
-				<div class="btn-toolbar pull-right">
-					<bar-container name='bottom-right' />
-				</div>
-			</div>
-		</div>
-		<div class='container ledger-container'>
+		<div class='container'>
 			<div ng-view/>
 		</div>
 	</body>

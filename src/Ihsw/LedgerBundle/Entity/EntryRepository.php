@@ -44,4 +44,12 @@ class EntryRepository extends EntityRepository
 			->getQuery()
 			->getResult();
 	}
+
+	public function getCount()
+	{
+		return $this->createQueryBuilder("e")
+			->select("COUNT(e.id)")
+			->getQuery()
+			->getSingleScalarResult();
+	}
 }

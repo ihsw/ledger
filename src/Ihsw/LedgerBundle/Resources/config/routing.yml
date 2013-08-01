@@ -4,6 +4,11 @@ home:
     defaults: { _controller: IhswLedgerBundle:Default:index }
     options:
         expose: true
+home_summary:
+    pattern: /summary
+    defaults: { _controller: IhswLedgerBundle:Default:summary }
+    options:
+        expose: true
 
 # collections
 collections:
