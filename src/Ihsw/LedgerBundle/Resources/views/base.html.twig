@@ -20,7 +20,7 @@
 
 		{# loading js libraries and client code #}
 		{% javascripts output='js/js.js'
-			'bundles/ihswledger/js/angular.min.js'
+			'bundles/ihswledger/js/angular.js'
 			'@IhswLedgerBundle/Resources/public/app/app.coffee'
 			'@IhswLedgerBundle/Resources/public/app/filters/*'
 			'@IhswLedgerBundle/Resources/public/app/services/*'
@@ -40,7 +40,13 @@
 							type='button'
 							ng-click='navigateTo("/home")'
 							class='btn btn-default navbar-btn btn-mini'
-						><i class='icon-cloud'></i> <span ng-show='isHome'>Ledger</span></a>
+						><i class='icon-cloud'></i> <span ng-show='isHome'>Ledger</span></button>
+					</div>
+					<div class="btn-group">
+						<button
+							type='button'
+							class='btn btn-default navbar-btn btn-mini'
+						><i class='icon-info'></i> {% raw %}{{ windowWidth }}x{{ windowHeight }}{% endraw %}</button>
 					</div>
 				</div>
 				<div class="btn-toolbar pull-left">
@@ -51,7 +57,7 @@
 				</div>
 			</div>
 		</div>
-		<div class='container'>
+		<div class='container ledger-container'>
 			<div ng-view/>
 		</div>
 	</body>

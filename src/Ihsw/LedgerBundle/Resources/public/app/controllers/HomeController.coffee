@@ -12,6 +12,8 @@ controller = ($rootScope, $s, GeneralService) ->
         GeneralService.summary().then (summary) ->
             $s.loading = false
             $s.summary = summary
+    $s.greetings = ->
+        alert 'lol'
 
     # refreshing the page
     $s.refresh()

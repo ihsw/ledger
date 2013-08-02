@@ -7,6 +7,27 @@ body {
 /**
  * bootstrap override
  */
+/**
+ * replicating bootstrap's btn due to bullshit
+ */
+.ledger-btn-container {
+	display: inline-block;
+}
+.btn-group > .ledger-btn-container:not(:first-child):not(:last-child):not(.dropdown-toggle) > .btn {
+	border-radius: 0;
+}
+.btn-group > .ledger-btn-container:first-child:not(:last-child):not(.dropdown-toggle) > .btn {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.btn-group > .ledger-btn-container:last-child:not(:first-child) .btn,
+.btn-group > .ledger-btn-container > .dropdown-toggle:not(:first-child) {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+}
+
+
+
 .ledger-nav .btn-group + .btn-group,
 .ledger-nav .btn-toolbar + .btn-toolbar {
 	margin-left: 5px;

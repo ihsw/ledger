@@ -1,27 +1,33 @@
 # controller
 controller = ($s, $f) ->
+    C = @
+
+    ### SCOPE
+    ###
     # properties
     $s.group = {}
     $s.buttons = {}
 
     # methods
-    @addButton = (button) ->
-        $s.buttons[button.id] = button
-    @getButtonCount = ->
-        return $f('dictLength')($s.buttons)
+    $s.getButtons = ->
+        return $f('dictListReverse')($s.buttons)
 
-    return @
+    ### CONTROLLER
+    ###
+    # methods
+    C.addButton = (button) ->
+        button.id = $f('dictLength')($s.buttons)
+        $s.buttons[button.id] = button
+
+    return C
 controller.$inject = ['$scope', '$filter']
 
 # link
 link = ($s, element, attrs, BarController) ->
-    # properties
-
     # generating a group
-    group =
+    group = $s.group =
         id: BarController.getGroupCount()
-        label: $s.$id
-        buttons: $s.buttons
+        buttons: $s.getButtons()
 
     # pushing it up
     BarController.addGroup group

@@ -1,29 +1,24 @@
-# misc functions
-call = ($s, $l, href, callback) ->
-    # misc
-    callback = callback ? null
-    href = href ? null
-
-    # handling
-    if callback != null
-        phase = $s.$root.$$phase
-        if phase == '$apply' or phase == '$digest'
-            $s.$eval $s.callback
-        else
-            $s.$apply $s.callback
-    else if href != null
-        $l.path href
-
 # controller
-controller = ($s, $l) ->
-    # scope properties
+controller = ($s, $f, BarService) ->
+    C = @
+
+    ### SCOPE
+    ###
+    # properties
     $s.button = {}
+    $s.items = {}
 
-    # scope methods
+    # methods
     $s.call = (href, callback) ->
-        call $s, $l, href, callback
+        if $f('dictLength')($s.items) == 0
+            BarService.call $s, href, callback
+            return
 
-    # scope watches
+        $s.button.opened = !$s.button.opened
+    $s.getItems = ->
+        return $f('dictListReverse')($s.items)
+
+    # watches
     $s.$watch 'disabled', ->
         if typeof $s.disabled == 'undefined'
             return
@@ -37,17 +32,25 @@ controller = ($s, $l) ->
 
         $s.button.classes.push 'disabled'
 
-    return @
-controller.$inject = ['$scope', '$location']
+    ### CONTROLLER
+    ###
+    C.addItem = (item) ->
+        item.id = $f('dictLength')($s.items)
+        $s.items[item.id] = item
+
+    return C
+controller.$inject = ['$scope', '$filter', 'BarService']
 
 # link
 link = ($s, element, attrs, BarGroupController) ->
     # generating a button
+    classValue = attrs.class ? ''
     button = $s.button =
-        id: BarGroupController.getButtonCount()
         label: attrs.label
-        classes: attrs.class.split(' ')
+        classes: classValue.split(' ')
         icon: attrs.icon
+        items: $s.getItems()
+        opened: false
         call: ->
             $s.call attrs.href, attrs.callback
 

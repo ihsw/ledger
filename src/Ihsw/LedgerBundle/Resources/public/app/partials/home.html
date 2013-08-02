@@ -6,8 +6,6 @@
             href='/entries'
             icon='icon-white icon-calendar'
         />
-    </bar-group>
-    <bar-group>
         <bar-button
             label="Collections"
             class="btn-default"
@@ -19,11 +17,13 @@
 <bar target='top-right'>
     <bar-group>
         <bar-button
-            class="btn-primary"
-            callback="refresh()"
-            icon="icon-white icon-refresh"
-            disabled="loading"
-        />
+            class="btn-default"
+            icon='icon-white icon-reorder'
+        >
+            <bar-item
+                label='boo'
+            />
+        </bar-button>
     </bar-group>
 </bar>
 <p class="alert alert-warning" ng-show='loading'>Loading...</p>

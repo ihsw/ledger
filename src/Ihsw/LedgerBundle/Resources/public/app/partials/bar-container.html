@@ -1,13 +1,22 @@
 <div ng-show='(bar.groups|dictLength) > 0'>
     <div class='btn-group' ng-repeat='group in bar.groups'>
-        <button
-            type='button'
-            ng-repeat='button in group.buttons'
-            ng-click='button.call()'
-            class='btn navbar-btn {{ button.classes.join(" ") }} btn-mini'
-        >
-            <i class="{{ button.icon }}"></i>
-            {{ button.label }}
-        </button>
+        <div class='ledger-btn-container' ng-repeat='button in group.buttons'>
+            <button
+                type='button'
+                ng-click='button.call()'
+                class='btn navbar-btn {{ button.classes.join(" ") }} btn-mini'
+            >
+                <i class="{{ button.icon }}"></i>
+                {{ button.label }} {{ button.opened }}
+            </button>
+            <ul class="dropdown-menu">
+                <li ng-repeat='item in button.items'>
+                    <a
+                        ng-click='item.call()'
+                        class='{{ item.classes.join(" ") }}'
+                    ><i class='{{ item.icon }}'></i> {{ item.label }}</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
