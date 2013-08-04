@@ -1,13 +1,16 @@
 # controller
 controller = ($s, $l, BarService) ->
-    # scope properties
+    ### SCOPE
+    ###
+    # properties
     $s.item = {}
 
-    # scope methods
+    # methods
     $s.call = (href, callback) ->
         BarService.call $s, href, callback
+        $s.onItemCall $s.item
 
-    # scope watches
+    # watches
     $s.$watch 'disabled', ->
         if typeof $s.disabled == 'undefined'
             return
@@ -26,6 +29,11 @@ controller.$inject = ['$scope', '$location', 'BarService']
 
 # link
 link = ($s, element, attrs, BarButtonController) ->
+    ### SCOPE
+    ###
+    $s.onItemCall = (item) ->
+        BarButtonController.onItemCall item
+
     # generating a button
     classValue = attrs.class ? ''
     item = $s.item =

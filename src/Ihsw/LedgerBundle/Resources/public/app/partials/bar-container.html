@@ -7,16 +7,19 @@
                 class='btn navbar-btn {{ button.classes.join(" ") }} btn-mini'
             >
                 <i class="{{ button.icon }}"></i>
-                {{ button.label }} {{ button.opened }}
+                {{ button.label }}
             </button>
-            <ul class="dropdown-menu">
-                <li ng-repeat='item in button.items'>
-                    <a
-                        ng-click='item.call()'
-                        class='{{ item.classes.join(" ") }}'
-                    ><i class='{{ item.icon }}'></i> {{ item.label }}</a>
-                </li>
-            </ul>
+            <div ng-class='{"open": button.opened}'>
+                <ul class="dropdown-menu {{ button.itemAlignment }}">
+                    <li ng-repeat='item in button.items'>
+                        <a
+                            href=''
+                            ng-click='item.call()'
+                            class='{{ item.classes.join(" ") }}'
+                        ><i class='{{ item.icon }}'></i> {{ item.label }}</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

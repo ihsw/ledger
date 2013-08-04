@@ -1,5 +1,5 @@
 # controller
-controller = ($s, $f, BarService) ->
+controller = ($s, $f, BarService, $document) ->
     C = @
 
     ### SCOPE
@@ -14,9 +14,12 @@ controller = ($s, $f, BarService) ->
             BarService.call $s, href, callback
             return
 
-        $s.button.opened = !$s.button.opened
+        opened = !$s.button.opened
+        $s.button.opened = opened
     $s.getItems = ->
         return $f('dictListReverse')($s.items)
+    $s.greetings = ->
+        alert 'fuck'
 
     # watches
     $s.$watch 'disabled', ->
@@ -34,12 +37,15 @@ controller = ($s, $f, BarService) ->
 
     ### CONTROLLER
     ###
+    # methods
     C.addItem = (item) ->
         item.id = $f('dictLength')($s.items)
         $s.items[item.id] = item
+    C.onItemCall = (item) ->
+        $s.button.opened = false
 
     return C
-controller.$inject = ['$scope', '$filter', 'BarService']
+controller.$inject = ['$scope', '$filter', 'BarService', '$document']
 
 # link
 link = ($s, element, attrs, BarGroupController) ->
@@ -51,6 +57,7 @@ link = ($s, element, attrs, BarGroupController) ->
         icon: attrs.icon
         items: $s.getItems()
         opened: false
+        itemAlignment: attrs.itemAlignment
         call: ->
             $s.call attrs.href, attrs.callback
 
@@ -67,4 +74,6 @@ window.module.directive 'barButton', ->
             disabled: '='
         controller: controller
         link: link
+        transclude: true
+        template: '<div ng-transclude/>'
     }

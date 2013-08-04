@@ -2,10 +2,6 @@ module = window.module = angular.module 'ledger', []
 
 # run
 run = ($rootScope, $l, BarService, $w) ->
-    # properties
-    $rootScope.windowWidth = $w.outerWidth
-    $rootScope.windowHeight = $w.outerHeight
-
     # methods
     $rootScope.navigateTo = (path) ->
         $l.path path
@@ -14,14 +10,6 @@ run = ($rootScope, $l, BarService, $w) ->
     $rootScope.$on '$routeChangeStart', (event, next, current) ->
         $rootScope.isHome = next.$$route.controller == 'HomeController'
         BarService.resetBarGroups()
-
-    # element events
-    angular.element($w).bind 'resize', ->
-        $rootScope.windowWidth = $w.outerWidth
-        $rootScope.$apply 'windowWidth'
-
-        $rootScope.windowHeight = $w.outerHeight
-        $rootScope.$apply 'windowHeight'
 run.$inject = ['$rootScope', '$location', 'BarService', '$window']
 module.run run
 

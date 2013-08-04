@@ -4,6 +4,7 @@ controller = ($rootScope, $s, GeneralService) ->
     # properties
     $s.loading = false
     $s.summary = {}
+    $s.pizza = true
 
     # methods
     $s.refresh = ->
@@ -13,7 +14,7 @@ controller = ($rootScope, $s, GeneralService) ->
             $s.loading = false
             $s.summary = summary
     $s.greetings = ->
-        alert 'lol'
+        console.log 'lol'
 
     # refreshing the page
     $s.refresh()
