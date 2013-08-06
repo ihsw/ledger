@@ -15,6 +15,25 @@
             disabled='loading'
         />
     </bar-group>
+    <bar-group>
+        <bar-button
+            class="btn-default"
+            icon='icon-white icon-reorder'
+            disabled='loading'
+            item-alignment='pull-right'
+        >
+            <bar-item
+                label='Edit'
+                icon='icon-edit'
+                href='/entry/{{ entry.id }}/edit'
+            />
+            <bar-item
+                label='Delete'
+                icon='icon-trash'
+                href='/entry/{{ entry.id }}/delete'
+            />
+        </bar-button>
+    </bar-group>
 </bar>
 <div ng-show='hasError'>
     <p class="alert alert-warning">ERROR!</p>

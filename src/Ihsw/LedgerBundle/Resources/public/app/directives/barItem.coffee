@@ -54,6 +54,7 @@ window.module.directive 'barItem', ->
         scope:
             callback: '&'
             disabled: '='
+            href: '@'
         controller: controller
         link: link
     }

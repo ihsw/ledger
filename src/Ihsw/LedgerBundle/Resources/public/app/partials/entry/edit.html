@@ -1,3 +1,21 @@
+<bar target='top-right'>
+    <bar-group>
+        <bar-button
+            label="Back"
+            class='btn-link'
+            href='/entry/{{ entry.id }}'
+        />
+    </bar-group>
+    <bar-group>
+        <bar-button
+            class='btn-success'
+            label='Update'
+            callback='update(entry)'
+            icon='icon-white icon-plus'
+            disabled='loading'
+        />
+    </bar-group>
+</bar>
 <form ng-submit='update(entry)' class='form-horizontal'>
     <fieldset>
         <legend>Update Entry</legend>

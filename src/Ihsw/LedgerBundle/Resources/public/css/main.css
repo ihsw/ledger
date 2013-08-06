@@ -2,7 +2,7 @@
  * general
  */
 body {
-	padding: 45px 5px 0;
+	padding: 50px 5px 0;
 }
 /**
  * bootstrap override
@@ -35,6 +35,12 @@ body {
 .navbar-mini {
 	margin-bottom: 5px;
 	min-height: 40px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.navbar-small {
+	margin-bottom: 5px;
+	min-height: 42px;
 	padding-left: 5px;
 	padding-right: 5px;
 }
