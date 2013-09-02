@@ -13,8 +13,8 @@ Configuration
 
 #) Edit the `php.ini` configs to have some variant of the following values:
 
-    date.timezone = America/Montreal
-    cgi.fix_pathinfo=0
+     date.timezone = America/Montreal
+     cgi.fix_pathinfo=0
 
 Testing
 =======
@@ -24,17 +24,17 @@ Functionality Testing
 
 #) Run the following commands:
 
-    # php --version
+     # php --version
 
-    PHP 5.5.3 (cli) (built: Aug 31 2013 21:12:56) 
-    Copyright (c) 1997-2013 The PHP Group
-    Zend Engine v2.5.0, Copyright (c) 1998-2013 Zend Technologies
+     PHP 5.5.3 (cli) (built: Aug 31 2013 21:12:56) 
+     Copyright (c) 1997-2013 The PHP Group
+     Zend Engine v2.5.0, Copyright (c) 1998-2013 Zend Technologies
 
-    # php-fpm --version
+     # php-fpm --version
 
-    PHP 5.5.3 (fpm-fcgi) (built: Aug 31 2013 21:13:10)
-    Copyright (c) 1997-2013 The PHP Group
-    Zend Engine v2.5.0, Copyright (c) 1998-2013 Zend Technologies
+     PHP 5.5.3 (fpm-fcgi) (built: Aug 31 2013 21:13:10)
+     Copyright (c) 1997-2013 The PHP Group
+     Zend Engine v2.5.0, Copyright (c) 1998-2013 Zend Technologies
 
 Management
 ==========
