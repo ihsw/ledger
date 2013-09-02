@@ -13,8 +13,8 @@ Configuration
 
 #) Edit the `php.ini` configs to have some variant of the following values:
 
-	date.timezone = America/Montreal
-	cgi.fix_pathinfo=0
+    date.timezone = America/Montreal
+    cgi.fix_pathinfo=0
 
 Testing
 =======
