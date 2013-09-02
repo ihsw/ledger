@@ -10,10 +10,12 @@ Packages
 
     # service nginx start
 
+Nginx doesn't usually start after installation.
+
 Configuration
 -------------
 
-#) Edit `/etc/nginx/nginx.conf` to have some variant of the following location blocks:
+#) Edit `/etc/nginx/sites-enabled/default` to have some variant of the following location blocks:
 
     location / {
         try_files $uri =404;
@@ -21,7 +23,7 @@ Configuration
 
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/usr/local/etc/php-5.5.3/var/run/php-fpm.sock;
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
         fastcgi_index index.php;
         include fastcgi_params;
     }
@@ -41,6 +43,9 @@ Functionality Verification
     <title>Welcome to nginx!</title>
 
     <center><h1>Welcome to nginx!</h1></center>
+
+Management
+==========
 
 Configuration Files
 -------------------
