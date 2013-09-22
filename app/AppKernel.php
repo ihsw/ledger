@@ -28,6 +28,9 @@ class AppKernel extends Kernel
 
             // friendsofsymfony/jsrouting-bundle
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+
+            // doctrine/doctrine-migrations-bundle
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

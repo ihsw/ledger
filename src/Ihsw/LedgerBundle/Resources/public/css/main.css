@@ -26,11 +26,12 @@ body {
 	border-top-left-radius: 0;
 }
 
-
-
 .ledger-nav .btn-group + .btn-group,
 .ledger-nav .btn-toolbar + .btn-toolbar {
 	margin-left: 5px;
+}
+.ledger-nav .btn {
+	margin-top: 6px;
 }
 .navbar-mini {
 	margin-bottom: 5px;
@@ -38,7 +39,7 @@ body {
 	padding-left: 5px;
 	padding-right: 5px;
 }
-.navbar-small {
+.navbar-sm {
 	margin-bottom: 5px;
 	min-height: 42px;
 	padding-left: 5px;

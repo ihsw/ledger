@@ -9,7 +9,7 @@ Ihsw\LedgerBundle\Entity\Entry:
             generator:
                 strategy: AUTO
         occurredAt:
-            type: datetime
+            type: date
             column: occurred_at
     oneToMany:
         entryItems:

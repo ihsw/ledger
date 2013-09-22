@@ -22,14 +22,18 @@
             <legend>New Entry</legend>
             <div class="form-group">
                 <label>Occurred At</label>
-                <input
-                    autofocus
-                    type='datetime'
+                <select
+                    ng-model='year'
+                    ng-options='year for year in years'
+                    ng-change='change()'
                     class='form-control'
-                    ng-model='occurredAt'
-                    placeholder='{{occurredAtPlaceholder|date:"MMM d, y h:mma"}}'
-                    value='{{occurredAtPlaceholder|date:"MMM d, y h:mma"}}'
-                >
+                ></select>
+                <select
+                    ng-model='month'
+                    ng-options='month for month in months'
+                    ng-change='change()'
+                    class='form-control'
+                ></select>
             </div>
         </fieldset>
     </form>
