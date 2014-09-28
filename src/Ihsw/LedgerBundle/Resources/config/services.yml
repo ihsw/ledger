@@ -2,8 +2,9 @@ parameters:
 #    ihsw_ledger.example.class: Ihsw\LedgerBundle\Example
 
 services:
-    my.param_converter:
-        class: Ihsw\LedgerBundle\ParamConverter
+    ihsw.event_listener:
+        class: Ihsw\LedgerBundle\EventListener
         tags:
-            - { name: request.param_converter }
-        arguments: [@service_container]
+            - { name: kernel.event_listener, event: console.command, method: onConsoleCommand }
+            - { name: kernel.event_listener, event: console.terminate, method: onConsoleTerminate }
+        arguments: [@service_container, @controller_resolver]

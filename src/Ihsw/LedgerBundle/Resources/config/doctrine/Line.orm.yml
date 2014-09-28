@@ -1,0 +1,31 @@
+Ihsw\LedgerBundle\Entity\Line:
+    type: entity
+    table: null
+    repositoryClass: Ihsw\LedgerBundle\Entity\LineRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        cost:
+            type: decimal
+            precision: 9
+            scale: 2
+    manyToOne:
+        entry:
+            targetEntity: Entry
+            inversedBy: lines
+            joinColumn:
+                name: entry_id
+                referencedColumnName: id
+                nullable: false
+        item:
+            targetEntity: Item
+            inversedBy: lines
+            joinColumn:
+                name: item_id
+                referencedColumnName: id
+                nullable: false
+    lifecycleCallbacks: {  }

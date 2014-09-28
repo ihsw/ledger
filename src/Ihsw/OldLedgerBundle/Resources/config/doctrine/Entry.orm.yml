@@ -2,17 +2,17 @@ Ihsw\LedgerBundle\Entity\Entry:
     type: entity
     table: null
     repositoryClass: Ihsw\LedgerBundle\Entity\EntryRepository
-    id:
+    fields:
         id:
             type: integer
             id: true
             generator:
                 strategy: AUTO
-    fields:
         occurredAt:
-            type: datetime
+            type: date
+            column: occurred_at
     oneToMany:
-        lines:
-            targetEntity: Line
+        entryItems:
+            targetEntity: EntryItem
             mappedBy: entry
     lifecycleCallbacks: {  }

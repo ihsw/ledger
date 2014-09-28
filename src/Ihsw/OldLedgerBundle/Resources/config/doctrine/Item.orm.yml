@@ -2,18 +2,25 @@ Ihsw\LedgerBundle\Entity\Item:
     type: entity
     table: null
     repositoryClass: Ihsw\LedgerBundle\Entity\ItemRepository
-    id:
+    fields:
         id:
             type: integer
             id: true
             generator:
                 strategy: AUTO
-    fields:
         name:
             type: string
             length: 255
     oneToMany:
-        lines:
-            targetEntity: Line
+        entryItems:
+            targetEntity: EntryItem
             mappedBy: item
+    manyToOne:
+        collection:
+            targetEntity: Collection
+            inversedBy: items
+            joinColumn:
+                name: collection_id
+                referencedColumnName: id
+                nullable: false
     lifecycleCallbacks: {  }

@@ -3,7 +3,6 @@
 namespace Ihsw\LedgerBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NoResultException;
 
 /**
  * EntryRepository
@@ -13,43 +12,12 @@ use Doctrine\ORM\NoResultException;
  */
 class EntryRepository extends EntityRepository
 {
-	public function findOneById($id)
-	{
-		try
-		{
-			$parameters = array(
-				"id" => $id
-			);
-			$result = $this->createQueryBuilder("e")
-				->select("e, ei")
-				->leftJoin("e.entryItems", "ei")
-				->where("e.id = :id")
-				->setParameters($parameters)
-				->getQuery()
-				->getSingleResult();
-		}
-		catch (NoResultException $exception)
-		{
-			return null;
-		}
-
-		return $result;
-	}
-
 	public function findAll()
 	{
 		return $this->createQueryBuilder("e")
 			->select("e")
-			->orderBy("e.occurredAt", "DESC")
+			->orderBy("e.occurredAt", "ASC")
 			->getQuery()
 			->getResult();
-	}
-
-	public function getCount()
-	{
-		return $this->createQueryBuilder("e")
-			->select("COUNT(e.id)")
-			->getQuery()
-			->getSingleScalarResult();
 	}
 }

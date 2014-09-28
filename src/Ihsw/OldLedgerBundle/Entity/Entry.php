@@ -1,0 +1,121 @@
+<?php
+
+namespace Ihsw\LedgerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Entry
+ */
+class Entry implements \JsonSerializable
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     */
+    private $occurredAt;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set occurredAt
+     *
+     * @param \DateTime $occurredAt
+     * @return Entry
+     */
+    public function setOccurredAt($occurredAt)
+    {
+        $this->occurredAt = $occurredAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get occurredAt
+     *
+     * @return \DateTime 
+     */
+    public function getOccurredAt()
+    {
+        return $this->occurredAt;
+    }
+
+    public function jsonSerializeWithEntryItems()
+    {
+        $entryItems = array_map(function($entryItem){
+            return $entryItem->jsonSerialize();
+        }, array_values($this->getEntryItems()->toArray()));
+
+        return [
+            "id" => $this->getId(),
+            "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s"),
+            "entry_items" => $entryItems
+        ];
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id" => $this->getId(),
+            "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s")
+        ];
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $entryItems;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->entryItems = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add entryItems
+     *
+     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryItems
+     * @return Entry
+     */
+    public function addEntryItem(\Ihsw\LedgerBundle\Entity\EntryItem $entryItems)
+    {
+        $this->entryItems[] = $entryItems;
+    
+        return $this;
+    }
+
+    /**
+     * Remove entryItems
+     *
+     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryItems
+     */
+    public function removeEntryItem(\Ihsw\LedgerBundle\Entity\EntryItem $entryItems)
+    {
+        $this->entryItems->removeElement($entryItems);
+    }
+
+    /**
+     * Get entryItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEntryItems()
+    {
+        return $this->entryItems;
+    }
+}

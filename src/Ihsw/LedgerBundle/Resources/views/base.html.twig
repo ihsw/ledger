@@ -1,58 +1,30 @@
 <!DOCTYPE html>
-<html ng-app='ledger'>
+<html>
 	<head>
 		<title>Ledger</title>
-		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
 		{# stylesheets #}
-		{% stylesheets output='css/css.css' filter='cssrewrite'
-			'bundles/ihswledger/css/bootstrap.min.css'
-			'bundles/ihswledger/css/font-awesome.min.css'
-			'bundles/ihswledger/css/main.css'
+		{% stylesheets output="new-ledger/css.css" filter="cssrewrite"
+			"bundles/ihswledger/css/bootstrap.min.css"
 		%}
-			<link rel='stylesheet' href='{{ asset_url }}' />
+			<link rel="stylesheet" href="{{ asset_url }}" />
 		{% endstylesheets %}
 
-		{# loading the router #}
-		<script src='{{ asset('bundles/fosjsrouting/js/router.js') }}'></script>
-		<script src='{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}'></script>
-
-		{# loading js libraries and client code #}
-		{% javascripts output='js/js.js'
-			'bundles/ihswledger/js/angular.js'
-			'@IhswLedgerBundle/Resources/public/app/app.coffee'
-			'@IhswLedgerBundle/Resources/public/app/filters/*'
-			'@IhswLedgerBundle/Resources/public/app/services/*'
-			'@IhswLedgerBundle/Resources/public/app/directives/*'
-			'@IhswLedgerBundle/Resources/public/app/controllers/*'
-			'@IhswLedgerBundle/Resources/public/app/controllers/*/*'
+		{# javascripts #}
+		{% stylesheets output="new-ledger/js.js" filter=""
+			"bundles/ihswledger/js/jquery-1.11.1.min.js"
+			"bundles/ihswledger/js/highcharts.js"
 		%}
-			<script type='text/javascript' src='{{ asset_url }}'></script>
-		{% endjavascripts %}
+			<script src="{{ asset_url }}"></script>
+		{% endstylesheets %}
+		<link rel="shortcut icon" href="{{ asset("bundles/ihswledger/images/favicon.png") }}" />
 	</head>
 	<body>
-		<div class='navbar navbar-fixed-top ledger-nav navbar-sm'>
-			<div class='container'>
-				<div class='btn-toolbar pull-left'>
-					<div class='btn-group'>
-						<button
-							type='button'
-							ng-click='navigateTo("/home")'
-							class='btn btn-default navbar-btn btn-sm'
-						><i class='icon-cloud'></i> <span ng-show='isHome'>Ledger</span></button>
-					</div>
-				</div>
-				<div class="btn-toolbar pull-left">
-					<bar-container name='top' />
-				</div>
-				<div class="btn-toolbar pull-right">
-					<bar-container name='top-right' />
-				</div>
+		<div class="container">
+			<div class="header">
+				<h3 class="text-muted">Ledger</h3>
 			</div>
-		</div>
-		<div class='container ledger-container'>
-			<div ng-view/>
+			{% block content %}{% endblock %}
 		</div>
 	</body>
 </html>

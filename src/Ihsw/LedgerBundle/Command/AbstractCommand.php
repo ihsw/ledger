@@ -10,84 +10,64 @@ abstract class AbstractCommand extends ContainerAwareCommand
 {
 	private $output;
 	private $startTime;
-	private $hasConcluded;
-	protected $suppressIntro;
+	private $log;
 
-	// overriding execute
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		// services
-		$container = $this->getContainer();
+	/**
+	 * accessors
+	 */
+	public function setOutput(OutputInterface $output) { $this->output = $output; }
+	public function setStartTime($startTime) { $this->startTime = $startTime; }
+	public function setLog($log) { $this->log = $log; }
 
-		// misc
-		$this->output = $output;
-		$this->startTime = microtime(true);
-		$this->hasConcluded = false;
-
-		// outputting start message
-		if ($this->suppressIntro !== true)
-		{
-			$this->write(sprintf("Starting %s...", $this->getName()));
-		}
-
-		// executing this command
-		try
-		{
-			$this->invoke($input, $output);
-		}
-		catch (\Exception $e)
-		{
-			throw $e;
-		}
-
-		// optionally outputting a conclude message
-		if ($this->hasConcluded === false)
-		{
-			$this->conclude();
-		}
-	}
-
-	// utility
+	/**
+	 * utility
+	 */
 	protected function getExecutionTime()
 	{
-		return round(microtime(true) - $this->startTime, 2);
+		return microtime(true) - $this->startTime;
+	}
+
+	public function getMemoryUsage()
+	{
+		return memory_get_peak_usage()/(1024*1024);
+	}
+
+	protected function get($service)
+	{
+		return $this->getContainer()->get($service);
 	}
 
 	/**
 	 * write functions
 	 */
 	// generic write function
-	protected function write($message)
+	public function write($message)
 	{
-		// formatting the message appropriately and dumping it to the output buffer
-		$formattedMessage = sprintf("[%s %ss] %s", date("Y-m-d h:i:sA"), $this->getExecutionTime(), $message);
+		// formatting the message appropriately, dumping it to the output buffer, and logging it in a list
+		$formattedMessage = sprintf("[%s %ss] %s", date("Y-m-d h:i:sA"), round($this->getExecutionTime(), 2), $message);
 		$this->output->writeln($formattedMessage);
+		$this->log[] = $formattedMessage;
 	}
 
-	// derived write functions
-	protected function conclude($message = null, $fail = false)
-	{
-		$this->hasConcluded = true;
-		$message = $message ?: sprintf("%s success!", $this->getName());
-		$this->info(sprintf("%s %s MB", $message, round(memory_get_peak_usage()/(1024*1024), 2)));
-	}
-
-	protected function info($message)
+	/**
+	 * derived write functions
+	 */
+	public function info($message)
 	{
 		$this->write(sprintf("<info>%s</info>", $message));
 	}
 
-	protected function comment($message)
+	public function comment($message)
 	{
 		$this->write(sprintf("<comment>%s</comment>", $message));
 	}
 
-	protected function question($message)
+	public function question($message)
 	{
 		$this->write(sprintf("<question>%s</question>", $message));
 	}
 
-	protected function error($message)
+	public function error($message)
 	{
 		$this->write(sprintf("<error>%s</error>", $message));
 	}
@@ -95,13 +75,13 @@ abstract class AbstractCommand extends ContainerAwareCommand
 	/**
 	 * confirmation functions
 	 */
-	protected function confirm($message, $default = true)
+	public function confirm($message, $default = true)
 	{
 		$dialog = $this->getHelperSet()->get("dialog");
 		return $dialog->askConfirmation($this->output, sprintf("<question>%s</question> ", $message), $default);
 	}
 
-	protected function ask($message, $default = null)
+	public function ask($message, $default = null)
 	{
 		$dialog = $this->getHelperSet()->get("dialog");
 		return $dialog->ask($this->output, sprintf("<question>%s</question> ", $message), $default);

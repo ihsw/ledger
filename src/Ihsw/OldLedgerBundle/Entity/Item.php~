@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Item
  */
-class Item
+class Item implements \JsonSerializable
 {
     /**
      * @var integer
@@ -39,7 +39,7 @@ class Item
     public function setName($name)
     {
         $this->name = $name;
-
+    
         return $this;
     }
 
@@ -52,49 +52,57 @@ class Item
     {
         return $this->name;
     }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id" => $this->getId(),
+            "name" => $this->getName()
+        ];
+    }
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $lines;
+    private $entryItems;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->lines = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->entryItems = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     /**
-     * Add lines
+     * Add entryItems
      *
-     * @param \Ihsw\LedgerBundle\Entity\Line $lines
+     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryItems
      * @return Item
      */
-    public function addLine(\Ihsw\LedgerBundle\Entity\Line $lines)
+    public function addEntryItem(\Ihsw\LedgerBundle\Entity\EntryItem $entryItems)
     {
-        $this->lines[] = $lines;
-
+        $this->entryItems[] = $entryItems;
+    
         return $this;
     }
 
     /**
-     * Remove lines
+     * Remove entryItems
      *
-     * @param \Ihsw\LedgerBundle\Entity\Line $lines
+     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryItems
      */
-    public function removeLine(\Ihsw\LedgerBundle\Entity\Line $lines)
+    public function removeEntryItem(\Ihsw\LedgerBundle\Entity\EntryItem $entryItems)
     {
-        $this->lines->removeElement($lines);
+        $this->entryItems->removeElement($entryItems);
     }
 
     /**
-     * Get lines
+     * Get entryItems
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getLines()
+    public function getEntryItems()
     {
-        return $this->lines;
+        return $this->entryItems;
     }
 }

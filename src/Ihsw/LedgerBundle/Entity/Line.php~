@@ -5,9 +5,9 @@ namespace Ihsw\LedgerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entry
+ * Line
  */
-class Entry
+class Line
 {
     /**
      * @var integer
@@ -34,7 +34,7 @@ class Entry
      * Set cost
      *
      * @param string $cost
-     * @return Entry
+     * @return Line
      */
     public function setCost($cost)
     {
@@ -53,31 +53,31 @@ class Entry
         return $this->cost;
     }
     /**
-     * @var \DateTime
+     * @var \Ihsw\LedgerBundle\Entity\Entry
      */
-    private $occurredAt;
+    private $entry;
 
 
     /**
-     * Set occurredAt
+     * Set entry
      *
-     * @param \DateTime $occurredAt
-     * @return Entry
+     * @param \Ihsw\LedgerBundle\Entity\Entry $entry
+     * @return Line
      */
-    public function setOccurredAt($occurredAt)
+    public function setEntry(\Ihsw\LedgerBundle\Entity\Entry $entry)
     {
-        $this->occurredAt = $occurredAt;
+        $this->entry = $entry;
 
         return $this;
     }
 
     /**
-     * Get occurredAt
+     * Get entry
      *
-     * @return \DateTime 
+     * @return \Ihsw\LedgerBundle\Entity\Entry 
      */
-    public function getOccurredAt()
+    public function getEntry()
     {
-        return $this->occurredAt;
+        return $this->entry;
     }
 }

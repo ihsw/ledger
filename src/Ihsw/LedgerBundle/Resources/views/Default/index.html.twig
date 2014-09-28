@@ -1,0 +1,235 @@
+{% extends "IhswLedgerBundle::base.html.twig" %}
+{% block content %}
+	<h2>Total spend: ${{ totalCost|number_format(2) }}</h2>
+	<div class="row">
+		<div class="col-sm-7">
+			{% for key, dataString in dataStrings %}
+				<script>
+					$(function () {
+						$('#{{ key }}').highcharts({
+							credits: {
+								enabled: false
+							},
+							chart: {
+								type: 'spline',
+								zoomType: 'x'
+							},
+							title: {
+								text: '{{ key|capitalize }} Aggregate'
+							},
+							xAxis: {
+								type: 'datetime',
+								dateTimeLabelFormats: { // don't display the dummy year
+									month: '%b %Y',
+									year: '%b'
+								},
+								title: {
+									text: 'Date'
+								},
+								minRange: 14 * 24 * 3600000 // fourteen days
+							},
+							yAxis: {
+								title: {
+									text: 'Cost'
+								},
+								min: 0
+							},
+							tooltip: {
+								headerFormat: '<b>{series.name}</b><br>',
+								// pointFormat: '{point.x:%e. %b}: ${point.y:.2f}'
+								{% verbatim %}
+									pointFormat: '{point.x: %b %e %Y}: ${point.y:.2f}'
+								{% endverbatim %}
+							},
+
+							series: [{
+								name: 'Cost ({{ key|capitalize }})',
+								// Define the data points. All series have a dummy year
+								// of 1970/71 in order to be compared on the same x axis. Note
+								// that in JavaScript, months start at 0 for January, 1 for February etc.
+								data: {{ dataString|raw }}
+							}]
+						});
+					});
+				</script>
+				<div id="{{ key }}" style="max-height: 400px; "></div>
+			{% endfor %}
+		</div>
+		<div class="col-sm-5">
+			<script>
+				$(function () {
+					$('#top-items').highcharts({
+						credits: {
+							enabled: false
+						},
+						chart: {
+							plotBackgroundColor: null,
+							plotBorderWidth: null,
+							plotShadow: false
+						},
+						title: {
+							text: 'Top Items (Cost)'
+						},
+						tooltip: {
+							pointFormat: '{series.name}: <b>${point.y:.1f}</b>'
+						},
+						plotOptions: {
+							pie: {
+								allowPointSelect: true,
+								cursor: 'pointer',
+								dataLabels: {
+									enabled: true,
+									format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+									style: {
+										color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+									}
+								}
+							}
+						},
+						series: [{
+							type: 'pie',
+							name: 'Share',
+							data: {{ itemCostData|json_encode()|raw }}
+						}]
+					});
+				});
+			</script>
+			<div id="top-items"></div>
+			<script>
+				$(function () {
+					$('#top-quantities').highcharts({
+						credits: {
+							enabled: false
+						},
+						chart: {
+							plotBackgroundColor: null,
+							plotBorderWidth: null,
+							plotShadow: false
+						},
+						title: {
+							text: 'Top Items (Quantity)'
+						},
+						tooltip: {
+							pointFormat: '{series.name}: <b>{point.y} entries</b>'
+						},
+						plotOptions: {
+							pie: {
+								allowPointSelect: true,
+								cursor: 'pointer',
+								dataLabels: {
+									enabled: true,
+									format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+									style: {
+										color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+									}
+								}
+							}
+						},
+						series: [{
+							type: 'pie',
+							name: 'Share',
+							data: {{ itemQuantityData|json_encode()|raw }}
+						}]
+					});
+				});
+			</script>
+			<div id="top-quantities"></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4">
+			<script>
+				$(function () {
+				        $('#day-costs').highcharts({
+							credits: {
+								enabled: false
+							},
+				            chart: {
+				                type: 'column'
+				            },
+				            title: {
+				                text: 'Day Costs'
+				            },
+				            xAxis: {
+				                type: 'category',
+				                labels: {
+				                    rotation: -45,
+				                    align: 'right',
+				                    style: {
+				                        fontSize: '13px',
+				                        fontFamily: 'Verdana, sans-serif'
+				                    }
+				                }
+				            },
+				            yAxis: {
+				                min: 0,
+				                title: {
+				                    text: 'Cost ($)'
+				                }
+				            },
+				            legend: {
+				                enabled: false
+				            },
+				            tooltip: {
+				                {% verbatim %}
+				                    pointFormat: '${point.y:.2f}'
+				                {% endverbatim %}
+				            },
+				            series: [{
+				                name: 'Population',
+				                data: {{ dayCostData|json_encode()|raw }}
+				            }]
+				        });
+				    });
+			</script>
+			<div id="day-costs"></div>
+		</div>
+		<div class="col-sm-8">
+			<script>
+				$(function () {
+				        $('#hour-costs').highcharts({
+							credits: {
+								enabled: false
+							},
+				            chart: {
+				                type: 'column'
+				            },
+				            title: {
+				                text: 'Hour Costs'
+				            },
+				            xAxis: {
+				                type: 'category',
+				                labels: {
+				                    rotation: -45,
+				                    align: 'right',
+				                    style: {
+				                        fontSize: '13px',
+				                        fontFamily: 'Verdana, sans-serif'
+				                    }
+				                }
+				            },
+				            yAxis: {
+				                min: 0,
+				                title: {
+				                    text: 'Cost ($)'
+				                }
+				            },
+				            legend: {
+				                enabled: false
+				            },
+				            tooltip: {
+				                {% verbatim %}
+				                    pointFormat: '${point.y:.2f}'
+				                {% endverbatim %}
+				            },
+				            series: [{
+				                name: 'Population',
+				                data: {{ hourCostData|json_encode()|raw }}
+				            }]
+				        });
+				    });
+			</script>
+			<div id="hour-costs"></div>
+		</div>
+	</div>
+{% endblock %}

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Entry
  */
-class Entry implements \JsonSerializable
+class Entry
 {
     /**
      * @var integer
@@ -15,9 +15,9 @@ class Entry implements \JsonSerializable
     private $id;
 
     /**
-     * @var \DateTime
+     * @var string
      */
-    private $occurredAt;
+    private $cost;
 
 
     /**
@@ -31,6 +31,34 @@ class Entry implements \JsonSerializable
     }
 
     /**
+     * Set cost
+     *
+     * @param string $cost
+     * @return Entry
+     */
+    public function setCost($cost)
+    {
+        $this->cost = $cost;
+
+        return $this;
+    }
+
+    /**
+     * Get cost
+     *
+     * @return string 
+     */
+    public function getCost()
+    {
+        return $this->cost;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $occurredAt;
+
+
+    /**
      * Set occurredAt
      *
      * @param \DateTime $occurredAt
@@ -39,7 +67,7 @@ class Entry implements \JsonSerializable
     public function setOccurredAt($occurredAt)
     {
         $this->occurredAt = $occurredAt;
-    
+
         return $this;
     }
 
@@ -52,70 +80,49 @@ class Entry implements \JsonSerializable
     {
         return $this->occurredAt;
     }
-
-    public function jsonSerializeWithEntryItems()
-    {
-        $entryItems = array_map(function($entryItem){
-            return $entryItem->jsonSerialize();
-        }, array_values($this->getEntryItems()->toArray()));
-
-        return [
-            "id" => $this->getId(),
-            "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s"),
-            "entry_items" => $entryItems
-        ];
-    }
-
-    public function jsonSerialize()
-    {
-        return [
-            "id" => $this->getId(),
-            "occurred_at" => $this->getOccurredAt()->format("Y-m-d H:i:s")
-        ];
-    }
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $entryItems;
+    private $lines;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->entryItems = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lines = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
-     * Add entryItems
+     * Add lines
      *
-     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryItems
+     * @param \Ihsw\LedgerBundle\Entity\Line $lines
      * @return Entry
      */
-    public function addEntryItem(\Ihsw\LedgerBundle\Entity\EntryItem $entryItems)
+    public function addLine(\Ihsw\LedgerBundle\Entity\Line $lines)
     {
-        $this->entryItems[] = $entryItems;
-    
+        $this->lines[] = $lines;
+
         return $this;
     }
 
     /**
-     * Remove entryItems
+     * Remove lines
      *
-     * @param \Ihsw\LedgerBundle\Entity\EntryItem $entryItems
+     * @param \Ihsw\LedgerBundle\Entity\Line $lines
      */
-    public function removeEntryItem(\Ihsw\LedgerBundle\Entity\EntryItem $entryItems)
+    public function removeLine(\Ihsw\LedgerBundle\Entity\Line $lines)
     {
-        $this->entryItems->removeElement($entryItems);
+        $this->lines->removeElement($lines);
     }
 
     /**
-     * Get entryItems
+     * Get lines
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getEntryItems()
+    public function getLines()
     {
-        return $this->entryItems;
+        return $this->lines;
     }
 }
